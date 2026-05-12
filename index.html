@@ -31,6 +31,7 @@ body{
   background:#050816;
   color:white;
   overflow-x:hidden;
+  overflow:hidden;
 }
 
 /* =========================
@@ -930,7 +931,7 @@ footer{
 .command-box{
   width:700px;
   max-width:90%;
-
+  max-height:80vh;
   background:rgba(10,10,20,.9);
 
   border:1px solid rgba(255,255,255,.08);
@@ -980,14 +981,18 @@ footer{
 }
 
 /* =========================
-   LOADING SCREEN
+   PREMIUM LOADER
 ========================= */
 
 .loader{
   position:fixed;
   inset:0;
 
-  background:#050816;
+  background:
+  radial-gradient(circle at top,
+  rgba(108,99,255,.18),
+  transparent 40%),
+  #050816;
 
   z-index:999999;
 
@@ -995,46 +1000,64 @@ footer{
   align-items:center;
   justify-content:center;
 
-  transition:1s;
+  transition:
+  opacity 1s ease,
+  visibility 1s ease;
 }
 
 .loader.hide{
   opacity:0;
-  pointer-events:none;
+  visibility:hidden;
 }
 
 .loader-content{
   text-align:center;
+  width:320px;
 }
 
 .loader-logo{
-  font-size:52px;
+  font-size:56px;
   font-family:'Space Grotesk';
 
   margin-bottom:24px;
 
-  background:linear-gradient(90deg,#fff,#00c2ff);
+  background:
+  linear-gradient(90deg,#fff,#00c2ff);
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
+  animation:pulseLogo 2s infinite;
+}
+
+@keyframes pulseLogo{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.03);
+  }
+
 }
 
 .loader-text{
   color:rgba(255,255,255,.7);
   margin-bottom:24px;
+
+  min-height:20px;
 }
 
 .loader-bar{
-  width:320px;
-  height:8px;
+  width:100%;
+  height:10px;
 
   background:rgba(255,255,255,.08);
 
   border-radius:999px;
 
   overflow:hidden;
-
-  margin:auto;
 }
 
 .loader-progress{
@@ -1042,16 +1065,53 @@ footer{
   height:100%;
 
   background:
-  linear-gradient(90deg,#6c63ff,#00c2ff);
+  linear-gradient(
+    90deg,
+    #6c63ff,
+    #00c2ff
+  );
 
   border-radius:999px;
 
-  transition:.2s;
+  position:relative;
+}
+
+.loader-progress::after{
+  content:'';
+
+  position:absolute;
+  top:0;
+  right:0;
+
+  width:80px;
+  height:100%;
+
+  background:
+  linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.7)
+  );
+
+  animation:loaderShine 1.2s infinite;
+}
+
+@keyframes loaderShine{
+
+  from{
+    transform:translateX(-100%);
+  }
+
+  to{
+    transform:translateX(100%);
+  }
+
 }
 
 .loader-percent{
   margin-top:16px;
   color:#7dd3fc;
+  font-weight:700;
 }
 
 /* =========================
@@ -1410,24 +1470,6 @@ View Showcase
 <!-- AI WINDOW -->
 
 <div class="ai-window reveal">
-  
-<div class="voice-ai">
-
-<div class="voice-circle">
-
-<div class="voice-wave"></div>
-<div class="voice-wave"></div>
-<div class="voice-wave"></div>
-
-🎙️
-
-</div>
-
-<p>
-AI Voice Assistant Active
-</p>
-
-</div>
 
 <div class="ai-top">
 
@@ -1441,9 +1483,7 @@ AI Voice Assistant Active
 
 <div class="message">
 
-<div class="avatar">
-✨
-</div>
+<div class="avatar">✨</div>
 
 <div class="bubble ai-bubble">
 
@@ -1462,8 +1502,6 @@ Copy Response
 
 </div>
 
-</div>
-
 <div class="message user">
 
 <div class="bubble user-bubble">
@@ -1474,9 +1512,7 @@ Can you build a premium AI platform?
 
 <div class="message">
 
-<div class="avatar">
-🤖
-</div>
+<div class="avatar">🤖</div>
 
 <div class="bubble ai-bubble">
 
@@ -1490,6 +1526,24 @@ and next-generation web products.
 </div>
 
 </div>
+
+<!-- VOICE AI -->
+
+<div class="voice-ai">
+
+<div class="voice-circle">
+
+<div class="voice-wave"></div>
+<div class="voice-wave"></div>
+<div class="voice-wave"></div>
+
+🎙️
+
+</div>
+
+<p>
+AI Voice Assistant Active
+</p>
 
 </div>
 
@@ -1770,36 +1824,7 @@ Open Project
 
 <!-- SHOWCASE -->
 
-<section>
-  
-<div class="dashboard reveal">
-
-<h3 style="font-size:28px;margin-bottom:24px;">
-Realtime Metrics
-</h3>
-
-<div class="metric">
-
-<span>AI Requests</span>
-<strong id="aiRequests">12,421</strong>
-
-</div>
-
-<div class="metric">
-
-<span>Projects Running</span>
-<strong id="projectsRunning">42</strong>
-
-</div>
-
-<div class="metric">
-
-<span>Realtime Visitors</span>
-<strong id="visitorsLive">128</strong>
-
-</div>
-
-</div>
+<section id="showcase">
 
 <div class="section-title reveal">
 
@@ -1808,16 +1833,16 @@ Live AI Showcase
 </h2>
 
 <p>
-
 Realtime futuristic dashboard experience
 designed with premium interaction system
 and AI-driven interface.
-
 </p>
 
 </div>
 
 <div class="showcase-grid">
+
+<!-- LEFT -->
 
 <div class="dashboard reveal">
 
@@ -1854,50 +1879,61 @@ LIVE
 
 </div>
 
+<div style="margin-top:30px;">
+
+<div class="metric">
+<span>AI Requests</span>
+<strong id="aiRequests">12,421</strong>
+</div>
+
+<div class="metric">
+<span>Projects Running</span>
+<strong id="projectsRunning">42</strong>
+</div>
+
+<div class="metric">
+<span>Realtime Visitors</span>
+<strong id="visitorsLive">128</strong>
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
 <div class="dashboard reveal">
 
-<h3 style="font-size:28px;margin-bottom:20px;">
+<h3 style="font-size:28px;margin-bottom:24px;">
 AI Activity
 </h3>
 
 <div class="message">
 
-<div class="avatar">
-🤖
-</div>
+<div class="avatar">🤖</div>
 
 <div class="bubble ai-bubble">
-
 Generating landing page structure...
-
 </div>
 
 </div>
 
 <div class="message">
 
-<div class="avatar">
-⚡
-</div>
+<div class="avatar">⚡</div>
 
 <div class="bubble ai-bubble">
-
 Optimizing futuristic animation system...
-
 </div>
 
 </div>
 
 <div class="message">
 
-<div class="avatar">
-🚀
-</div>
+<div class="avatar">🚀</div>
 
 <div class="bubble ai-bubble">
-
 Deploying realtime AI interface...
-
 </div>
 
 </div>
@@ -2108,7 +2144,7 @@ window.speechSynthesis.speak(speech);
 
 }
 
-speak('Welcome to DT Script ID');
+document.addEventListener('click',()=>{    speak('Welcome to DT Script ID');  },{   once:true });
 
 /* =========================
    CURSOR GLOW
@@ -2147,30 +2183,6 @@ btn.innerHTML='Copy Response';
 });
 
 /* =========================
-   REVEAL ANIMATION
-========================= */
-
-const reveals=document.querySelectorAll('.reveal');
-
-function reveal(){
-
-reveals.forEach(el=>{
-
-const top=el.getBoundingClientRect().top;
-
-if(top<window.innerHeight-100){
-  el.classList.add('active');
-}
-
-});
-
-}
-
-window.addEventListener('scroll',reveal);
-
-reveal();
-
-/* =========================
    MAGNETIC BUTTON
 ========================= */
 
@@ -2184,7 +2196,7 @@ const x=e.clientX-rect.left-rect.width/2;
 const y=e.clientY-rect.top-rect.height/2;
 
 btn.style.transform=
-`translate(${x*.15}px,${y*.15}px)`;
+`translate(${x*.15}px,${y*.15}px) scale(1.02)`;
 
 });
 
@@ -2385,6 +2397,8 @@ streamAI();
    PREMIUM LOADER
 ========================= */
 
+window.addEventListener('load',()=>{
+
 const loader =
 document.getElementById('loader');
 
@@ -2399,41 +2413,55 @@ document.getElementById('loaderText');
 
 const loadingTexts = [
 
-'Initializing AI System...',
+'Initializing AI Core...',
 'Loading futuristic interface...',
-'Deploying realtime dashboard...',
-'Generating premium experience...',
+'Preparing realtime systems...',
+'Optimizing premium experience...',
 'Launching DT Script ID...'
 
 ];
 
 let load = 0;
 
-const loadingInterval = setInterval(()=>{
+const interval = setInterval(()=>{
 
-  load++;
+  load += Math.floor(Math.random()*8);
 
-  loaderProgress.style.width = load + '%';
+  if(load > 100){
+    load = 100;
+  }
 
-  loaderPercent.innerHTML = load + '%';
+  loaderProgress.style.width =
+  load + '%';
+
+  loaderPercent.innerHTML =
+  load + '%';
 
   loaderText.innerHTML =
-  loadingTexts[Math.floor(load/20)] ||
-  'Launching...';
+  loadingTexts[
+    Math.min(
+      Math.floor(load/25),
+      loadingTexts.length-1
+    )
+  ];
 
-  if(load >= 100){
+  if(load === 100){
 
-    clearInterval(loadingInterval);
+    clearInterval(interval);
 
     setTimeout(()=>{
 
       loader.classList.add('hide');
 
-    },500);
+      document.body.style.overflow='auto';
+
+    },700);
 
   }
 
-},30);
+},80);
+
+});
 
 /* =========================
    GSAP ANIMATION
@@ -2493,6 +2521,25 @@ gsap.from('.stat',{
   stagger:.2,
 
   duration:1
+
+});
+
+gsap.utils.toArray('.reveal').forEach(el=>{
+
+  gsap.from(el,{
+
+    scrollTrigger:{
+      trigger:el,
+      start:'top 85%'
+    },
+
+    opacity:0,
+    y:80,
+
+    duration:1,
+    ease:'power3.out'
+
+  });
 
 });
 
