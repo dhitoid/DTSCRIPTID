@@ -979,6 +979,244 @@ footer{
   color:white;
 }
 
+/* =========================
+   LOADING SCREEN
+========================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+
+  background:#050816;
+
+  z-index:999999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:1s;
+}
+
+.loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader-content{
+  text-align:center;
+}
+
+.loader-logo{
+  font-size:52px;
+  font-family:'Space Grotesk';
+
+  margin-bottom:24px;
+
+  background:linear-gradient(90deg,#fff,#00c2ff);
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.loader-text{
+  color:rgba(255,255,255,.7);
+  margin-bottom:24px;
+}
+
+.loader-bar{
+  width:320px;
+  height:8px;
+
+  background:rgba(255,255,255,.08);
+
+  border-radius:999px;
+
+  overflow:hidden;
+
+  margin:auto;
+}
+
+.loader-progress{
+  width:0%;
+  height:100%;
+
+  background:
+  linear-gradient(90deg,#6c63ff,#00c2ff);
+
+  border-radius:999px;
+
+  transition:.2s;
+}
+
+.loader-percent{
+  margin-top:16px;
+  color:#7dd3fc;
+}
+
+/* =========================
+   METRICS
+========================= */
+
+.metric{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:18px 0;
+
+  border-bottom:
+  1px solid rgba(255,255,255,.06);
+}
+
+.metric span{
+  color:rgba(255,255,255,.68);
+}
+
+.metric strong{
+  font-size:24px;
+
+  background:
+  linear-gradient(90deg,#fff,#7dd3fc);
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* =========================
+   VOICE AI
+========================= */
+
+.voice-ai{
+  margin-top:24px;
+  text-align:center;
+}
+
+.voice-circle{
+  width:90px;
+  height:90px;
+
+  border-radius:50%;
+
+  margin:auto;
+
+  background:
+  linear-gradient(135deg,#6c63ff,#00c2ff);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  position:relative;
+
+  font-size:32px;
+}
+
+.voice-wave{
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  border-radius:50%;
+
+  border:2px solid rgba(0,194,255,.5);
+
+  animation:wave 3s infinite;
+}
+
+.voice-wave:nth-child(2){
+  animation-delay:1s;
+}
+
+.voice-wave:nth-child(3){
+  animation-delay:2s;
+}
+
+/* =========================
+   LIVE CHART
+========================= */
+
+.chart-bars{
+  height:100%;
+
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+
+  padding:30px;
+}
+
+.bar{
+  width:40px;
+
+  border-radius:14px 14px 0 0;
+
+  background:
+  linear-gradient(
+    180deg,
+    #00c2ff,
+    #6c63ff
+  );
+
+  animation:bars 2s ease-in-out infinite;
+}
+
+.bar:nth-child(1){
+  height:40%;
+}
+
+.bar:nth-child(2){
+  height:70%;
+}
+
+.bar:nth-child(3){
+  height:50%;
+}
+
+.bar:nth-child(4){
+  height:90%;
+}
+
+.bar:nth-child(5){
+  height:65%;
+}
+
+.bar:nth-child(6){
+  height:85%;
+}
+
+@keyframes bars{
+
+  0%,100%{
+    transform:scaleY(1);
+  }
+
+  50%{
+    transform:scaleY(.7);
+  }
+
+}
+
+@keyframes wave{
+
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1.8);
+    opacity:0;
+  }
+
+}
+
+.voice-ai p{
+  margin-top:18px;
+  color:rgba(255,255,255,.7);
+}
+
 @media(max-width:600px){
 
 .nav-links{
@@ -1010,6 +1248,34 @@ footer{
 
 </head>
 <body>
+  
+<!-- LOADING SCREEN -->
+
+<div class="loader" id="loader">
+
+<div class="loader-content">
+
+<div class="loader-logo">
+DT Script ID
+</div>
+
+<div class="loader-text" id="loaderText">
+Initializing AI System...
+</div>
+
+<div class="loader-bar">
+
+<div class="loader-progress" id="loaderProgress"></div>
+
+</div>
+
+<div class="loader-percent" id="loaderPercent">
+0%
+</div>
+
+</div>
+
+</div>
   
 <!-- COMMAND PALETTE -->
 
@@ -1144,6 +1410,24 @@ View Showcase
 <!-- AI WINDOW -->
 
 <div class="ai-window reveal">
+  
+<div class="voice-ai">
+
+<div class="voice-circle">
+
+<div class="voice-wave"></div>
+<div class="voice-wave"></div>
+<div class="voice-wave"></div>
+
+🎙️
+
+</div>
+
+<p>
+AI Voice Assistant Active
+</p>
+
+</div>
 
 <div class="ai-top">
 
@@ -1233,6 +1517,15 @@ and next-generation web products.
 <!-- STATS -->
 
 <div class="stats reveal">
+  
+<div class="stat live-counter">
+<h2 id="activeUsers">
+0
+</h2>
+<p>
+Active AI Sessions
+</p>
+</div>
 
 <div class="stat">
 <h2>120+</h2>
@@ -1478,6 +1771,35 @@ Open Project
 <!-- SHOWCASE -->
 
 <section>
+  
+<div class="dashboard reveal">
+
+<h3 style="font-size:28px;margin-bottom:24px;">
+Realtime Metrics
+</h3>
+
+<div class="metric">
+
+<span>AI Requests</span>
+<strong id="aiRequests">12,421</strong>
+
+</div>
+
+<div class="metric">
+
+<span>Projects Running</span>
+<strong id="projectsRunning">42</strong>
+
+</div>
+
+<div class="metric">
+
+<span>Realtime Visitors</span>
+<strong id="visitorsLive">128</strong>
+
+</div>
+
+</div>
 
 <div class="section-title reveal">
 
@@ -1518,7 +1840,16 @@ LIVE
 </div>
 
 <div class="chart">
-<div class="chart-line"></div>
+
+<div class="chart-bars">
+
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+
 </div>
 
 </div>
@@ -1764,6 +2095,21 @@ const projects = [
 
 ];
 
+function speak(text){
+
+const speech =
+new SpeechSynthesisUtterance(text);
+
+speech.lang='en-US';
+
+speech.rate=1;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+speak('Welcome to DT Script ID');
+
 /* =========================
    CURSOR GLOW
 ========================= */
@@ -1954,6 +2300,50 @@ item.addEventListener('click',()=>{
 });
 
 /* =========================
+   LIVE COUNTER SYSTEM
+========================= */
+
+const activeUsers =
+document.getElementById('activeUsers');
+
+const aiRequests =
+document.getElementById('aiRequests');
+
+const projectsRunning =
+document.getElementById('projectsRunning');
+
+const visitorsLive =
+document.getElementById('visitorsLive');
+
+let users = 128;
+let requests = 12421;
+let projects = 42;
+let visitors = 89;
+
+setInterval(()=>{
+
+  users += Math.floor(Math.random()*3);
+
+  requests += Math.floor(Math.random()*8);
+
+  projects += Math.floor(Math.random()*2);
+
+  visitors += Math.floor(Math.random()*4)-1;
+
+  activeUsers.innerHTML = users;
+
+  aiRequests.innerHTML =
+  requests.toLocaleString();
+
+  projectsRunning.innerHTML =
+  projects;
+
+  visitorsLive.innerHTML =
+  visitors;
+
+},2000);
+
+/* =========================
    REAL AI STREAMING
 ========================= */
 
@@ -1990,6 +2380,60 @@ function streamAI(){
 }
 
 streamAI();
+
+/* =========================
+   PREMIUM LOADER
+========================= */
+
+const loader =
+document.getElementById('loader');
+
+const loaderProgress =
+document.getElementById('loaderProgress');
+
+const loaderPercent =
+document.getElementById('loaderPercent');
+
+const loaderText =
+document.getElementById('loaderText');
+
+const loadingTexts = [
+
+'Initializing AI System...',
+'Loading futuristic interface...',
+'Deploying realtime dashboard...',
+'Generating premium experience...',
+'Launching DT Script ID...'
+
+];
+
+let load = 0;
+
+const loadingInterval = setInterval(()=>{
+
+  load++;
+
+  loaderProgress.style.width = load + '%';
+
+  loaderPercent.innerHTML = load + '%';
+
+  loaderText.innerHTML =
+  loadingTexts[Math.floor(load/20)] ||
+  'Launching...';
+
+  if(load >= 100){
+
+    clearInterval(loadingInterval);
+
+    setTimeout(()=>{
+
+      loader.classList.add('hide');
+
+    },500);
+
+  }
+
+},30);
 
 /* =========================
    GSAP ANIMATION
