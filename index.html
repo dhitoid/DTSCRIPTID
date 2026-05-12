@@ -163,10 +163,23 @@ nav{
 }
 
 .nav-wrap{
-  padding:18px 24px;
+  padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+}
+
+@media(max-width:768px){
+
+nav{
+  top:12px;
+  width:calc(100% - 20px);
+}
+
+.logo{
+  font-size:22px;
+}
+
 }
 
 .logo{
@@ -262,7 +275,7 @@ nav{
   min-height:100svh;
   display:flex;
   align-items:center;
-  padding:110px 24px 60px;
+  padding:90px 24px 40px;
 }
 
 .hero-wrap{
@@ -299,6 +312,19 @@ nav{
   background:#00ff88;
   box-shadow:0 0 15px #00ff88;
   animation:pulse 1.5s infinite;
+}
+
+@media(max-width:768px){
+
+.hero{
+  padding-top:40px;
+  min-height:auto;
+}
+
+.hero-wrap{
+  gap:28px;
+}
+
 }
 
 @media(max-width:600px){
@@ -1346,21 +1372,20 @@ footer{
 
 .command-trigger{
   position:fixed;
-  bottom:24px;
-  right:24px;
+  bottom:20px;
+  right:20px;
 
-  width:64px;
-  height:64px;
+  width:58px;
+  height:58px;
 
   border:none;
-  border-radius:22px;
+  border-radius:20px;
 
-  background:
-  linear-gradient(
-    135deg,
-    #6c63ff,
-    #00c2ff
-  );
+  background:rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,255,255,.1);
 
   color:white;
 
@@ -1371,7 +1396,7 @@ footer{
   z-index:999999;
 
   box-shadow:
-  0 20px 40px rgba(0,194,255,.35);
+  0 10px 40px rgba(0,0,0,.35);
 
   cursor:pointer;
 
@@ -1379,7 +1404,32 @@ footer{
 }
 
 .command-trigger:hover{
-  transform:scale(1.08);
+  transform:translateY(-4px) scale(1.05);
+
+  background:
+  linear-gradient(
+    135deg,
+    #6c63ff,
+    #00c2ff
+  );
+}
+
+.command-trigger::before{
+  content:'';
+
+  position:absolute;
+  inset:-1px;
+
+  border-radius:inherit;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,.3),
+    transparent
+  );
+
+  opacity:.5;
 }
 
 @keyframes bars{
@@ -2397,20 +2447,20 @@ Start Your Project
 
 <button class="command-trigger" id="commandTrigger">
 
-  <svg xmlns="http://www.w3.org/2000/svg"
-  width="22"
-  height="22"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
-  viewBox="0 0 24 24">
+<svg xmlns="http://www.w3.org/2000/svg"
+width="22"
+height="22"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+viewBox="0 0 24 24">
 
-    <path d="M4 12h16"/>
-    <path d="M12 4v16"/>
+<circle cx="11" cy="11" r="8"/>
+<path d="m21 21-4.3-4.3"/>
 
-  </svg>
+</svg>
 
 </button>
 
@@ -2864,6 +2914,14 @@ if (typeof gsap !== 'undefined') {
     delay: .2,
     ease: 'power3.out'
   });
+  
+  gsap.from('.command-box',{
+  y:-40,
+  opacity:0,
+  scale:.96,
+  duration:.4,
+  ease:'power3.out'
+ });
 
   gsap.utils.toArray('.reveal').forEach(el => {
 
