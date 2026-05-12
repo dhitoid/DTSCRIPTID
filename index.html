@@ -214,18 +214,17 @@ nav{
 ========================= */
 
 .dynamic-island{
-
   position:fixed;
-  top:92px;
+  top:74px;
   left:50%;
   transform:translateX(-50%);
 
   width:92%;
-  max-width:420px;
+  max-width:390px;
 
-  min-height:82px;
+  height:64px;
 
-  border-radius:34px;
+  border-radius:999px;
 
   z-index:998;
 
@@ -236,18 +235,22 @@ nav{
   background:
   linear-gradient(
     135deg,
-    rgba(255,255,255,.14),
-    rgba(255,255,255,.05)
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.04)
   );
 
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.08);
 
   box-shadow:
-  0 10px 50px rgba(0,0,0,.35),
-  0 0 40px rgba(0,194,255,.08);
+  0 10px 40px rgba(0,0,0,.28),
+  0 0 30px rgba(0,194,255,.06);
 
-  transition:.5s cubic-bezier(.19,1,.22,1);
+  transition:
+  .45s cubic-bezier(.19,1,.22,1),
+  height .4s ease;
 
+  display:flex;
+  align-items:center;
 }
 
 .dynamic-island::before{
@@ -305,28 +308,25 @@ nav{
 }
 
 .dynamic-island.expanded{
-
-  width:520px;
-  min-height:180px;
-
+  height:165px;
+  max-width:430px;
+  border-radius:30px;
 }
 
 .island-content{
-
-  padding:18px;
+  width:100%;
+  padding:12px 16px;
 
   display:flex;
   align-items:flex-start;
-  gap:16px;
-
+  gap:14px;
 }
 
 .island-icon{
+  width:42px;
+  height:42px;
 
-  width:74px;
-  height:74px;
-
-  border-radius:24px;
+  border-radius:14px;
 
   flex-shrink:0;
 
@@ -334,9 +334,7 @@ nav{
   align-items:center;
   justify-content:center;
 
-  font-size:32px;
-
-  position:relative;
+  font-size:18px;
 
   background:
   linear-gradient(
@@ -346,8 +344,9 @@ nav{
   );
 
   box-shadow:
-  0 12px 30px rgba(0,194,255,.2);
+  0 8px 20px rgba(0,194,255,.18);
 
+  position:relative;
 }
 
 .pulse-ring{
@@ -373,26 +372,19 @@ nav{
 }
 
 #islandTitle{
-
   display:block;
 
-  font-size:17px;
-  font-weight:800;
+  font-size:14px;
+  font-weight:700;
 
-  letter-spacing:-0.5px;
+  margin-bottom:2px;
 
-  margin-bottom:4px;
-
+  letter-spacing:-0.3px;
 }
 
 #islandText{
-
-  font-size:14px;
-
-  color:rgba(255,255,255,.6);
-
-  line-height:1.5;
-
+  font-size:12px;
+  color:rgba(255,255,255,.55);
 }
 
 .island-status{
@@ -416,34 +408,24 @@ nav{
 }
 
 .island-metrics{
-
   display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-
-  margin-top:12px;
-
+  gap:8px;
+  margin-top:8px;
 }
 
 .island-metrics span{
-
-  padding:8px 14px;
+  padding:5px 10px;
 
   border-radius:999px;
 
-  font-size:12px;
+  font-size:10px;
   font-weight:600;
 
-  background:
-  rgba(255,255,255,.08);
+  background:rgba(255,255,255,.06);
 
-  border:
-  1px solid rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.06);
 
   color:#8bdcff;
-
-  backdrop-filter:blur(10px);
-
 }
 
 /* LIVE WAVE */
@@ -497,6 +479,17 @@ nav{
 
 .wave-bar:nth-child(5){
   animation-delay:.4s;
+}
+
+.island-wave{
+  opacity:0;
+  transform:translateY(10px);
+  transition:.35s;
+}
+
+.dynamic-island.expanded .island-wave{
+  opacity:1;
+  transform:none;
 }
 
 /* EXPAND CONTENT */
@@ -725,7 +718,9 @@ nav{
   min-height:auto;
   display:flex;
   align-items:flex-start;
-  padding:140px 24px 60px;
+
+  padding:
+  120px 24px 60px;
 }
 
 .hero-wrap{
@@ -862,6 +857,21 @@ nav{
   border:1px solid rgba(255,255,255,.08);
   color:white;
   backdrop-filter:blur(20px);
+}
+
+nav{
+  transition:.4s;
+}
+
+body.scrolled nav{
+  transform:
+  translateX(-50%)
+  translateY(-6px)
+  scale(.98);
+}
+
+body.scrolled .dynamic-island{
+  top:70px;
 }
 
 /* =========================
@@ -1883,6 +1893,60 @@ footer{
   opacity:.5;
 }
 
+.command-ai-box{
+  margin-top:14px;
+  padding:16px;
+
+  border-top:
+  1px solid rgba(255,255,255,.06);
+}
+
+.ai-command-header{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+
+  color:rgba(255,255,255,.4);
+
+  margin-bottom:14px;
+}
+
+.ai-suggestion{
+  padding:14px 16px;
+
+  border-radius:16px;
+
+  margin-bottom:10px;
+
+  background:
+  rgba(255,255,255,.04);
+
+  border:
+  1px solid rgba(255,255,255,.05);
+
+  cursor:pointer;
+
+  transition:.3s;
+
+  font-size:14px;
+
+  color:rgba(255,255,255,.78);
+}
+
+.ai-suggestion:hover{
+
+  transform:translateX(6px);
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(108,99,255,.16),
+    rgba(0,194,255,.12)
+  );
+
+  color:white;
+}
+
 @keyframes bars{
 
   0%,100%{
@@ -2019,6 +2083,30 @@ id="commandInput"
     <span>Contact</span>
 
   </div>
+  
+  <div class="command-ai-box">
+
+<div class="ai-command-header">
+AI Command Center
+</div>
+
+<div class="ai-suggestion">
+Generate futuristic landing page
+</div>
+
+<div class="ai-suggestion">
+Create AI dashboard interface
+</div>
+
+<div class="ai-suggestion">
+Open Nexora AI system
+</div>
+
+<div class="ai-suggestion">
+Deploy premium UI animation
+</div>
+
+</div>
 
 </div>
 </div>
@@ -2988,6 +3076,50 @@ viewBox="0 0 24 24">
 
 <script>
 
+document.querySelectorAll('.ai-suggestion')
+.forEach(item=>{
+
+  item.addEventListener('click',()=>{
+
+    const value =
+      item.textContent;
+
+    commandInput.value = value;
+
+    simulateAICommand(value);
+
+  });
+
+});
+
+function simulateAICommand(command){
+
+  const islandTitle =
+    document.getElementById('islandTitle');
+
+  const islandText =
+    document.getElementById('islandText');
+
+  dynamicIsland.classList.add('expanded');
+
+  islandTitle.textContent =
+    'AI Command Running';
+
+  islandText.textContent =
+    command;
+
+  setTimeout(()=>{
+
+    islandTitle.textContent =
+      'Command Completed';
+
+    islandText.textContent =
+      'AI execution finished successfully';
+
+  },2200);
+
+}
+
 const islandTitles = [
   'Nexora AI Core',
   'Realtime AI Engine',
@@ -3567,6 +3699,20 @@ if (typeof gsap !== 'undefined') {
   });
 
 }
+
+window.addEventListener('scroll',()=>{
+
+  if(window.scrollY > 40){
+
+    document.body.classList.add('scrolled');
+
+  }else{
+
+    document.body.classList.remove('scrolled');
+
+  }
+
+});
 
 /* =========================
    SAFETY FALLBACK
