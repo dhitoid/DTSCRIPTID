@@ -7,7 +7,6 @@
 <title>DT Script ID — AI Creative Technology Studio</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -1247,6 +1246,63 @@ footer{
   height:85%;
 }
 
+.icon{
+  width:72px;
+  height:72px;
+
+  border-radius:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(108,99,255,.18),
+    rgba(0,194,255,.12)
+  );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  margin-bottom:22px;
+
+  backdrop-filter:blur(20px);
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.icon::before{
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+
+  transform:translateX(-100%);
+  transition:.8s;
+}
+
+.card:hover .icon::before{
+  transform:translateX(100%);
+}
+
+.icon svg{
+  width:34px;
+  height:34px;
+
+  color:#7dd3fc;
+}
+
 @keyframes bars{
 
   0%,100%{
@@ -1760,7 +1816,9 @@ and futuristic.
 
     <div class="card reveal" id="nexora">
 
-      <div class="icon">🚀</div>
+      <div class="icon">
+  <i data-lucide="bot"></i>
+</div>
 
       <h3>Nexora AI</h3>
 
@@ -1786,7 +1844,9 @@ and futuristic.
 
     <div class="card reveal" id="utilities">
 
-      <div class="icon">🏠</div>
+      <div class="icon">
+  <i data-lucide="calculator"></i>
+</div>
 
       <h3>Smart Mortgage Calculator</h3>
 
@@ -1813,7 +1873,9 @@ and futuristic.
 
     <div class="card reveal">
 
-      <div class="icon">🌆</div>
+      <div class="icon">
+  <i data-lucide="building-2"></i>
+</div>
 
       <h3>Property Website</h3>
 
@@ -1840,7 +1902,9 @@ and futuristic.
 
     <div class="card reveal">
 
-      <div class="icon">💰</div>
+      <div class="icon">
+  <i data-lucide="wallet"></i>
+</div>
 
       <h3>Financial Record</h3>
 
@@ -1867,7 +1931,9 @@ and futuristic.
 
     <div class="card reveal">
 
-      <div class="icon">💍</div>
+      <div class="icon">
+  <i data-lucide="heart-handshake"></i>
+</div>
 
       <h3>Wedding Invitation</h3>
 
@@ -2233,6 +2299,12 @@ Start Your Project
   </div>
 
 </footer>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+  lucide.createIcons();
+</script>
 
 <script>
 /* =========================
