@@ -215,21 +215,19 @@ nav{
 
 .dynamic-island{
 
-  --island-width: 380px;
-  --island-height: 82px;
-
   position:fixed;
-  top:84px;
+  top:92px;
   left:50%;
-
-  width:var(--island-width);
-  min-height:var(--island-height);
-
   transform:translateX(-50%);
 
-  z-index:998;
+  width:92%;
+  max-width:420px;
 
-  border-radius:32px;
+  min-height:82px;
+
+  border-radius:34px;
+
+  z-index:998;
 
   overflow:hidden;
 
@@ -238,24 +236,17 @@ nav{
   background:
   linear-gradient(
     135deg,
-    rgba(255,255,255,.12),
-    rgba(255,255,255,.04)
+    rgba(255,255,255,.14),
+    rgba(255,255,255,.05)
   );
 
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.1);
 
   box-shadow:
-  0 20px 80px rgba(0,0,0,.45),
-  inset 0 1px 0 rgba(255,255,255,.08);
+  0 10px 50px rgba(0,0,0,.35),
+  0 0 40px rgba(0,194,255,.08);
 
-  transition:
-  width .45s cubic-bezier(.19,1,.22,1),
-  height .45s cubic-bezier(.19,1,.22,1),
-  border .4s,
-  box-shadow .4s,
-  background .4s;
-
-  animation:islandFloatY 6s ease-in-out infinite;
+  transition:.5s cubic-bezier(.19,1,.22,1);
 
 }
 
@@ -322,8 +313,6 @@ nav{
 
 .island-content{
 
-  position:relative;
-
   padding:18px;
 
   display:flex;
@@ -334,20 +323,20 @@ nav{
 
 .island-icon{
 
-  position:relative;
+  width:74px;
+  height:74px;
 
-  width:56px;
-  height:56px;
+  border-radius:24px;
 
   flex-shrink:0;
-
-  border-radius:20px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  font-size:24px;
+  font-size:32px;
+
+  position:relative;
 
   background:
   linear-gradient(
@@ -357,7 +346,7 @@ nav{
   );
 
   box-shadow:
-  0 10px 30px rgba(0,194,255,.25);
+  0 12px 30px rgba(0,194,255,.2);
 
 }
 
@@ -387,22 +376,20 @@ nav{
 
   display:block;
 
-  font-size:16px;
-  font-weight:700;
+  font-size:17px;
+  font-weight:800;
 
-  margin-bottom:6px;
+  letter-spacing:-0.5px;
 
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  margin-bottom:4px;
 
 }
 
 #islandText{
 
-  color:rgba(255,255,255,.65);
+  font-size:14px;
 
-  font-size:13px;
+  color:rgba(255,255,255,.6);
 
   line-height:1.5;
 
@@ -410,20 +397,21 @@ nav{
 
 .island-status{
 
-  width:12px;
-  height:12px;
+  width:14px;
+  height:14px;
 
   border-radius:50%;
 
   background:#00ff88;
 
   box-shadow:
-  0 0 12px #00ff88,
+  0 0 10px #00ff88,
   0 0 30px #00ff88;
 
-  margin-top:8px;
+  margin-top:10px;
+  margin-left:auto;
 
-  animation:statusPulse 1.5s infinite;
+  animation:statusPulse 2s infinite;
 
 }
 
@@ -439,20 +427,22 @@ nav{
 
 .island-metrics span{
 
-  padding:8px 12px;
+  padding:8px 14px;
 
   border-radius:999px;
 
-  font-size:11px;
+  font-size:12px;
   font-weight:600;
 
-  color:#7dd3fc;
+  background:
+  rgba(255,255,255,.08);
 
-  background:rgba(255,255,255,.06);
+  border:
+  1px solid rgba(255,255,255,.08);
 
-  border:1px solid rgba(255,255,255,.06);
+  color:#8bdcff;
 
-  backdrop-filter:blur(20px);
+  backdrop-filter:blur(10px);
 
 }
 
@@ -558,6 +548,98 @@ nav{
   font-size:13px;
 
   color:rgba(255,255,255,.72);
+
+}
+
+.island-particles{
+
+  position:absolute;
+  inset:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
+}
+
+.island-particles span{
+
+  position:absolute;
+
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  background:#7dd3fc;
+
+  opacity:.6;
+
+  animation:particleFloat linear infinite;
+
+}
+
+.island-particles span:nth-child(1){
+
+  left:20%;
+  bottom:-10px;
+
+  animation-duration:6s;
+
+}
+
+.island-particles span:nth-child(2){
+
+  left:50%;
+  bottom:-20px;
+
+  animation-duration:8s;
+
+}
+
+.island-particles span:nth-child(3){
+
+  left:75%;
+  bottom:-12px;
+
+  animation-duration:7s;
+
+}
+
+.island-particles span:nth-child(4){
+
+  left:35%;
+  bottom:-14px;
+
+  animation-duration:9s;
+
+}
+
+@keyframes particleFloat{
+
+  from{
+
+    transform:
+    translateY(0)
+    scale(1);
+
+    opacity:0;
+
+  }
+
+  20%{
+    opacity:.7;
+  }
+
+  to{
+
+    transform:
+    translateY(-160px)
+    scale(0);
+
+    opacity:0;
+
+  }
 
 }
 
@@ -1977,6 +2059,15 @@ DT Script ID
 <div class="dynamic-island" id="dynamicIsland">
 
 <div class="island-content">
+
+<div class="island-particles">
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+</div>
 
 <div class="island-icon">
 
