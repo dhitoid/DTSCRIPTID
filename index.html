@@ -33,6 +33,12 @@ body{
   overflow-y:auto;
 }
 
+html,
+body{
+  width:100%;
+  overflow-x:hidden;
+}
+
 /* =========================
    NOISE TEXTURE
 ========================= */
@@ -259,10 +265,10 @@ nav{
 ========================= */
 
 .hero{
-  min-height:100vh;
+  min-height:100svh;
   display:flex;
   align-items:center;
-  padding:140px 24px 80px;
+  padding:110px 24px 60px;
 }
 
 .hero-wrap{
@@ -299,6 +305,27 @@ nav{
   background:#00ff88;
   box-shadow:0 0 15px #00ff88;
   animation:pulse 1.5s infinite;
+}
+
+@media(max-width:600px){
+
+.hero{
+  padding-top:120px;
+  min-height:auto;
+}
+
+.ai-window{
+  margin-top:20px;
+}
+
+.chat-area{
+  min-height:420px;
+}
+
+}
+
+.command-palette{
+  -webkit-backdrop-filter:blur(10px);
 }
 
 @keyframes pulse{
@@ -1323,6 +1350,44 @@ footer{
   color:#7dd3fc;
 }
 
+.command-trigger{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+
+  width:64px;
+  height:64px;
+
+  border:none;
+  border-radius:22px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #6c63ff,
+    #00c2ff
+  );
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  z-index:999999;
+
+  box-shadow:
+  0 20px 40px rgba(0,194,255,.35);
+
+  cursor:pointer;
+
+  transition:.35s;
+}
+
+.command-trigger:hover{
+  transform:scale(1.08);
+}
+
 @keyframes bars{
 
   0%,100%{
@@ -1461,11 +1526,6 @@ id="commandInput"
   </div>
 
 </div>
-
-</div>
-
-</div>
-
 </div>
 
 <div class="bg-grid"></div>
@@ -2338,10 +2398,33 @@ Start Your Project
 
 </footer>
 
+<!-- COMMAND BUTTON -->
+
+<button class="command-trigger" id="commandTrigger">
+
+  <svg xmlns="http://www.w3.org/2000/svg"
+  width="22"
+  height="22"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  viewBox="0 0 24 24">
+
+    <path d="M4 12h16"/>
+    <path d="M12 4v16"/>
+
+  </svg>
+
+</button>
+
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <script>
+  window.addEventListener('load', () => {
   lucide.createIcons();
+});
 </script>
 
 <script>
@@ -2754,6 +2837,15 @@ const loadingInterval = setInterval(() => {
   }
 
 }, 60);
+
+const commandTrigger =
+  document.getElementById('commandTrigger');
+
+commandTrigger.addEventListener('click', () => {
+
+  toggleCommandPalette();
+
+});
 
 /* =========================
    GSAP
