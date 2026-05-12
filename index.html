@@ -30,7 +30,7 @@ body{
   background:#050816;
   color:white;
   overflow-x:hidden;
-  overflow:hidden;
+  overflow-y:auto;
 }
 
 /* =========================
@@ -964,19 +964,39 @@ footer{
 }
 
 .command-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
   padding:18px 20px;
-  border-radius:18px;
+  border-radius:20px;
 
   cursor:pointer;
 
-  transition:.25s;
+  transition:.3s;
 
   color:rgba(255,255,255,.78);
+
+  border:1px solid transparent;
 }
 
 .command-item:hover{
-  background:rgba(255,255,255,.06);
+
+  background:rgba(255,255,255,.05);
+
+  border-color:rgba(255,255,255,.08);
+
+  transform:translateX(6px);
+
   color:white;
+}
+
+.command-item i{
+
+  width:20px;
+  height:20px;
+
+  color:#7dd3fc;
 }
 
 /* =========================
@@ -1408,20 +1428,38 @@ id="commandInput"
 
 <div class="command-results">
 
-<div class="command-item" data-link="#nexora">
-🚀 Nexora AI
-</div>
+  <div class="command-item" data-link="#project-nexora">
 
-<div class="command-item" data-link="#utilities">
-🧠 AI Utilities
-</div>
+    <i data-lucide="bot"></i>
 
-<div class="command-item" data-link="#showcase">
-📊 Showcase
-</div>
+    <span>Nexora AI</span>
 
-<div class="command-item" data-link="#contact">
-📩 Contact
+  </div>
+
+  <div class="command-item" data-link="#project-kpr">
+
+    <i data-lucide="calculator"></i>
+
+    <span>AI Utilities</span>
+
+  </div>
+
+  <div class="command-item" data-link="#showcase">
+
+    <i data-lucide="layout-dashboard"></i>
+
+    <span>Showcase</span>
+
+  </div>
+
+  <div class="command-item" data-link="#contact">
+
+    <i data-lucide="send"></i>
+
+    <span>Contact</span>
+
+  </div>
+
 </div>
 
 </div>
@@ -1814,7 +1852,7 @@ and futuristic.
 
     <!-- NEXORA AI -->
 
-    <div class="card reveal" id="nexora">
+    <div class="card reveal" id="project-nexora">
 
       <div class="icon">
   <i data-lucide="bot"></i>
@@ -1842,7 +1880,7 @@ and futuristic.
 
     <!-- KPR -->
 
-    <div class="card reveal" id="utilities">
+    <div class="card reveal" id="project-kpr">
 
       <div class="icon">
   <i data-lucide="calculator"></i>
