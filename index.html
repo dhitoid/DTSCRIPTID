@@ -251,6 +251,7 @@ nav{
 
   display:flex;
   align-items:center;
+  animation:islandFloatY 5s ease-in-out infinite;
 }
 
 .dynamic-island::before{
@@ -295,8 +296,7 @@ nav{
 }
 
 .dynamic-island:hover{
-
-  width:470px;
+  transform:translateX(-50%) scale(1.02);
 
   border-color:
   rgba(255,255,255,.22);
@@ -308,9 +308,10 @@ nav{
 }
 
 .dynamic-island.expanded{
-  height:165px;
+  height:190px;
+  width:92%;
   max-width:430px;
-  border-radius:30px;
+  border-radius:34px;
 }
 
 .island-content{
@@ -715,19 +716,47 @@ nav{
 ========================= */
 
 .hero{
-  min-height:auto;
+  min-height:100vh;
   display:flex;
-  align-items:flex-start;
+  align-items:center;
+  justify-content:center;
 
-  padding:
-  120px 24px 60px;
+  padding:180px 24px 100px;
+
+  position:relative;
+  z-index:5;
+}
+
+.hero::before{
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top left,
+  rgba(108,99,255,.18),
+  transparent 35%),
+
+  radial-gradient(circle at bottom right,
+  rgba(0,194,255,.16),
+  transparent 35%);
+
+  pointer-events:none;
+}
+
+section{
+  position:relative;
+  z-index:2;
 }
 
 .hero-wrap{
   max-width:1300px;
   margin:auto;
   width:100%;
-  padding-top:10px;
+  position:relative;
+  z-index:5;
+
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:70px;
@@ -871,7 +900,13 @@ body.scrolled nav{
 }
 
 body.scrolled .dynamic-island{
-  top:70px;
+  top:82px;
+}
+
+.bg-grid,
+.aurora,
+.cursor-glow{
+  pointer-events:none;
 }
 
 /* =========================
@@ -888,6 +923,8 @@ body.scrolled .dynamic-island{
 
   box-shadow:
   0 30px 100px rgba(0,0,0,.35);
+  position:relative;
+  z-index:4;
 }
 
 .ai-top{
@@ -1398,7 +1435,10 @@ footer{
 }
 
 .dynamic-island{
-  display:none;
+  display:flex;
+  top:88px;
+  width:calc(100% - 24px);
+  max-width:none;
 }
 
 }
@@ -1995,6 +2035,31 @@ footer{
 
 .bubble{
   max-width:100%;
+}
+
+}
+
+@media(max-width:768px){
+
+.hero{
+  padding-top:220px;
+}
+
+.hero-text h1{
+  font-size:48px;
+  line-height:1.05;
+}
+
+.hero-wrap{
+  gap:40px;
+}
+
+.ai-window{
+  margin-top:10px;
+}
+
+.dynamic-island{
+  top:82px;
 }
 
 }
@@ -3653,20 +3718,34 @@ if (typeof gsap !== 'undefined') {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.hero-text', {
-    opacity: 0,
-    y: 80,
-    duration: 1.2,
-    ease: 'power3.out'
-  });
+gsap.fromTo('.hero-text',
+{
+  opacity:0,
+  y:60
+},
+{
+  opacity:1,
+  y:0,
+  duration:1.2,
+  ease:'power3.out',
+  clearProps:'all'
+});
 
-  gsap.from('.ai-window', {
-    opacity: 0,
-    scale: .9,
-    duration: 1.2,
-    delay: .2,
-    ease: 'power3.out'
-  });
+gsap.fromTo('.ai-window',
+{
+  opacity:0,
+  y:40,
+  scale:.96
+},
+{
+  opacity:1,
+  y:0,
+  scale:1,
+  duration:1.2,
+  delay:.2,
+  ease:'power3.out',
+  clearProps:'all'
+});
   
   gsap.from('.command-box',{
   y:-40,
@@ -3724,10 +3803,11 @@ window.addEventListener('load', () => {
 
     loader.classList.add('hide');
 
-    document.body.style.overflowX = 'hidden';
-    document.body.style.overflowY = 'auto';
+    document.body.style.overflow = 'auto';
 
-  }, 4000);
+    ScrollTrigger.refresh();
+
+  }, 1200);
 
 });
 
