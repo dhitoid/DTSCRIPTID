@@ -425,6 +425,70 @@ footer{
 }
 
 /* =========================
+   AURORA BACKGROUND
+========================= */
+
+.aurora{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.22;
+  z-index:-5;
+  animation:auroraMove 18s ease-in-out infinite;
+  pointer-events:none;
+}
+
+.aurora1{
+  width:500px;
+  height:500px;
+  background:#6c63ff;
+  top:-120px;
+  left:-120px;
+}
+
+.aurora2{
+  width:420px;
+  height:420px;
+  background:#00c2ff;
+  right:-120px;
+  top:20%;
+  animation-delay:4s;
+}
+
+.aurora3{
+  width:450px;
+  height:450px;
+  background:#8b5cf6;
+  bottom:-150px;
+  left:30%;
+  animation-delay:8s;
+}
+
+@keyframes auroraMove{
+
+  0%{
+    transform:translate(0,0) scale(1);
+  }
+
+  25%{
+    transform:translate(40px,-60px) scale(1.08);
+  }
+
+  50%{
+    transform:translate(-30px,40px) scale(.95);
+  }
+
+  75%{
+    transform:translate(60px,20px) scale(1.05);
+  }
+
+  100%{
+    transform:translate(0,0) scale(1);
+  }
+
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 
@@ -721,6 +785,10 @@ Beautiful AI Utilities for The Future 🚀
 </p>
 
 </footer>
+
+<div class="aurora aurora1"></div>
+<div class="aurora aurora2"></div>
+<div class="aurora aurora3"></div>
 
 <script>
 
