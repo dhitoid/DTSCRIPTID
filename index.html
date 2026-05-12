@@ -987,7 +987,7 @@ footer{
 .loader{
   position:fixed;
   inset:0;
-
+  visibility:visible;
   background:
   radial-gradient(circle at top,
   rgba(108,99,255,.18),
@@ -1008,6 +1008,7 @@ footer{
 .loader.hide{
   opacity:0;
   visibility:hidden;
+  pointer-events:none;
 }
 
 .loader-content{
@@ -2329,7 +2330,7 @@ document.getElementById('visitorsLive');
 
 let users = 128;
 let requests = 12421;
-let projects = 42;
+let runningProjects = 42;
 let visitors = 89;
 
 setInterval(()=>{
@@ -2338,8 +2339,6 @@ setInterval(()=>{
 
   requests += Math.floor(Math.random()*8);
 
-  projects += Math.floor(Math.random()*2);
-
   visitors += Math.floor(Math.random()*4)-1;
 
   activeUsers.innerHTML = users;
@@ -2347,8 +2346,9 @@ setInterval(()=>{
   aiRequests.innerHTML =
   requests.toLocaleString();
 
+  runningProjects += Math.floor(Math.random()*2);
   projectsRunning.innerHTML =
-  projects;
+  runningProjects;
 
   visitorsLive.innerHTML =
   visitors;
@@ -2397,8 +2397,6 @@ streamAI();
    PREMIUM LOADER
 ========================= */
 
-window.addEventListener('load',()=>{
-
 const loader =
 document.getElementById('loader');
 
@@ -2413,55 +2411,56 @@ document.getElementById('loaderText');
 
 const loadingTexts = [
 
-'Initializing AI Core...',
+'Initializing AI System...',
 'Loading futuristic interface...',
-'Preparing realtime systems...',
-'Optimizing premium experience...',
+'Deploying realtime dashboard...',
+'Generating premium experience...',
 'Launching DT Script ID...'
 
 ];
 
 let load = 0;
 
-const interval = setInterval(()=>{
+const loadingInterval = setInterval(()=>{
 
-  load += Math.floor(Math.random()*8);
+  load += Math.floor(Math.random()*4) + 1;
 
   if(load > 100){
     load = 100;
   }
 
-  loaderProgress.style.width =
-  load + '%';
+  loaderProgress.style.width = load + '%';
 
-  loaderPercent.innerHTML =
-  load + '%';
+  loaderPercent.innerHTML = load + '%';
+
+  const textIndex =
+  Math.min(
+    Math.floor(load / 20),
+    loadingTexts.length - 1
+  );
 
   loaderText.innerHTML =
-  loadingTexts[
-    Math.min(
-      Math.floor(load/25),
-      loadingTexts.length-1
-    )
-  ];
+  loadingTexts[textIndex];
 
-  if(load === 100){
+  if(load >= 100){
 
-    clearInterval(interval);
+    clearInterval(loadingInterval);
+
+    loaderText.innerHTML =
+    'System Ready ✓';
 
     setTimeout(()=>{
 
-      loader.classList.add('hide');
+      loader.style.opacity = '0';
+      loader.style.visibility = 'hidden';
 
-      document.body.style.overflow='auto';
+      document.body.style.overflow = 'auto';
 
     },700);
 
   }
 
-},80);
-
-});
+},60);
 
 /* =========================
    GSAP ANIMATION
