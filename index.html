@@ -210,75 +210,59 @@ nav{
 }
 
 /* =========================
-   DYNAMIC ISLAND
+   ULTRA DYNAMIC ISLAND
 ========================= */
 
 .dynamic-island{
+
+  --island-width: 380px;
+  --island-height: 82px;
+
   position:fixed;
   top:84px;
   left:50%;
+
+  width:var(--island-width);
+  min-height:var(--island-height);
+
   transform:translateX(-50%);
+
   z-index:998;
 
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(30px);
-
-  border-radius:28px;
-  padding:16px 20px;
+  border-radius:32px;
 
   overflow:hidden;
 
-  box-shadow:
-  0 20px 50px rgba(0,0,0,.35);
-
-  animation:islandFloat 5s ease-in-out infinite;
-}
-
-.island-content{
-  display:flex;
-  gap:16px;
-  align-items:center;
-}
-
-.island-icon{
-  width:48px;
-  height:48px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#6c63ff,#00c2ff);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-.dynamic-island p{
-  color:rgba(255,255,255,.65);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.dynamic-island{
-
-  min-width:340px;
+  backdrop-filter:blur(40px);
 
   background:
   linear-gradient(
     135deg,
-    rgba(255,255,255,.08),
-    rgba(255,255,255,.03)
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.04)
   );
 
   border:1px solid rgba(255,255,255,.12);
 
   box-shadow:
-  0 10px 40px rgba(0,0,0,.35),
+  0 20px 80px rgba(0,0,0,.45),
   inset 0 1px 0 rgba(255,255,255,.08);
+
+  transition:
+  width .45s cubic-bezier(.19,1,.22,1),
+  height .45s cubic-bezier(.19,1,.22,1),
+  border .4s,
+  box-shadow .4s,
+  background .4s;
+
+  animation:islandFloatY 6s ease-in-out infinite;
 
 }
 
-.island-glow{
+.dynamic-island::before{
+
+  content:'';
+
   position:absolute;
   inset:0;
 
@@ -290,90 +274,365 @@ nav{
   );
 
   pointer-events:none;
+
 }
 
-.island-info{
+.dynamic-island::after{
+
+  content:'';
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(255,255,255,.14),
+    transparent 70%
+  );
+
+  top:-80px;
+  right:-60px;
+
+  pointer-events:none;
+
+}
+
+.dynamic-island:hover{
+
+  width:470px;
+
+  border-color:
+  rgba(255,255,255,.22);
+
+  box-shadow:
+  0 30px 120px rgba(0,194,255,.18),
+  0 20px 60px rgba(0,0,0,.45);
+
+}
+
+.dynamic-island.expanded{
+
+  width:520px;
+  min-height:180px;
+
+}
+
+.island-content{
+
+  position:relative;
+
+  padding:18px;
+
   display:flex;
-  flex-direction:column;
+  align-items:flex-start;
+  gap:16px;
+
 }
 
-.island-metrics{
+.island-icon{
+
+  position:relative;
+
+  width:56px;
+  height:56px;
+
+  flex-shrink:0;
+
+  border-radius:20px;
+
   display:flex;
-  gap:10px;
-  margin-top:8px;
-}
+  align-items:center;
+  justify-content:center;
 
-.island-metrics span{
-  font-size:11px;
+  font-size:24px;
 
-  padding:6px 10px;
+  background:
+  linear-gradient(
+    135deg,
+    #6c63ff,
+    #00c2ff
+  );
 
-  border-radius:999px;
+  box-shadow:
+  0 10px 30px rgba(0,194,255,.25);
 
-  background:rgba(255,255,255,.06);
-
-  color:#7dd3fc;
-}
-
-.island-status{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-
-  background:#00ff88;
-
-  box-shadow:0 0 12px #00ff88;
-
-  margin-left:auto;
 }
 
 .pulse-ring{
+
   position:absolute;
 
-  width:48px;
-  height:48px;
+  inset:0;
 
-  border-radius:50%;
+  border-radius:inherit;
 
   border:2px solid rgba(0,194,255,.4);
 
   animation:ring 2s infinite;
+
 }
 
-.dynamic-island{
-  transition:.4s;
+.island-info{
+
+  flex:1;
+
+  min-width:0;
+
 }
 
-.dynamic-island:hover{
-  transform:
-    translateX(-50%)
-    scale(1.03);
+#islandTitle{
 
-  border-color:
-    rgba(255,255,255,.18);
+  display:block;
+
+  font-size:16px;
+  font-weight:700;
+
+  margin-bottom:6px;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+
 }
 
-@keyframes ring{
+#islandText{
 
-  0%{
-    transform:scale(.8);
+  color:rgba(255,255,255,.65);
+
+  font-size:13px;
+
+  line-height:1.5;
+
+}
+
+.island-status{
+
+  width:12px;
+  height:12px;
+
+  border-radius:50%;
+
+  background:#00ff88;
+
+  box-shadow:
+  0 0 12px #00ff88,
+  0 0 30px #00ff88;
+
+  margin-top:8px;
+
+  animation:statusPulse 1.5s infinite;
+
+}
+
+.island-metrics{
+
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+
+  margin-top:12px;
+
+}
+
+.island-metrics span{
+
+  padding:8px 12px;
+
+  border-radius:999px;
+
+  font-size:11px;
+  font-weight:600;
+
+  color:#7dd3fc;
+
+  background:rgba(255,255,255,.06);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  backdrop-filter:blur(20px);
+
+}
+
+/* LIVE WAVE */
+
+.island-wave{
+
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+
+  height:30px;
+
+  margin-top:14px;
+
+}
+
+.wave-bar{
+
+  width:4px;
+
+  border-radius:20px;
+
+  background:
+  linear-gradient(
+    180deg,
+    #00c2ff,
+    #6c63ff
+  );
+
+  animation:waveBars 1s ease-in-out infinite;
+
+}
+
+.wave-bar:nth-child(1){height:10px;}
+.wave-bar:nth-child(2){height:18px;}
+.wave-bar:nth-child(3){height:26px;}
+.wave-bar:nth-child(4){height:14px;}
+.wave-bar:nth-child(5){height:22px;}
+
+.wave-bar:nth-child(2){
+  animation-delay:.1s;
+}
+
+.wave-bar:nth-child(3){
+  animation-delay:.2s;
+}
+
+.wave-bar:nth-child(4){
+  animation-delay:.3s;
+}
+
+.wave-bar:nth-child(5){
+  animation-delay:.4s;
+}
+
+/* EXPAND CONTENT */
+
+.island-expand{
+
+  margin-top:18px;
+
+  padding-top:16px;
+
+  border-top:
+  1px solid rgba(255,255,255,.08);
+
+  display:none;
+
+  animation:fadeUp .5s ease;
+
+}
+
+.dynamic-island.expanded .island-expand{
+  display:block;
+}
+
+.activity{
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  margin-bottom:14px;
+
+}
+
+.activity-dot{
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:#00c2ff;
+
+  box-shadow:0 0 12px #00c2ff;
+
+}
+
+.activity p{
+
+  font-size:13px;
+
+  color:rgba(255,255,255,.72);
+
+}
+
+@keyframes waveBars{
+
+  0%,100%{
+    transform:scaleY(1);
     opacity:1;
   }
 
-  100%{
-    transform:scale(1.5);
-    opacity:0;
+  50%{
+    transform:scaleY(.45);
+    opacity:.5;
   }
 
 }
 
-@keyframes islandFloat{
+@keyframes islandFloatY{
+
   0%,100%{
-    transform:translateY(0);
+    transform:
+    translateX(-50%)
+    translateY(0);
   }
+
   50%{
-    transform:translateY(-8px);
+    transform:
+    translateX(-50%)
+    translateY(-10px);
   }
+
+}
+
+@keyframes statusPulse{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.3);
+  }
+
+}
+
+@keyframes fadeUp{
+
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+
+}
+
+@media(max-width:980px){
+
+.dynamic-island{
+  display:flex !important;
+  width:92%;
+  top:80px;
+}
+
+.dynamic-island:hover{
+  width:92%;
+}
+
+.dynamic-island.expanded{
+  width:92%;
+}
+
 }
 
 /* =========================
@@ -1715,15 +1974,16 @@ DT Script ID
 
 <!-- DYNAMIC ISLAND -->
 
-<div class="dynamic-island">
-
-<div class="island-glow"></div>
+<div class="dynamic-island" id="dynamicIsland">
 
 <div class="island-content">
 
 <div class="island-icon">
-  <span class="pulse-ring"></span>
-  🤖
+
+<span class="pulse-ring"></span>
+
+🤖
+
 </div>
 
 <div class="island-info">
@@ -1738,8 +1998,42 @@ Realtime AI System Active
 
 <div class="island-metrics">
 
-<span>42 Projects</span>
-<span>128 Live</span>
+<span id="metricProjects">
+42 Projects
+</span>
+
+<span id="metricUsers">
+128 Live
+</span>
+
+</div>
+
+<div class="island-wave">
+
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+
+</div>
+
+<div class="island-expand">
+
+<div class="activity">
+<div class="activity-dot"></div>
+<p>Streaming AI response...</p>
+</div>
+
+<div class="activity">
+<div class="activity-dot"></div>
+<p>Realtime dashboard synchronized</p>
+</div>
+
+<div class="activity">
+<div class="activity-dot"></div>
+<p>Voice assistant connected</p>
+</div>
 
 </div>
 
@@ -2634,6 +2928,80 @@ setInterval(() => {
     islandDescriptions[islandIndex];
 
 },3000);
+
+/* =========================
+   ULTRA DYNAMIC ISLAND
+========================= */
+
+const dynamicIsland =
+document.getElementById('dynamicIsland');
+
+let islandExpanded = false;
+
+dynamicIsland.addEventListener('mouseenter',()=>{
+
+  dynamicIsland.classList.add('expanded');
+
+});
+
+dynamicIsland.addEventListener('mouseleave',()=>{
+
+  dynamicIsland.classList.remove('expanded');
+
+});
+
+/* AUTO METRICS */
+
+const metricProjects =
+document.getElementById('metricProjects');
+
+const metricUsers =
+document.getElementById('metricUsers');
+
+let islandProjects = 42;
+let islandUsers = 128;
+
+setInterval(()=>{
+
+  islandProjects += Math.floor(Math.random()*2);
+
+  islandUsers += Math.floor(Math.random()*4)-1;
+
+  if(islandUsers < 80){
+    islandUsers = 80;
+  }
+
+  metricProjects.textContent =
+  islandProjects + ' Projects';
+
+  metricUsers.textContent =
+  islandUsers + ' Live';
+
+},2000);
+
+/* SCROLL REACTIVE */
+
+window.addEventListener('scroll',()=>{
+
+  const scrollY = window.scrollY;
+
+  if(scrollY > 120){
+
+    dynamicIsland.style.transform =
+    'translateX(-50%) scale(.92)';
+
+    dynamicIsland.style.opacity = '.92';
+
+  }else{
+
+    dynamicIsland.style.transform =
+    'translateX(-50%) scale(1)';
+
+    dynamicIsland.style.opacity = '1';
+
+  }
+
+});
 
 /* =========================
    PROJECT DATA
