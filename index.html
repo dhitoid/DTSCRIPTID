@@ -4,10 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>DT Script ID — Beautiful AI Utilities</title>
+<title>DT Script ID — AI Creative Technology Studio</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -33,7 +34,23 @@ body{
 }
 
 /* =========================
-   BG EFFECT
+   NOISE TEXTURE
+========================= */
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+  radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:4px 4px;
+  opacity:.12;
+  pointer-events:none;
+  z-index:9999;
+}
+
+/* =========================
+   BG GRID
 ========================= */
 
 .bg-grid{
@@ -42,408 +59,46 @@ body{
   background:
   linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
   linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
   background-size:40px 40px;
-  z-index:-3;
+  z-index:-10;
 }
 
-.orb{
+/* =========================
+   CURSOR GLOW
+========================= */
+
+.cursor-glow{
   position:fixed;
+  width:320px;
+  height:320px;
   border-radius:50%;
-  filter:blur(100px);
-  opacity:.35;
-  z-index:-2;
-  animation:float 8s ease-in-out infinite;
-}
-
-.orb1{
-  width:400px;
-  height:400px;
-  background:#6c63ff;
-  top:-100px;
-  left:-100px;
-}
-
-.orb2{
-  width:350px;
-  height:350px;
-  background:#00c2ff;
-  right:-100px;
-  bottom:-100px;
-  animation-delay:2s;
-}
-
-@keyframes float{
-  0%,100%{
-    transform:translateY(0px);
-  }
-  50%{
-    transform:translateY(-30px);
-  }
+  background:rgba(0,194,255,.14);
+  filter:blur(90px);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:-5;
 }
 
 /* =========================
-   NAVBAR
-========================= */
-
-nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  z-index:999;
-  backdrop-filter:blur(20px);
-  background:rgba(10,10,20,.45);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.nav-wrap{
-  max-width:1300px;
-  margin:auto;
-  padding:18px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo{
-  font-family:'Sora',sans-serif;
-  font-size:28px;
-  font-weight:800;
-  background:linear-gradient(90deg,#fff,#7dd3fc);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.nav-links{
-  display:flex;
-  gap:28px;
-}
-
-.nav-links a{
-  text-decoration:none;
-  color:rgba(255,255,255,.75);
-  font-weight:500;
-  transition:.3s;
-}
-
-.nav-links a:hover{
-  color:white;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:120px 24px 80px;
-  position:relative;
-}
-
-.hero-wrap{
-  max-width:1300px;
-  width:100%;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:70px;
-  align-items:center;
-}
-
-.hero-text h1{
-  font-size:72px;
-  line-height:1.05;
-  font-family:'Sora',sans-serif;
-  margin-bottom:24px;
-}
-
-.gradient-text{
-  background:linear-gradient(90deg,#6c63ff,#00c2ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.hero-text p{
-  color:rgba(255,255,255,.7);
-  font-size:18px;
-  line-height:1.8;
-  margin-bottom:35px;
-}
-
-.hero-buttons{
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  padding:16px 28px;
-  border-radius:18px;
-  border:none;
-  cursor:pointer;
-  font-weight:700;
-  transition:.3s;
-}
-
-.btn-primary{
-  background:linear-gradient(135deg,#6c63ff,#00c2ff);
-  color:white;
-  box-shadow:0 10px 40px rgba(0,194,255,.25);
-}
-
-.btn-primary:hover{
-  transform:translateY(-3px);
-}
-
-.btn-secondary{
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(20px);
-  color:white;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.btn-secondary:hover{
-  background:rgba(255,255,255,.1);
-}
-
-/* =========================
-   AI WINDOW
-========================= */
-
-.ai-window{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(25px);
-  border-radius:34px;
-  overflow:hidden;
-  box-shadow:
-  0 20px 80px rgba(0,0,0,.35),
-  inset 0 1px 0 rgba(255,255,255,.06);
-}
-
-.ai-top{
-  padding:18px 22px;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.dot{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-}
-
-.red{background:#ff5f57;}
-.yellow{background:#febc2e;}
-.green{background:#28c840;}
-
-.chat-area{
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  min-height:450px;
-}
-
-/* =========================
-   CHAT BUBBLE
-========================= */
-
-.message{
-  display:flex;
-  gap:12px;
-  animation:fade .4s ease;
-}
-
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(10px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.message.user{
-  justify-content:flex-end;
-}
-
-.avatar{
-  width:44px;
-  height:44px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#6c63ff,#00c2ff);
-  font-size:18px;
-}
-
-.bubble{
-  max-width:78%;
-  padding:18px 20px;
-  border-radius:24px;
-  line-height:1.7;
-  font-size:15px;
-  position:relative;
-}
-
-.ai-bubble{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.user-bubble{
-  background:linear-gradient(135deg,#6c63ff,#00c2ff);
-}
-
-.copy-btn{
-  margin-top:12px;
-  background:rgba(255,255,255,.08);
-  border:none;
-  color:white;
-  padding:8px 12px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:12px;
-}
-
-/* =========================
-   SUGGESTION CHIPS
-========================= */
-
-.chips{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-
-.chip{
-  padding:12px 16px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-  font-size:14px;
-}
-
-.chip:hover{
-  transform:translateY(-2px);
-  background:rgba(255,255,255,.12);
-}
-
-/* =========================
-   SECTION
-========================= */
-
-section{
-  padding:100px 24px;
-}
-
-.section-title{
-  text-align:center;
-  margin-bottom:70px;
-}
-
-.section-title h2{
-  font-size:52px;
-  font-family:'Sora',sans-serif;
-  margin-bottom:16px;
-}
-
-.section-title p{
-  max-width:700px;
-  margin:auto;
-  color:rgba(255,255,255,.65);
-  line-height:1.8;
-}
-
-/* =========================
-   BENTO GRID
-========================= */
-
-.bento{
-  max-width:1300px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-}
-
-.card{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(25px);
-  border-radius:30px;
-  padding:32px;
-  transition:.35s;
-  overflow:hidden;
-  position:relative;
-}
-
-.card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(255,255,255,.16);
-}
-
-.card.large{
-  grid-column:span 2;
-}
-
-.card h3{
-  font-size:28px;
-  margin-bottom:14px;
-}
-
-.card p{
-  color:rgba(255,255,255,.7);
-  line-height:1.7;
-}
-
-.icon{
-  font-size:42px;
-  margin-bottom:22px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-  padding:50px 24px;
-  border-top:1px solid rgba(255,255,255,.06);
-  text-align:center;
-  color:rgba(255,255,255,.55);
-}
-
-/* =========================
-   AURORA BACKGROUND
+   AURORA
 ========================= */
 
 .aurora{
   position:fixed;
   border-radius:50%;
   filter:blur(120px);
-  opacity:.22;
-  z-index:-5;
+  opacity:.25;
+  z-index:-8;
   animation:auroraMove 18s ease-in-out infinite;
-  pointer-events:none;
 }
 
 .aurora1{
   width:500px;
   height:500px;
   background:#6c63ff;
-  top:-120px;
-  left:-120px;
+  top:-100px;
+  left:-100px;
 }
 
 .aurora2{
@@ -471,7 +126,7 @@ footer{
   }
 
   25%{
-    transform:translate(40px,-60px) scale(1.08);
+    transform:translate(50px,-60px) scale(1.08);
   }
 
   50%{
@@ -489,12 +144,725 @@ footer{
 }
 
 /* =========================
+   NAVBAR
+========================= */
+
+nav{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 40px);
+  max-width:1250px;
+  z-index:999;
+  background:rgba(10,10,20,.55);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(30px);
+  border-radius:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.nav-wrap{
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:30px;
+  font-weight:700;
+  letter-spacing:-1px;
+
+  background:linear-gradient(90deg,#fff,#7dd3fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+  display:flex;
+  gap:28px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:rgba(255,255,255,.72);
+  transition:.3s;
+  font-weight:500;
+}
+
+.nav-links a:hover{
+  color:white;
+}
+
+/* =========================
+   DYNAMIC ISLAND
+========================= */
+
+.dynamic-island{
+  position:fixed;
+  top:110px;
+  right:24px;
+  z-index:998;
+
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(30px);
+
+  border-radius:28px;
+  padding:16px 20px;
+
+  overflow:hidden;
+
+  box-shadow:
+  0 20px 50px rgba(0,0,0,.35);
+
+  animation:islandFloat 5s ease-in-out infinite;
+}
+
+.island-content{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+
+.island-icon{
+  width:48px;
+  height:48px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#6c63ff,#00c2ff);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.dynamic-island p{
+  color:rgba(255,255,255,.65);
+  font-size:13px;
+  margin-top:4px;
+}
+
+@keyframes islandFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-8px);
+  }
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:140px 24px 80px;
+}
+
+.hero-wrap{
+  max-width:1300px;
+  margin:auto;
+  width:100%;
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:12px 18px;
+  border-radius:999px;
+
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+
+  margin-bottom:28px;
+
+  backdrop-filter:blur(20px);
+}
+
+.live-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#00ff88;
+  box-shadow:0 0 15px #00ff88;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.5);
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+.hero-text h1{
+  font-size:78px;
+  line-height:1;
+  font-family:'Sora',sans-serif;
+  margin-bottom:24px;
+}
+
+.gradient-text{
+  background:linear-gradient(90deg,#6c63ff,#00c2ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero-text p{
+  color:rgba(255,255,255,.72);
+  line-height:1.8;
+  font-size:18px;
+  margin-bottom:36px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:none;
+  cursor:pointer;
+  padding:16px 28px;
+  border-radius:18px;
+  font-weight:700;
+  transition:.35s;
+}
+
+.btn:hover{
+  transform:translateY(-4px);
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#6c63ff,#00c2ff);
+  color:white;
+
+  box-shadow:
+  0 10px 40px rgba(0,194,255,.25);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  color:white;
+  backdrop-filter:blur(20px);
+}
+
+/* =========================
+   AI WINDOW
+========================= */
+
+.ai-window{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(30px);
+
+  border-radius:36px;
+  overflow:hidden;
+
+  box-shadow:
+  0 30px 100px rgba(0,0,0,.35);
+}
+
+.ai-top{
+  padding:18px 22px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+}
+
+.red{background:#ff5f57;}
+.yellow{background:#febc2e;}
+.green{background:#28c840;}
+
+.chat-area{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  min-height:520px;
+}
+
+.message{
+  display:flex;
+  gap:14px;
+  animation:fade .5s ease;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.message.user{
+  justify-content:flex-end;
+}
+
+.avatar{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+
+  background:linear-gradient(135deg,#6c63ff,#00c2ff);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.bubble{
+  max-width:78%;
+  padding:18px 20px;
+  border-radius:24px;
+  line-height:1.8;
+  font-size:15px;
+  position:relative;
+}
+
+.ai-bubble{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.user-bubble{
+  background:linear-gradient(135deg,#6c63ff,#00c2ff);
+}
+
+.copy-btn{
+  margin-top:14px;
+  padding:9px 14px;
+  border:none;
+  cursor:pointer;
+
+  background:rgba(255,255,255,.08);
+  color:white;
+
+  border-radius:14px;
+}
+
+/* =========================
+   TYPING
+========================= */
+
+.typing{
+  margin-top:12px;
+  color:#7dd3fc;
+  font-size:14px;
+}
+
+.cursor{
+  width:10px;
+  height:18px;
+  background:#00c2ff;
+  display:inline-block;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{
+    opacity:0;
+  }
+}
+
+/* =========================
+   TRUSTED
+========================= */
+
+.trusted{
+  padding:20px 24px 80px;
+  text-align:center;
+}
+
+.trusted span{
+  color:rgba(255,255,255,.5);
+}
+
+.logos{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+.logos div{
+  padding:16px 24px;
+  border-radius:18px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  color:rgba(255,255,255,.8);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  max-width:1200px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+
+  padding:0 24px 100px;
+}
+
+.stat{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  padding:40px;
+  border-radius:30px;
+  text-align:center;
+
+  backdrop-filter:blur(30px);
+}
+
+.stat h2{
+  font-size:58px;
+  margin-bottom:12px;
+
+  background:linear-gradient(90deg,#fff,#7dd3fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.stat p{
+  color:rgba(255,255,255,.65);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+  padding:100px 24px;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:70px;
+}
+
+.section-title h2{
+  font-size:56px;
+  font-family:'Sora',sans-serif;
+  margin-bottom:18px;
+}
+
+.section-title p{
+  max-width:760px;
+  margin:auto;
+  color:rgba(255,255,255,.65);
+  line-height:1.8;
+}
+
+/* =========================
+   BENTO
+========================= */
+
+.bento{
+  max-width:1300px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.card{
+  position:relative;
+
+  overflow:hidden;
+
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(30px);
+
+  border-radius:34px;
+  padding:34px;
+
+  transition:.4s;
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+
+  transform:translateX(-100%);
+  transition:.8s;
+}
+
+.card:hover::before{
+  transform:translateX(100%);
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,255,255,.18);
+}
+
+.card.large{
+  grid-column:span 2;
+}
+
+.icon{
+  font-size:48px;
+  margin-bottom:22px;
+}
+
+.card h3{
+  font-size:30px;
+  margin-bottom:16px;
+}
+
+.card p{
+  color:rgba(255,255,255,.68);
+  line-height:1.8;
+}
+
+/* =========================
+   SHOWCASE
+========================= */
+
+.showcase-grid{
+  max-width:1300px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:24px;
+}
+
+.dashboard{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:36px;
+  padding:34px;
+
+  min-height:420px;
+  backdrop-filter:blur(30px);
+
+  position:relative;
+  overflow:hidden;
+}
+
+.dashboard::after{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(0,194,255,.25),
+  transparent 40%);
+}
+
+.dashboard-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.chart{
+  height:220px;
+  border-radius:26px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(0,194,255,.25),
+    transparent
+  );
+
+  position:relative;
+  overflow:hidden;
+}
+
+.chart-line{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:
+  linear-gradient(90deg,
+  transparent,
+  rgba(255,255,255,.6),
+  transparent);
+
+  animation:scan 4s linear infinite;
+}
+
+@keyframes scan{
+  from{
+    transform:translateX(-100%);
+  }
+  to{
+    transform:translateX(100%);
+  }
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+  max-width:1200px;
+  margin:auto;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(108,99,255,.18),
+    rgba(0,194,255,.14)
+  );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:40px;
+
+  padding:70px 40px;
+  text-align:center;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.cta h2{
+  font-size:58px;
+  font-family:'Sora';
+  margin-bottom:20px;
+}
+
+.cta p{
+  color:rgba(255,255,255,.72);
+  max-width:700px;
+  margin:auto;
+  line-height:1.8;
+  margin-bottom:34px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:70px 24px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.footer-wrap{
+  max-width:1300px;
+  margin:auto;
+
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+  flex-wrap:wrap;
+}
+
+.footer-brand h2{
+  font-family:'Space Grotesk';
+  font-size:34px;
+  margin-bottom:14px;
+}
+
+.footer-brand p{
+  color:rgba(255,255,255,.6);
+  line-height:1.8;
+  max-width:420px;
+}
+
+.footer-links{
+  display:flex;
+  gap:70px;
+  flex-wrap:wrap;
+}
+
+.footer-links div{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.footer-links a{
+  text-decoration:none;
+  color:rgba(255,255,255,.68);
+}
+
+.footer-links a:hover{
+  color:white;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:none;
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 
 @media(max-width:980px){
 
-.hero-wrap{
+.hero-wrap,
+.showcase-grid{
   grid-template-columns:1fr;
 }
 
@@ -507,7 +875,11 @@ footer{
 }
 
 .hero-text h1{
-  font-size:54px;
+  font-size:56px;
+}
+
+.stats{
+  grid-template-columns:1fr;
 }
 
 .bento{
@@ -518,20 +890,25 @@ footer{
   grid-column:span 1;
 }
 
+.dynamic-island{
+  display:none;
+}
+
 }
 
 @media(max-width:600px){
 
-.hero-text h1{
-  font-size:42px;
-}
-
-.section-title h2{
-  font-size:38px;
-}
-
 .nav-links{
   display:none;
+}
+
+.hero-text h1{
+  font-size:44px;
+}
+
+.section-title h2,
+.cta h2{
+  font-size:38px;
 }
 
 .bubble{
@@ -545,24 +922,53 @@ footer{
 <body>
 
 <div class="bg-grid"></div>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
+
+<div class="cursor-glow"></div>
+
+<div class="aurora aurora1"></div>
+<div class="aurora aurora2"></div>
+<div class="aurora aurora3"></div>
 
 <!-- NAV -->
 
 <nav>
-  <div class="nav-wrap">
-    <div class="logo">DT Script ID</div>
 
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">AI Tools</a>
-      <a href="#">Utilities</a>
-      <a href="#">Contact</a>
-    </div>
-  </div>
+<div class="nav-wrap">
+
+<div class="logo">
+DT Script ID
+</div>
+
+<div class="nav-links">
+<a href="#">Home</a>
+<a href="#">Products</a>
+<a href="#">AI Systems</a>
+<a href="#">Showcase</a>
+<a href="#">Contact</a>
+</div>
+
+</div>
+
 </nav>
+
+<!-- DYNAMIC ISLAND -->
+
+<div class="dynamic-island">
+
+<div class="island-content">
+
+<div class="island-icon">
+✨
+</div>
+
+<div>
+<strong>AI Assistant Active</strong>
+<p>Generating futuristic interfaces...</p>
+</div>
+
+</div>
+
+</div>
 
 <!-- HERO -->
 
@@ -570,59 +976,76 @@ footer{
 
 <div class="hero-wrap">
 
-<div class="hero-text">
+<div class="hero-text reveal">
+
+<div class="hero-badge">
+<span class="live-dot"></span>
+AI Creative Technology Studio
+</div>
 
 <h1>
+
 Build The Future With
+
 <span class="gradient-text">
-Beautiful AI Utilities
+Beautiful AI Experiences
 </span>
+
 </h1>
 
 <p>
-DT Script ID creates futuristic AI-powered web experiences,
-smart utility tools, premium interfaces, and modern digital
-products designed for the next generation.
+
+DT Script ID builds premium AI-powered interfaces,
+smart automation systems, futuristic utilities,
+and next-generation digital experiences for modern brands.
+
 </p>
 
 <div class="hero-buttons">
+
 <button class="btn btn-primary">
-Explore Products
+Explore Ecosystem
 </button>
 
 <button class="btn btn-secondary">
 View Showcase
 </button>
-</div>
 
 </div>
 
-<!-- AI CHAT -->
+</div>
 
-<div class="ai-window">
+<!-- AI WINDOW -->
+
+<div class="ai-window reveal">
 
 <div class="ai-top">
+
 <div class="dot red"></div>
 <div class="dot yellow"></div>
 <div class="dot green"></div>
+
 </div>
 
 <div class="chat-area">
 
 <div class="message">
 
-<div class="avatar">✨</div>
+<div class="avatar">
+✨
+</div>
 
 <div class="bubble ai-bubble">
+
 Welcome to DT Script ID 🚀<br><br>
 
-We create futuristic AI experiences, smart calculators,
-AI generators, automation tools, and beautiful utility websites.
+We create futuristic AI products, realtime experiences,
+smart utilities, premium interfaces,
+automation systems, and beautiful digital ecosystems.
 
-<div class="chips">
-<div class="chip">Generate Caption</div>
-<div class="chip">Smart Calculator</div>
-<div class="chip">Create Landing Page</div>
+<div class="typing">
+AI is generating futuristic experience...
+<span class="cursor"></span>
 </div>
 
 <button class="copy-btn">
@@ -630,24 +1053,30 @@ Copy Response
 </button>
 
 </div>
+
 </div>
 
 <div class="message user">
 
 <div class="bubble user-bubble">
-Can you create a premium AI website?
+Can you build a premium AI platform?
 </div>
 
 </div>
 
 <div class="message">
 
-<div class="avatar">🤖</div>
+<div class="avatar">
+🤖
+</div>
 
 <div class="bubble ai-bubble">
-Absolutely. We design premium glassmorphism UI,
-AI integrations, smooth animations, realtime systems,
-and modern mobile-first experiences for the future web.
+
+Absolutely. We specialize in futuristic SaaS interfaces,
+AI systems, realtime interaction,
+glassmorphism experiences,
+and next-generation web products.
+
 </div>
 
 </div>
@@ -660,66 +1089,276 @@ and modern mobile-first experiences for the future web.
 
 </section>
 
+<!-- TRUSTED -->
+
+<div class="trusted reveal">
+
+<span>Trusted by creators & future digital brands</span>
+
+<div class="logos">
+
+<div>Nexora AI</div>
+<div>Future Labs</div>
+<div>AI Utility</div>
+<div>Creative Studio</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats reveal">
+
+<div class="stat">
+<h2>120+</h2>
+<p>AI Projects</p>
+</div>
+
+<div class="stat">
+<h2>24/7</h2>
+<p>Realtime Automation</p>
+</div>
+
+<div class="stat">
+<h2>99%</h2>
+<p>Premium Experience</p>
+</div>
+
+</div>
+
 <!-- PRODUCTS -->
 
 <section>
 
-<div class="section-title">
-<h2>Our Digital Ecosystem</h2>
+<div class="section-title reveal">
+
+<h2>
+Our Digital Ecosystem
+</h2>
 
 <p>
-An ecosystem of modern AI utilities, smart tools,
-and futuristic digital experiences powered by DT Script ID.
+
+A futuristic ecosystem of AI products,
+automation systems, creative interfaces,
+and modern digital experiences built for the future.
+
 </p>
+
 </div>
 
 <div class="bento">
 
-<div class="card large">
-<div class="icon">🚀</div>
-<h3>Nexora AI</h3>
+<div class="card large reveal">
+
+<div class="icon">
+🚀
+</div>
+
+<h3>
+Nexora AI
+</h3>
+
 <p>
-Advanced AI content generator with beautiful chat UI,
-streaming response effect, prompt suggestions,
-and smart automation system.
+
+Advanced AI content generator with realtime streaming,
+beautiful chat UI,
+prompt intelligence,
+and premium interaction system.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+🧠
+</div>
+
+<h3>
+AI Utilities
+</h3>
+
+<p>
+
+Modern AI-powered tools designed for creators,
+developers,
+marketers,
+and digital businesses.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+📊
+</div>
+
+<h3>
+Realtime Systems
+</h3>
+
+<p>
+
+Interactive realtime dashboard,
+analytics engine,
+smart activity systems,
+and live automation experience.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+🎨
+</div>
+
+<h3>
+Premium UI
+</h3>
+
+<p>
+
+Glassmorphism,
+dynamic motion,
+aurora effects,
+ultra smooth interaction,
+and futuristic interface system.
+
+</p>
+
+</div>
+
+<div class="card large reveal">
+
+<div class="icon">
+⚡
+</div>
+
+<h3>
+Future Experience
+</h3>
+
+<p>
+
+We combine AI,
+branding,
+motion,
+interaction,
+and modern frontend technology
+to create digital experiences that feel premium,
+interactive,
+and futuristic.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SHOWCASE -->
+
+<section>
+
+<div class="section-title reveal">
+
+<h2>
+Live AI Showcase
+</h2>
+
+<p>
+
+Realtime futuristic dashboard experience
+designed with premium interaction system
+and AI-driven interface.
+
+</p>
+
+</div>
+
+<div class="showcase-grid">
+
+<div class="dashboard reveal">
+
+<div class="dashboard-top">
+
+<div>
+<h3 style="font-size:28px;">
+Realtime Analytics
+</h3>
+
+<p style="margin-top:8px;color:rgba(255,255,255,.65);">
+AI System Performance
 </p>
 </div>
 
-<div class="card">
-<div class="icon">🧠</div>
-<h3>AI Utilities</h3>
-<p>
-Modern AI-powered utilities designed for creators,
-developers, marketers, and digital businesses.
-</p>
+<div class="hero-badge">
+LIVE
 </div>
 
-<div class="card">
-<div class="icon">📊</div>
-<h3>Smart Calculator</h3>
-<p>
-Interactive calculator system with intelligent UI,
-beautiful animation, and realtime calculation engine.
-</p>
 </div>
 
-<div class="card">
-<div class="icon">🎨</div>
-<h3>Premium UI</h3>
-<p>
-Glassmorphism, neon gradients, dynamic layouts,
-and ultra smooth user experience optimized for mobile.
-</p>
+<div class="chart">
+<div class="chart-line"></div>
 </div>
 
-<div class="card large">
-<div class="icon">⚡</div>
-<h3>Future Web Experience</h3>
-<p>
-We combine AI, animation, branding, and modern frontend
-technology to build websites that feel futuristic,
-interactive, and premium.
-</p>
+</div>
+
+<div class="dashboard reveal">
+
+<h3 style="font-size:28px;margin-bottom:20px;">
+AI Activity
+</h3>
+
+<div class="message">
+
+<div class="avatar">
+🤖
+</div>
+
+<div class="bubble ai-bubble">
+
+Generating landing page structure...
+
+</div>
+
+</div>
+
+<div class="message">
+
+<div class="avatar">
+⚡
+</div>
+
+<div class="bubble ai-bubble">
+
+Optimizing futuristic animation system...
+
+</div>
+
+</div>
+
+<div class="message">
+
+<div class="avatar">
+🚀
+</div>
+
+<div class="bubble ai-bubble">
+
+Deploying realtime AI interface...
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -730,43 +1369,112 @@ interactive, and premium.
 
 <section>
 
-<div class="section-title">
-<h2>Why DT Script ID?</h2>
+<div class="section-title reveal">
+
+<h2>
+Why DT Script ID?
+</h2>
 
 <p>
-We focus on premium quality interfaces, futuristic design,
-AI experiences, and modern web interaction.
+
+We focus on premium interface quality,
+AI interaction,
+future design system,
+and modern digital branding.
+
 </p>
+
 </div>
 
 <div class="bento">
 
-<div class="card">
-<div class="icon">🔥</div>
-<h3>Modern Design</h3>
-<p>
-Premium futuristic UI with glassmorphism
-and smooth interaction.
-</p>
+<div class="card reveal">
+
+<div class="icon">
+🔥
 </div>
 
-<div class="card">
-<div class="icon">🤖</div>
-<h3>AI Integration</h3>
+<h3>
+Modern Design
+</h3>
+
 <p>
-Interactive AI systems with realistic
-chat experience and automation.
+
+Premium futuristic interface with smooth motion,
+glassmorphism,
+and immersive experience.
+
 </p>
+
 </div>
 
-<div class="card">
-<div class="icon">📱</div>
-<h3>Mobile First</h3>
-<p>
-Optimized for mobile users with responsive
-layouts and fluid animation.
-</p>
+<div class="card reveal">
+
+<div class="icon">
+🤖
 </div>
+
+<h3>
+AI Integration
+</h3>
+
+<p>
+
+Realtime AI systems with streaming interaction,
+automation,
+and futuristic experience.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+📱
+</div>
+
+<h3>
+Mobile First
+</h3>
+
+<p>
+
+Responsive mobile-first experience optimized
+for all modern devices.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section>
+
+<div class="cta reveal">
+
+<h2>
+
+Let's Build The Future
+
+</h2>
+
+<p>
+
+Create premium AI experiences,
+beautiful utility systems,
+futuristic SaaS platforms,
+and modern digital branding with DT Script ID.
+
+</p>
+
+<button class="btn btn-primary">
+Start Your Project
+</button>
 
 </div>
 
@@ -776,21 +1484,68 @@ layouts and fluid animation.
 
 <footer>
 
-<h2 style="margin-bottom:12px;font-family:'Sora';">
+<div class="footer-wrap">
+
+<div class="footer-brand">
+
+<h2>
 DT Script ID
 </h2>
 
 <p>
-Beautiful AI Utilities for The Future 🚀
+
+AI Creative Technology Studio focused on futuristic interfaces,
+premium digital experiences,
+automation systems,
+and next-generation web products.
+
 </p>
+
+</div>
+
+<div class="footer-links">
+
+<div>
+<strong>Navigation</strong>
+<a href="#">Home</a>
+<a href="#">Products</a>
+<a href="#">Showcase</a>
+</div>
+
+<div>
+<strong>Services</strong>
+<a href="#">AI Systems</a>
+<a href="#">UI Design</a>
+<a href="#">Automation</a>
+</div>
+
+<div>
+<strong>Social</strong>
+<a href="#">Instagram</a>
+<a href="#">TikTok</a>
+<a href="#">Github</a>
+</div>
+
+</div>
+
+</div>
 
 </footer>
 
-<div class="aurora aurora1"></div>
-<div class="aurora aurora2"></div>
-<div class="aurora aurora3"></div>
-
 <script>
+
+/* =========================
+   CURSOR GLOW
+========================= */
+
+const glow = document.querySelector('.cursor-glow');
+
+window.addEventListener('mousemove',e=>{
+
+glow.style.left = e.clientX + 'px';
+glow.style.top = e.clientY + 'px';
+
+});
 
 /* =========================
    COPY BUTTON
@@ -800,13 +1555,12 @@ document.querySelectorAll('.copy-btn').forEach(btn=>{
 
 btn.addEventListener('click',()=>{
 
-const text =
-btn.parentElement.innerText
+const text = btn.parentElement.innerText
 .replace('Copy Response','');
 
 navigator.clipboard.writeText(text);
 
-btn.innerHTML = 'Copied ✓';
+btn.innerHTML='Copied ✓';
 
 setTimeout(()=>{
 btn.innerHTML='Copy Response';
@@ -817,22 +1571,78 @@ btn.innerHTML='Copy Response';
 });
 
 /* =========================
-   CHIP INTERACTION
+   REVEAL ANIMATION
 ========================= */
 
-document.querySelectorAll('.chip').forEach(chip=>{
+const reveals=document.querySelectorAll('.reveal');
 
-chip.addEventListener('click',()=>{
+function reveal(){
 
-chip.style.transform='scale(.95)';
+reveals.forEach(el=>{
 
-setTimeout(()=>{
-chip.style.transform='scale(1)';
-},120);
+const top=el.getBoundingClientRect().top;
+
+if(top<window.innerHeight-100){
+  el.classList.add('active');
+}
+
+});
+
+}
+
+window.addEventListener('scroll',reveal);
+
+reveal();
+
+/* =========================
+   MAGNETIC BUTTON
+========================= */
+
+document.querySelectorAll('.btn').forEach(btn=>{
+
+btn.addEventListener('mousemove',e=>{
+
+const rect=btn.getBoundingClientRect();
+
+const x=e.clientX-rect.left-rect.width/2;
+const y=e.clientY-rect.top-rect.height/2;
+
+btn.style.transform=
+`translate(${x*.15}px,${y*.15}px)`;
+
+});
+
+btn.addEventListener('mouseleave',()=>{
+
+btn.style.transform='translate(0,0)';
 
 });
 
 });
+
+/* =========================
+   FLOATING RANDOM AI TEXT
+========================= */
+
+const aiTexts=[
+'Generating futuristic UI...',
+'Optimizing AI system...',
+'Deploying premium interface...',
+'Streaming realtime experience...',
+'Building smart automation...'
+];
+
+const islandText=
+document.querySelector('.dynamic-island p');
+
+setInterval(()=>{
+
+const random=
+aiTexts[Math.floor(Math.random()*aiTexts.length)];
+
+islandText.innerText=random;
+
+},3000);
 
 </script>
 
