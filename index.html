@@ -215,8 +215,9 @@ nav{
 
 .dynamic-island{
   position:fixed;
-  top:110px;
-  right:24px;
+  top:84px;
+  left:50%;
+  transform:translateX(-50%);
   z-index:998;
 
   background:rgba(255,255,255,.06);
@@ -258,6 +259,114 @@ nav{
   margin-top:4px;
 }
 
+.dynamic-island{
+
+  min-width:340px;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.03)
+  );
+
+  border:1px solid rgba(255,255,255,.12);
+
+  box-shadow:
+  0 10px 40px rgba(0,0,0,.35),
+  inset 0 1px 0 rgba(255,255,255,.08);
+
+}
+
+.island-glow{
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(
+    circle at top,
+    rgba(0,194,255,.25),
+    transparent 60%
+  );
+
+  pointer-events:none;
+}
+
+.island-info{
+  display:flex;
+  flex-direction:column;
+}
+
+.island-metrics{
+  display:flex;
+  gap:10px;
+  margin-top:8px;
+}
+
+.island-metrics span{
+  font-size:11px;
+
+  padding:6px 10px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.06);
+
+  color:#7dd3fc;
+}
+
+.island-status{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+
+  background:#00ff88;
+
+  box-shadow:0 0 12px #00ff88;
+
+  margin-left:auto;
+}
+
+.pulse-ring{
+  position:absolute;
+
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+
+  border:2px solid rgba(0,194,255,.4);
+
+  animation:ring 2s infinite;
+}
+
+.dynamic-island{
+  transition:.4s;
+}
+
+.dynamic-island:hover{
+  transform:
+    translateX(-50%)
+    scale(1.03);
+
+  border-color:
+    rgba(255,255,255,.18);
+}
+
+@keyframes ring{
+
+  0%{
+    transform:scale(.8);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1.5);
+    opacity:0;
+  }
+
+}
+
 @keyframes islandFloat{
   0%,100%{
     transform:translateY(0);
@@ -272,17 +381,17 @@ nav{
 ========================= */
 
 .hero{
-  min-height:100svh;
+  min-height:auto;
   display:flex;
-  align-items:center;
-  padding:90px 24px 40px;
+  align-items:flex-start;
+  padding:140px 24px 60px;
 }
 
 .hero-wrap{
   max-width:1300px;
   margin:auto;
   width:100%;
-
+  padding-top:10px;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:70px;
@@ -1372,8 +1481,9 @@ footer{
 
 .command-trigger{
   position:fixed;
-  bottom:20px;
-  right:20px;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
 
   width:58px;
   height:58px;
@@ -1607,16 +1717,35 @@ DT Script ID
 
 <div class="dynamic-island">
 
+<div class="island-glow"></div>
+
 <div class="island-content">
 
 <div class="island-icon">
-✨
+  <span class="pulse-ring"></span>
+  🤖
 </div>
 
-<div>
-<strong>AI Assistant Active</strong>
-<p>Generating futuristic interfaces...</p>
+<div class="island-info">
+
+<strong id="islandTitle">
+Nexora AI Core
+</strong>
+
+<p id="islandText">
+Realtime AI System Active
+</p>
+
+<div class="island-metrics">
+
+<span>42 Projects</span>
+<span>128 Live</span>
+
 </div>
+
+</div>
+
+<div class="island-status"></div>
 
 </div>
 
@@ -2473,6 +2602,39 @@ viewBox="0 0 24 24">
 </script>
 
 <script>
+
+const islandTitles = [
+  'Nexora AI Core',
+  'Realtime AI Engine',
+  'DT Neural System',
+  'Future Interface OS'
+];
+
+const islandDescriptions = [
+  'Streaming realtime experience...',
+  'Deploying smart automation...',
+  'Generating premium UI...',
+  'Optimizing AI interactions...'
+];
+
+let islandIndex = 0;
+
+setInterval(() => {
+
+  islandIndex++;
+
+  if(islandIndex >= islandTitles.length){
+    islandIndex = 0;
+  }
+
+  document.getElementById('islandTitle').textContent =
+    islandTitles[islandIndex];
+
+  document.getElementById('islandText').textContent =
+    islandDescriptions[islandIndex];
+
+},3000);
+
 /* =========================
    PROJECT DATA
 ========================= */
