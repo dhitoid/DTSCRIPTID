@@ -4176,57 +4176,6 @@ document.querySelectorAll('a[href="#"]')
 
 });
 
-/* =========================
-   ADVANCED AI SALES ASSISTANT SYSTEM
-========================= */
-const chatTriggerBtn = document.getElementById('chatTriggerBtn');
-const aiChatWidget = document.getElementById('aiChatWidget');
-const closeChatBtn = document.getElementById('closeChatBtn');
-const chatWidgetBody = document.getElementById('chatWidgetBody');
-const chatWidgetInput = document.getElementById('chatWidgetInput');
-const sendChatBtn = document.getElementById('sendChatBtn');
-const quickRepliesContainer = document.getElementById('quickRepliesContainer');
-
-// Buka/Tutup Widget
-chatTriggerBtn.addEventListener('click', () => {
-  aiChatWidget.classList.add('active');
-  lucide.createIcons();
-});
-
-closeChatBtn.addEventListener('click', () => {
-  aiChatWidget.classList.remove('active');
-});
-
-// Fungsi Menambahkan Pesan
-function appendMessage(text, sender) {
-  const msgDiv = document.createElement('div');
-  msgDiv.classList.add('chat-msg', sender === 'user' ? 'user-msg' : 'ai-msg');
-  msgDiv.innerHTML = text; // Pakai innerHTML agar bisa merender teks tebal (bold)
-  chatWidgetBody.appendChild(msgDiv);
-  chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
-}
-
-// Menampilkan Animasi Mengetik
-function showTypingIndicator() {
-  const typingDiv = document.createElement('div');
-  typingDiv.classList.add('chat-msg', 'ai-msg', 'typing-indicator-box');
-  typingDiv.id = 'activeTyping';
-  typingDiv.innerHTML = `
-    <div class="typing-dots">
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-    </div>
-  `;
-  chatWidgetBody.appendChild(typingDiv);
-  chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
-}
-
-function removeTypingIndicator() {
-  const typingDiv = document.getElementById('activeTyping');
-  if (typingDiv) typingDiv.remove();
-}
-
 /* =========================================================
    ADVANCED AI SALES ASSISTANT V3.0 (FULL UPGRADE)
    ========================================================= */
