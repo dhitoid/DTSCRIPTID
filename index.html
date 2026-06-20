@@ -4177,7 +4177,7 @@ document.querySelectorAll('a[href="#"]')
 });
 
 /* =========================================================
-   ADVANCED AI SALES ASSISTANT V3.0 (FULL UPGRADE)
+   ENTERPRISE AI SALES ASSISTANT V4.0 (STREAMING ENABLED)
    ========================================================= */
 
 const chatTriggerBtn = document.getElementById('chatTriggerBtn');
@@ -4188,21 +4188,23 @@ const chatWidgetInput = document.getElementById('chatWidgetInput');
 const sendChatBtn = document.getElementById('sendChatBtn');
 const quickRepliesContainer = document.getElementById('quickRepliesContainer');
 
-// 1. CHAT PERSISTENCE (Simpan chat di browser)
+// --- CONFIGURATION ---
+const BOT_NAME = "Nexora AI";
+
+// --- 1. CHAT PERSISTENCE & SESSION ---
 window.addEventListener('load', () => {
     const savedChat = localStorage.getItem('dt_chat_history');
     if (savedChat) {
         chatWidgetBody.innerHTML = savedChat;
-        if (quickRepliesContainer) quickRepliesContainer.style.display = 'none'; // Sembunyikan quick reply jika sudah pernah chat
-        lucide.createIcons(); // Re-render icon
+        if (quickRepliesContainer) quickRepliesContainer.style.display = 'none';
+        lucide.createIcons();
     } else {
-        // 2. INTELLIGENT GREETING (Sapaan berdasarkan waktu)
         const hour = new Date().getHours();
-        let greeting = "Halo! Ada yang bisa dibantu untuk project Anda hari ini?";
-        if (hour < 12) greeting = "Selamat pagi! Siap mewujudkan ide project Anda hari ini?";
-        else if (hour > 18) greeting = "Selamat malam! Kami tetap aktif. Ada project mendesak yang ingin dibahas?";
+        let greeting = `Halo! Saya ${BOT_NAME}. Ada yang bisa dibantu untuk project Anda hari ini?`;
+        if (hour < 12) greeting = `Selamat pagi! ${BOT_NAME} siap membantu mewujudkan ide project Anda.`;
+        else if (hour > 18) greeting = `Malam! ${BOT_NAME} di sini. Ada project mendesak yang ingin dibahas?`;
         
-        setTimeout(() => appendMessage(greeting, 'ai'), 500);
+        setTimeout(() => streamResponse(greeting), 800);
     }
 });
 
@@ -4210,14 +4212,96 @@ function saveChatHistory() {
     localStorage.setItem('dt_chat_history', chatWidgetBody.innerHTML);
 }
 
-// 3. FUNGSI UTAMA UI
-function appendMessage(text, sender) {
+// Reset Chat (Fitur Baru)
+window.resetChat = function() {
+    localStorage.removeItem('dt_chat_history');
+    chatWidgetBody.innerHTML = '';
+    if(quickRepliesContainer) quickRepliesContainer.style.display = 'flex';
+    streamResponse("Sesi dibersihkan. Apa lagi yang bisa saya bantu?");
+}
+
+// --- 2. AI STREAMING CORE (Efek mengetik) ---
+async function streamResponse(text) {
     const msgDiv = document.createElement('div');
-    msgDiv.classList.add('chat-msg', sender === 'user' ? 'user-msg' : 'ai-msg');
-    msgDiv.innerHTML = text;
+    msgDiv.classList.add('chat-msg', 'ai-msg');
+    chatWidgetBody.appendChild(msgDiv);
+    
+    // Split text agar bisa stream
+    const words = text.split('');
+    for (let i = 0; i < words.length; i++) {
+        msgDiv.textContent += words[i];
+        chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
+        await new Promise(resolve => setTimeout(resolve, 25)); // Kecepatan ketik
+    }
+    saveChatHistory();
+}
+
+function appendUserMessage(text) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('chat-msg', 'user-msg');
+    msgDiv.textContent = text;
     chatWidgetBody.appendChild(msgDiv);
     chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
-    saveChatHistory(); // Auto-save
+    saveChatHistory();
+}
+
+// --- 3. SMART LOGIC & RANDOM RESPONSES ---
+function getBotResponse(userText) {
+    const text = userText.toLowerCase();
+    
+    // Database Variasi Jawaban
+    const responses = {
+        harga: [
+            "Harga kami fleksibel mengikuti fitur. Ingin estimasi kasar? Klik WA di bawah, nanti saya berikan daftar paketnya! 💰",
+            "Biaya pengembangan bergantung pada kompleksitas. Mari konsultasi via WA agar saya bisa buatkan penawaran khusus. 💼",
+            "Kami punya paket starter hingga enterprise. Detail harganya ada di WhatsApp, silakan klik tombol di bawah! 🚀"
+        ],
+        portofolio: [
+            "Kami sudah menangani banyak klien dari startup hingga enterprise. Mau lihat demo project terbaru kami? Lanjut di WA ya! 💻",
+            "Tentu! Portofolio kami mencakup SaaS AI, Web App, dan dashboard. Klik WA untuk akses link demonya. 🌐",
+            "Kami bangga dengan hasil karya kami. Silakan hubungi via WA untuk melihat showcase lengkapnya! 🔥"
+        ],
+        admin: [
+            "Baik, saya sambungkan ke tim teknis kami. Silakan klik tombol di bawah untuk chat langsung! 📞",
+            "Ops, sepertinya Anda butuh bantuan manusia. Klik tombol WA di bawah agar admin kami merespon Anda segera. 👇",
+            "Menghubungkan ke tim human... Silakan klik tombol di bawah untuk memulai percakapan. ⚡"
+        ],
+        default: [
+            "Menarik sekali! Mari kita bahas detail teknisnya. Lanjut di WhatsApp ya agar lebih cepat! ⚡",
+            "Saya mengerti kebutuhan Anda. Mari kita buat sistem yang canggih. Hubungi tim kami via WA sekarang! 🔥",
+            "Bisa kita diskusikan lebih lanjut? Klik tombol di bawah untuk konsultasi langsung. 🚀"
+        ]
+    };
+
+    // Keyword Matcher
+    let category = 'default';
+    if (text.includes('harga') || text.includes('biaya')) category = 'harga';
+    else if (text.includes('portofolio') || text.includes('contoh')) category = 'portofolio';
+    else if (text.includes('admin') || text.includes('human') || text.includes('orang')) category = 'admin';
+
+    // Ambil jawaban random dari kategori
+    const list = responses[category];
+    return list[Math.floor(Math.random() * list.length)];
+}
+
+// --- 4. ENGINE ---
+function processChat(text) {
+    if (!text.trim()) return;
+    
+    if (quickRepliesContainer) quickRepliesContainer.style.display = 'none';
+
+    appendUserMessage(text);
+    chatWidgetInput.value = '';
+
+    // Show typing dots first
+    showTypingIndicator();
+
+    setTimeout(() => {
+        removeTypingIndicator();
+        const response = getBotResponse(text);
+        streamResponse(response);
+        updateWALink(text.toLowerCase());
+    }, 1200);
 }
 
 function showTypingIndicator() {
@@ -4226,7 +4310,6 @@ function showTypingIndicator() {
     typingDiv.id = 'activeTyping';
     typingDiv.innerHTML = `<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
     chatWidgetBody.appendChild(typingDiv);
-    chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
 }
 
 function removeTypingIndicator() {
@@ -4234,71 +4317,20 @@ function removeTypingIndicator() {
     if (typingDiv) typingDiv.remove();
 }
 
-// 4. LOGIKA SALES AI & HANDOVER
 function updateWALink(context) {
     const waBtn = document.querySelector('.wa-integration-btn');
     let message = "Halo DT Script ID, ";
-    
-    if (context.includes('harga')) message += "saya ingin bertanya mengenai detail harga.";
-    else if (context.includes('portofolio')) message += "saya tertarik melihat portofolio Anda.";
-    else if (context.includes('admin') || context.includes('human')) message += "saya butuh bantuan langsung dari admin.";
-    else message += "saya ingin konsultasi project custom.";
-    
+    if (context.includes('harga')) message += "saya tertarik dengan penawaran harga Anda.";
+    else if (context.includes('portofolio')) message += "saya ingin melihat portofolio.";
+    else message += "saya ingin konsultasi project.";
     waBtn.href = `https://wa.me/6285786342988?text=${encodeURIComponent(message)}`;
 }
 
-function getBotResponse(userText) {
-    const text = userText.toLowerCase();
-    
-    // Smart Keyword Detection
-    if (text.includes('admin') || text.includes('human') || text.includes('orang')) {
-        return "Baik, saya hubungkan langsung ke tim teknis kami ya. Silakan klik tombol di bawah untuk chat langsung via WhatsApp! 👇";
-    } else if (text.includes('harga') || text.includes('biaya') || text.includes('budget')) {
-        return "Harga kami fleksibel mengikuti skala fitur. Agar tidak salah estimasi, yuk diskusikan detailnya di WhatsApp! 💼";
-    } else if (text.includes('portofolio') || text.includes('contoh')) {
-        return "Kami punya koleksi project mulai dari SaaS AI hingga Web App. Mau saya kirim link portfolio terupdate di WhatsApp? 🚀";
-    } else {
-        return "Menarik! Mari kita buat sistem yang canggih. Ada spesifikasi teknis yang ingin dibahas? Klik WhatsApp di bawah untuk respon cepat. ⚡";
-    }
-}
-
-// 5. CORE ENGINE
-function processChat(text) {
-    if (!text.trim()) return;
-    
-    if (quickRepliesContainer) quickRepliesContainer.style.display = 'none';
-
-    appendMessage(text, 'user');
-    chatWidgetInput.value = '';
-
-    showTypingIndicator();
-
-    // Random delay agar terasa natural (1s - 2s)
-    const randomDelay = Math.floor(Math.random() * 1000) + 1000;
-
-    setTimeout(() => {
-        removeTypingIndicator();
-        const response = getBotResponse(text);
-        appendMessage(response, 'ai');
-        updateWALink(text.toLowerCase());
-    }, randomDelay);
-}
-
-// Event Listeners
-chatTriggerBtn.addEventListener('click', () => {
-    aiChatWidget.classList.add('active');
-    lucide.createIcons();
-});
-
-closeChatBtn.addEventListener('click', () => {
-    aiChatWidget.classList.remove('active');
-});
-
+// --- 5. EVENT LISTENERS ---
+chatTriggerBtn.addEventListener('click', () => aiChatWidget.classList.add('active'));
+closeChatBtn.addEventListener('click', () => aiChatWidget.classList.remove('active'));
 sendChatBtn.addEventListener('click', () => processChat(chatWidgetInput.value));
-chatWidgetInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') processChat(chatWidgetInput.value);
-});
-
+chatWidgetInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') processChat(chatWidgetInput.value); });
 window.handleQuickReply = (text) => processChat(text);
 
 </script>
