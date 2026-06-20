@@ -2325,7 +2325,7 @@ footer{
   padding: 14px 18px;
   color: white;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px; /* MENCEGAH AUTO-ZOOM PADA iOS/MOBILE */
   outline: none;
   transition: 0.3s;
 }
@@ -4227,42 +4227,53 @@ function removeTypingIndicator() {
   if (typingDiv) typingDiv.remove();
 }
 
-// Logika Pintar Bot Sales
-function getBotResponse(userText) {
-  const text = userText.toLowerCase();
+/* =========================
+   SMART SALES ASSISTANT V2
+========================= */
+
+// Fungsi untuk mengganti link WhatsApp secara dinamis
+function updateWALink(context) {
+  const waBtn = document.querySelector('.wa-integration-btn');
+  let message = "Halo DT Script ID, saya tertarik dengan ";
   
-  if (text.includes('harga') || text.includes('biaya')) {
-    return "Untuk detail **Harga**, sangat bergantung pada kompleksitas fitur (AI, animasi, realtime database). Mari diskusikan spesifikasinya lebih lanjut via WhatsApp agar saya bisa memberikan estimasi akurat! 💡";
-  } else if (text.includes('portofolio') || text.includes('karya') || text.includes('contoh')) {
-    return "Anda bisa melihat beberapa contoh project terbaik kami di bagian **Featured Projects** di website ini. Mulai dari Nexora AI hingga Kalkulator Pintar. Mau saya hubungkan dengan developer untuk demonya? 🚀";
-  } else if (text.includes('custom') || text.includes('bikin') || text.includes('buat')) {
-    return "Kami ahlinya membuat **Sistem Custom**! Mulai dari integrasi OpenAI, UI futuristik, hingga dashboard realtime. Silakan klik tombol WhatsApp di bawah untuk mengamankan slot pengembangan Anda. 🔥";
-  } else {
-    return "Menarik sekali! Sistem kami dirancang untuk membuat ide Anda jadi nyata dengan teknologi AI dan UI premium. Ingin membahas ini langsung dengan tim teknis kami via WhatsApp? ⚡";
-  }
+  if (context.includes('harga')) message += "penawaran harga Anda.";
+  else if (context.includes('portofolio')) message += "melihat portofolio lengkap Anda.";
+  else message += "layanan pengembangan website Anda.";
+  
+  waBtn.href = `https://wa.me/6285786342988?text=${encodeURIComponent(message)}`;
 }
 
-// Eksekusi Pengiriman Chat
+// Update fungsi processChat
 function processChat(text) {
   if (!text) return;
   
-  // Sembunyikan quick replies setelah interaksi pertama
-  if (quickRepliesContainer) {
-    quickRepliesContainer.style.display = 'none';
-  }
+  if (quickRepliesContainer) quickRepliesContainer.style.display = 'none';
 
   appendMessage(text, 'user');
   chatWidgetInput.value = '';
 
   showTypingIndicator();
 
-  // Simulasi waktu mikir AI (1.5 detik)
   setTimeout(() => {
     removeTypingIndicator();
-    const response = getBotResponse(text);
+    
+    // Bot Logic
+    let response = "";
+    const lowerText = text.toLowerCase();
+    
+    if (lowerText.includes('harga')) {
+      response = "Harga kami sangat kompetitif sesuai dengan fitur yang Anda butuhkan. Klik tombol di bawah untuk mendapatkan penawaran resmi! 👇";
+    } else if (lowerText.includes('portofolio')) {
+      response = "Kami sudah menangani puluhan project skala enterprise. Mau saya berikan akses ke case study terbaru kami? Silakan klik tombol di bawah untuk akses langsung! 🚀";
+    } else {
+      response = "Menarik sekali! Mari kita bedah kebutuhan teknis Anda agar hasilnya maksimal. Silakan lanjut diskusi di WhatsApp untuk mendapatkan respon instan dari tim kami. ⚡";
+    }
+    
     appendMessage(response, 'ai');
+    updateWALink(lowerText); // UPDATE LINK WA OTOMATIS
   }, 1500);
 }
+
 
 function handleSendChat() {
   processChat(chatWidgetInput.value.trim());
