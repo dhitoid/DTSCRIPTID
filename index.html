@@ -14,9 +14,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
+
 /* =========================
    RESET
 ========================= */
+
 *{
   margin:0;
   padding:0;
@@ -38,6 +40,7 @@ body{
 /* =========================
    NOISE TEXTURE
 ========================= */
+
 body::before{
   content:'';
   position:fixed;
@@ -53,12 +56,14 @@ body::before{
 /* =========================
    BG GRID
 ========================= */
+
 .bg-grid{
   position:fixed;
   inset:0;
   background:
   linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
   linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
   background-size:40px 40px;
   z-index:-10;
 }
@@ -66,6 +71,7 @@ body::before{
 /* =========================
    CURSOR GLOW
 ========================= */
+
 .cursor-glow{
   position:fixed;
   width:320px;
@@ -81,6 +87,7 @@ body::before{
 /* =========================
    AURORA
 ========================= */
+
 .aurora{
   position:fixed;
   border-radius:50%;
@@ -89,6 +96,7 @@ body::before{
   z-index:-8;
   animation:auroraMove 18s ease-in-out infinite;
 }
+
 .aurora1{
   width:500px;
   height:500px;
@@ -96,6 +104,7 @@ body::before{
   top:-100px;
   left:-100px;
 }
+
 .aurora2{
   width:420px;
   height:420px;
@@ -104,6 +113,7 @@ body::before{
   top:20%;
   animation-delay:4s;
 }
+
 .aurora3{
   width:450px;
   height:450px;
@@ -114,16 +124,33 @@ body::before{
 }
 
 @keyframes auroraMove{
-  0%{ transform:translate(0,0) scale(1); }
-  25%{ transform:translate(50px,-60px) scale(1.08); }
-  50%{ transform:translate(-30px,40px) scale(.95); }
-  75%{ transform:translate(60px,20px) scale(1.05); }
-  100%{ transform:translate(0,0) scale(1); }
+
+  0%{
+    transform:translate(0,0) scale(1);
+  }
+
+  25%{
+    transform:translate(50px,-60px) scale(1.08);
+  }
+
+  50%{
+    transform:translate(-30px,40px) scale(.95);
+  }
+
+  75%{
+    transform:translate(60px,20px) scale(1.05);
+  }
+
+  100%{
+    transform:translate(0,0) scale(1);
+  }
+
 }
 
 /* =========================
    NAVBAR
 ========================= */
+
 nav{
   position:fixed;
   top:18px;
@@ -138,35 +165,50 @@ nav{
   border-radius:28px;
   box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
+
 .nav-wrap{
   padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
+
 @media(max-width:768px){
-  nav{ top:12px; width:calc(100% - 20px); }
-  .logo{ font-size:22px; }
+
+nav{
+  top:12px;
+  width:calc(100% - 20px);
 }
+
+.logo{
+  font-size:22px;
+}
+
+}
+
 .logo{
   font-family:'Space Grotesk',sans-serif;
   font-size:30px;
   font-weight:700;
   letter-spacing:-1px;
+
   background:linear-gradient(90deg,#fff,#7dd3fc);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
+
 .nav-links{
   display:flex;
   gap:28px;
 }
+
 .nav-links a{
   text-decoration:none;
   color:rgba(255,255,255,.72);
   transition:.3s;
   font-weight:500;
 }
+
 .nav-links a:hover{
   color:white;
 }
@@ -174,277 +216,605 @@ nav{
 /* =========================
    ULTRA DYNAMIC ISLAND
 ========================= */
+
 .dynamic-island{
   position:fixed;
   top:74px;
   left:50%;
   transform:translateX(-50%);
+
   width:92%;
   max-width:390px;
-  min-height:74px;
+
+  min-height:74px; /* sebelumnya 64px */
   height:auto;
+
   border-radius:30px;
+
   z-index:998;
-  overflow:visible;
+
+  overflow:visible; /* sebelumnya hidden */
+
   backdrop-filter:blur(40px);
   -webkit-backdrop-filter:blur(40px);
-  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.04)
+  );
+
   border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 10px 40px rgba(0,0,0,.28),0 0 30px rgba(0,194,255,.06);
-  transition:.45s cubic-bezier(.19,1,.22,1), height .4s ease;
+
+  box-shadow:
+  0 10px 40px rgba(0,0,0,.28),
+  0 0 30px rgba(0,194,255,.06);
+
+  transition:
+  .45s cubic-bezier(.19,1,.22,1),
+  height .4s ease;
+
   display:flex;
-  align-items:flex-start;
+
+  align-items:flex-start; /* sebelumnya center */
+
   animation:islandFloatY 5s ease-in-out infinite;
 }
+
 .dynamic-island::before{
+
   content:'';
+
   position:absolute;
   inset:0;
-  background:radial-gradient(circle at top,rgba(0,194,255,.25),transparent 60%);
+
+  background:
+  radial-gradient(
+    circle at top,
+    rgba(0,194,255,.25),
+    transparent 60%
+  );
+
   pointer-events:none;
+
 }
+
 .dynamic-island::after{
+
   content:'';
+
   position:absolute;
+
   width:180px;
   height:180px;
-  background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(255,255,255,.14),
+    transparent 70%
+  );
+
   top:-80px;
   right:-60px;
+
   pointer-events:none;
+
 }
+
 .dynamic-island:hover{
   transform:translateX(-50%) scale(1.02);
-  border-color:rgba(255,255,255,.22);
-  box-shadow:0 30px 120px rgba(0,194,255,.18),0 20px 60px rgba(0,0,0,.45);
+
+  border-color:
+  rgba(255,255,255,.22);
+
+  box-shadow:
+  0 30px 120px rgba(0,194,255,.18),
+  0 20px 60px rgba(0,0,0,.45);
+
 }
+
 .dynamic-island.expanded{
   min-height:190px;
+  height:auto;
+
   width:92%;
   max-width:430px;
+
   border-radius:34px;
+
   padding-bottom:14px;
 }
+
 .island-content{
   width:100%;
   padding:16px 18px;
+
   display:flex;
   align-items:flex-start;
+
   gap:14px;
+
   min-height:74px;
 }
+
 @supports (-webkit-touch-callout: none) {
-  .dynamic-island{ padding-top:2px; }
+
+  .dynamic-island{
+    padding-top:2px;
+  }
+
 }
+
 @media(max-width:768px){
-  .dynamic-island{ top:96px; }
-  .hero{ padding-top:260px; }
+
+  .dynamic-island{
+    top:96px; /* sebelumnya 82 */
+  }
+
+  .hero{
+    padding-top:260px;
+  }
+
 }
+
 .island-icon{
   width:42px;
   height:42px;
+
   border-radius:14px;
+
   flex-shrink:0;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:18px;
-  background:linear-gradient(135deg,#6c63ff,#00c2ff);
-  box-shadow:0 8px 20px rgba(0,194,255,.18);
+
+  background:
+  linear-gradient(
+    135deg,
+    #6c63ff,
+    #00c2ff
+  );
+
+  box-shadow:
+  0 8px 20px rgba(0,194,255,.18);
+
   position:relative;
 }
+
 .pulse-ring{
+
   position:absolute;
+
   inset:0;
+
   border-radius:inherit;
+
   border:2px solid rgba(0,194,255,.4);
+
   animation:ring 2s infinite;
+
 }
+
 .island-info{
+
   flex:1;
+
   min-width:0;
+
 }
+
 #islandTitle{
   display:block;
+
   font-size:14px;
   font-weight:700;
+
   margin-bottom:2px;
+
   letter-spacing:-0.3px;
 }
+
 #islandText{
   font-size:12px;
   color:rgba(255,255,255,.55);
 }
+
 .island-status{
+
   width:14px;
   height:14px;
+
   border-radius:50%;
+
   background:#00ff88;
-  box-shadow:0 0 10px #00ff88,0 0 30px #00ff88;
+
+  box-shadow:
+  0 0 10px #00ff88,
+  0 0 30px #00ff88;
+
   margin-top:10px;
   margin-left:auto;
+
   animation:statusPulse 2s infinite;
+
 }
+
 .island-metrics{
   display:flex;
   gap:8px;
   margin-top:8px;
 }
+
 .island-metrics span{
   padding:5px 10px;
+
   border-radius:999px;
+
   font-size:10px;
   font-weight:600;
+
   background:rgba(255,255,255,.06);
+
   border:1px solid rgba(255,255,255,.06);
+
   color:#8bdcff;
 }
+
+/* LIVE WAVE */
+
 .island-wave{
+
   display:flex;
   align-items:flex-end;
   gap:4px;
+
   height:30px;
+
   margin-top:14px;
+
+}
+
+.wave-bar{
+
+  width:4px;
+
+  border-radius:20px;
+
+  background:
+  linear-gradient(
+    180deg,
+    #00c2ff,
+    #6c63ff
+  );
+
+  animation:waveBars 1s ease-in-out infinite;
+
+}
+
+.wave-bar:nth-child(1){height:10px;}
+.wave-bar:nth-child(2){height:18px;}
+.wave-bar:nth-child(3){height:26px;}
+.wave-bar:nth-child(4){height:14px;}
+.wave-bar:nth-child(5){height:22px;}
+
+.wave-bar:nth-child(2){
+  animation-delay:.1s;
+}
+
+.wave-bar:nth-child(3){
+  animation-delay:.2s;
+}
+
+.wave-bar:nth-child(4){
+  animation-delay:.3s;
+}
+
+.wave-bar:nth-child(5){
+  animation-delay:.4s;
+}
+
+.island-wave{
   opacity:0;
   transform:translateY(10px);
   transition:.35s;
 }
+
 .dynamic-island.expanded .island-wave{
   opacity:1;
   transform:none;
 }
-.wave-bar{
-  width:4px;
-  border-radius:20px;
-  background:linear-gradient(180deg,#00c2ff,#6c63ff);
-  animation:waveBars 1s ease-in-out infinite;
-}
-.wave-bar:nth-child(1){height:10px;}
-.wave-bar:nth-child(2){height:18px; animation-delay:.1s;}
-.wave-bar:nth-child(3){height:26px; animation-delay:.2s;}
-.wave-bar:nth-child(4){height:14px; animation-delay:.3s;}
-.wave-bar:nth-child(5){height:22px; animation-delay:.4s;}
+
+/* EXPAND CONTENT */
 
 .island-expand{
+
   margin-top:18px;
+
   padding-top:16px;
-  border-top:1px solid rgba(255,255,255,.08);
+
+  border-top:
+  1px solid rgba(255,255,255,.08);
+
   display:none;
+
   animation:fadeUp .5s ease;
+
 }
+
 .dynamic-island.expanded .island-expand{
   display:block;
 }
+
 .activity{
+
   display:flex;
   align-items:center;
   gap:12px;
+
   margin-bottom:14px;
+
 }
+
 .activity-dot{
+
   width:10px;
   height:10px;
+
   border-radius:50%;
+
   background:#00c2ff;
+
   box-shadow:0 0 12px #00c2ff;
+
 }
+
 .activity p{
+
   font-size:13px;
+
   color:rgba(255,255,255,.72);
+
 }
+
 .island-particles{
+
   position:absolute;
   inset:0;
+
   overflow:hidden;
+
   pointer-events:none;
+
 }
+
 .island-particles span{
+
   position:absolute;
+
   width:4px;
   height:4px;
+
   border-radius:50%;
+
   background:#7dd3fc;
+
   opacity:.6;
+
   animation:particleFloat linear infinite;
+
 }
-.island-particles span:nth-child(1){ left:20%; bottom:-10px; animation-duration:6s; }
-.island-particles span:nth-child(2){ left:50%; bottom:-20px; animation-duration:8s; }
-.island-particles span:nth-child(3){ left:75%; bottom:-12px; animation-duration:7s; }
-.island-particles span:nth-child(4){ left:35%; bottom:-14px; animation-duration:9s; }
+
+.island-particles span:nth-child(1){
+
+  left:20%;
+  bottom:-10px;
+
+  animation-duration:6s;
+
+}
+
+.island-particles span:nth-child(2){
+
+  left:50%;
+  bottom:-20px;
+
+  animation-duration:8s;
+
+}
+
+.island-particles span:nth-child(3){
+
+  left:75%;
+  bottom:-12px;
+
+  animation-duration:7s;
+
+}
+
+.island-particles span:nth-child(4){
+
+  left:35%;
+  bottom:-14px;
+
+  animation-duration:9s;
+
+}
 
 @keyframes particleFloat{
-  from{ transform:translateY(0) scale(1); opacity:0; }
-  20%{ opacity:.7; }
-  to{ transform:translateY(-160px) scale(0); opacity:0; }
+
+  from{
+
+    transform:
+    translateY(0)
+    scale(1);
+
+    opacity:0;
+
+  }
+
+  20%{
+    opacity:.7;
+  }
+
+  to{
+
+    transform:
+    translateY(-160px)
+    scale(0);
+
+    opacity:0;
+
+  }
+
 }
+
 @keyframes waveBars{
-  0%,100%{ transform:scaleY(1); opacity:1; }
-  50%{ transform:scaleY(.45); opacity:.5; }
+
+  0%,100%{
+    transform:scaleY(1);
+    opacity:1;
+  }
+
+  50%{
+    transform:scaleY(.45);
+    opacity:.5;
+  }
+
 }
+
 @keyframes islandFloatY{
-  0%,100%{ transform:translateX(-50%) translateY(0); }
-  50%{ transform:translateX(-50%) translateY(-10px); }
+
+  0%,100%{
+    transform:
+    translateX(-50%)
+    translateY(0);
+  }
+
+  50%{
+    transform:
+    translateX(-50%)
+    translateY(-10px);
+  }
+
 }
+
 @keyframes statusPulse{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.3); }
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.3);
+  }
+
 }
+
 @keyframes fadeUp{
-  from{ opacity:0; transform:translateY(20px); }
-  to{ opacity:1; transform:none; }
+
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+
 }
+
 @media(max-width:980px){
-  .dynamic-island{ display:flex !important; width:92%; top:80px; }
-  .dynamic-island:hover, .dynamic-island.expanded{ width:92%; }
+
+.dynamic-island{
+  display:flex !important;
+  width:92%;
+  top:80px;
+}
+
+.dynamic-island:hover{
+  width:92%;
+}
+
+.dynamic-island.expanded{
+  width:92%;
+}
+
 }
 
 /* =========================
    HERO
 ========================= */
+
 .hero{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
+
   padding:180px 24px 100px;
+
   position:relative;
   z-index:5;
 }
+
 .hero::before{
   content:'';
+
   position:absolute;
   inset:0;
-  background:radial-gradient(circle at top left,rgba(108,99,255,.18),transparent 35%),
-  radial-gradient(circle at bottom right,rgba(0,194,255,.16),transparent 35%);
+
+  background:
+  radial-gradient(circle at top left,
+  rgba(108,99,255,.18),
+  transparent 35%),
+
+  radial-gradient(circle at bottom right,
+  rgba(0,194,255,.16),
+  transparent 35%);
+
   pointer-events:none;
 }
+
 section{
   position:relative;
   z-index:2;
-  padding:100px 24px;
 }
+
 .hero-wrap{
   max-width:1300px;
   margin:auto;
   width:100%;
   position:relative;
   z-index:5;
+
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:70px;
   align-items:center;
 }
+
 .hero-badge{
   display:inline-flex;
   align-items:center;
   gap:10px;
+
   padding:12px 18px;
   border-radius:999px;
+
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.08);
+
   margin-bottom:28px;
+
   backdrop-filter:blur(20px);
 }
+
 .live-dot{
   width:10px;
   height:10px;
@@ -453,42 +823,79 @@ section{
   box-shadow:0 0 15px #00ff88;
   animation:pulse 1.5s infinite;
 }
+
 @media(max-width:768px){
-  .hero{ padding-top:40px; min-height:auto; }
-  .hero-wrap{ gap:28px; }
+
+.hero{
+  padding-top:40px;
+  min-height:auto;
 }
+
+.hero-wrap{
+  gap:28px;
+}
+
+}
+
 @media(max-width:600px){
-  .hero{ padding-top:120px; }
-  .ai-window{ margin-top:20px; }
-  .chat-area{ min-height:420px; }
+
+.hero{
+  padding-top:120px;
+  min-height:auto;
 }
+
+.ai-window{
+  margin-top:20px;
+}
+
+.chat-area{
+  min-height:420px;
+}
+
+}
+
+.command-palette{
+  -webkit-backdrop-filter:blur(10px);
+}
+
 @keyframes pulse{
-  0%{ transform:scale(1); }
-  50%{ transform:scale(1.5); }
-  100%{ transform:scale(1); }
+  0%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.5);
+  }
+  100%{
+    transform:scale(1);
+  }
 }
+
 .hero-text h1{
   font-size:78px;
   line-height:1;
   font-family:'Sora',sans-serif;
   margin-bottom:24px;
 }
+
 .gradient-text{
   background:linear-gradient(90deg,#6c63ff,#00c2ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
+
 .hero-text p{
   color:rgba(255,255,255,.72);
   line-height:1.8;
   font-size:18px;
   margin-bottom:36px;
 }
+
 .hero-buttons{
   display:flex;
   gap:16px;
   flex-wrap:wrap;
 }
+
 .btn{
   border:none;
   cursor:pointer;
@@ -497,46 +904,83 @@ section{
   font-weight:700;
   transition:.35s;
 }
-.btn:hover{ transform:translateY(-4px); }
+
+.btn:hover{
+  transform:translateY(-4px);
+}
+
 .btn-primary{
   background:linear-gradient(135deg,#6c63ff,#00c2ff);
   color:white;
-  box-shadow:0 10px 40px rgba(0,194,255,.25);
+
+  box-shadow:
+  0 10px 40px rgba(0,194,255,.25);
 }
+
 .btn-secondary{
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.08);
   color:white;
   backdrop-filter:blur(20px);
 }
-nav{ transition:.4s; }
-body.scrolled nav{
-  transform:translateX(-50%) translateY(-6px) scale(.98);
+
+nav{
+  transition:.4s;
 }
-body.scrolled .dynamic-island{ top:82px; }
+
+body.scrolled nav{
+  transform:
+  translateX(-50%)
+  translateY(-6px)
+  scale(.98);
+}
+
+body.scrolled .dynamic-island{
+  top:82px;
+}
+
+.bg-grid,
+.aurora,
+.cursor-glow{
+  pointer-events:none;
+}
 
 /* =========================
    AI WINDOW
 ========================= */
+
 .ai-window{
   background:rgba(255,255,255,.05);
   border:1px solid rgba(255,255,255,.08);
   backdrop-filter:blur(30px);
+
   border-radius:36px;
   overflow:hidden;
-  box-shadow:0 30px 100px rgba(0,0,0,.35);
+
+  box-shadow:
+  0 30px 100px rgba(0,0,0,.35);
   position:relative;
   z-index:4;
 }
+
 .ai-top{
   padding:18px 22px;
   border-bottom:1px solid rgba(255,255,255,.06);
+
   display:flex;
   align-items:center;
   gap:10px;
 }
-.dot{ width:12px; height:12px; border-radius:50%; }
-.red{background:#ff5f57;} .yellow{background:#febc2e;} .green{background:#28c840;}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+}
+
+.red{background:#ff5f57;}
+.yellow{background:#febc2e;}
+.green{background:#28c840;}
 
 .chat-area{
   padding:24px;
@@ -545,26 +989,41 @@ body.scrolled .dynamic-island{ top:82px; }
   gap:18px;
   min-height:520px;
 }
+
 .message{
   display:flex;
   gap:14px;
   animation:fade .5s ease;
 }
+
 @keyframes fade{
-  from{ opacity:0; transform:translateY(20px); }
-  to{ opacity:1; transform:none; }
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
-.message.user{ justify-content:flex-end; }
+
+.message.user{
+  justify-content:flex-end;
+}
+
 .avatar{
   width:48px;
   height:48px;
   border-radius:16px;
+
   background:linear-gradient(135deg,#6c63ff,#00c2ff);
+
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:20px;
 }
+
 .bubble{
   max-width:78%;
   padding:18px 20px;
@@ -573,26 +1032,38 @@ body.scrolled .dynamic-island{ top:82px; }
   font-size:15px;
   position:relative;
 }
-.ai-bubble{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); }
-.user-bubble{ background:linear-gradient(135deg,#6c63ff,#00c2ff); }
+
+.ai-bubble{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.user-bubble{
+  background:linear-gradient(135deg,#6c63ff,#00c2ff);
+}
+
 .copy-btn{
   margin-top:14px;
   padding:9px 14px;
   border:none;
   cursor:pointer;
+
   background:rgba(255,255,255,.08);
   color:white;
+
   border-radius:14px;
 }
 
 /* =========================
    TYPING
 ========================= */
+
 .typing{
   margin-top:12px;
   color:#7dd3fc;
   font-size:14px;
 }
+
 .cursor{
   width:10px;
   height:18px;
@@ -600,808 +1071,3089 @@ body.scrolled .dynamic-island{ top:82px; }
   display:inline-block;
   animation:blink 1s infinite;
 }
-@keyframes blink{ 50%{ opacity:0; } }
 
-/* =========================
-   GENERAL STYLING
-========================= */
-.trusted{ padding:20px 24px 80px; text-align:center; }
-.trusted span{ color:rgba(255,255,255,.5); }
-.logos{ margin-top:30px; display:flex; justify-content:center; gap:22px; flex-wrap:wrap; }
-.logos div{
-  padding:16px 24px; border-radius:18px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:rgba(255,255,255,.8);
+@keyframes blink{
+  50%{
+    opacity:0;
+  }
 }
-.stats{ max-width:1200px; margin:auto; display:grid; gap:24px; grid-template-columns:repeat(4,1fr); padding:0 24px 100px; }
-.stat{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); padding:40px; border-radius:30px; text-align:center; backdrop-filter:blur(30px); }
-.stat h2{ font-size:58px; margin-bottom:12px; background:linear-gradient(90deg,#fff,#7dd3fc); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.stat p{ color:rgba(255,255,255,.65); }
-.section-title{ text-align:center; margin-bottom:70px; }
-.section-title h2{ font-size:56px; font-family:'Sora',sans-serif; margin-bottom:18px; }
-.section-title p{ max-width:760px; margin:auto; color:rgba(255,255,255,.65); line-height:1.8; }
-.bento{ max-width:1300px; margin:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-.card{ position:relative; overflow:hidden; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); backdrop-filter:blur(30px); border-radius:34px; padding:34px; transition:.4s; }
-.card::before{ content:''; position:absolute; inset:0; background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent); transform:translateX(-100%); transition:.8s; }
-.card:hover::before{ transform:translateX(100%); }
-.card:hover{ transform:translateY(-8px); border-color:rgba(255,255,255,.18); }
-.card.large{ grid-column:span 2; }
-.card h3{ font-size:30px; margin-bottom:16px; }
-.card p{ color:rgba(255,255,255,.68); line-height:1.8; }
-.showcase-grid{ max-width:1300px; margin:auto; display:grid; grid-template-columns:1.2fr .8fr; gap:24px; }
-.dashboard{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:36px; padding:34px; min-height:420px; backdrop-filter:blur(30px); position:relative; overflow:hidden; }
-.dashboard::after{ content:''; position:absolute; inset:0; background:radial-gradient(circle at top right,rgba(0,194,255,.25),transparent 40%); }
-.dashboard-top{ display:flex; justify-content:space-between; margin-bottom:30px; }
-.chart{ height:220px; border-radius:26px; background:linear-gradient(180deg,rgba(0,194,255,.25),transparent); position:relative; overflow:hidden; }
-.chart-line{ position:absolute; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent); animation:scan 4s linear infinite; }
-@keyframes scan{ from{ transform:translateX(-100%); } to{ transform:translateX(100%); } }
-
-.cta{ max-width:1200px; margin:auto; background:linear-gradient(135deg,rgba(108,99,255,.18),rgba(0,194,255,.14)); border:1px solid rgba(255,255,255,.08); border-radius:40px; padding:70px 40px; text-align:center; position:relative; overflow:hidden; }
-.cta h2{ font-size:58px; font-family:'Sora'; margin-bottom:20px; }
-.cta p{ color:rgba(255,255,255,.72); max-width:700px; margin:auto; line-height:1.8; margin-bottom:34px; }
-footer{ padding:70px 24px; border-top:1px solid rgba(255,255,255,.06); }
-.footer-wrap{ max-width:1300px; margin:auto; display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; }
-.footer-brand h2{ font-family:'Space Grotesk'; font-size:34px; margin-bottom:14px; }
-.footer-brand p{ color:rgba(255,255,255,.6); line-height:1.8; max-width:420px; }
-.footer-links{ display:flex; gap:70px; flex-wrap:wrap; }
-.footer-links div{ display:flex; flex-direction:column; gap:14px; }
-.footer-links a{ text-decoration:none; color:rgba(255,255,255,.68); }
-.footer-links a:hover{ color:white; }
-.reveal{ opacity:0; transform:translateY(40px); transition:1s; }
-.reveal.active{ opacity:1; transform:none; }
 
 /* =========================
-   COMMAND PALETTE & LOADER
+   TRUSTED
 ========================= */
-.command-palette{ position:fixed; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(10px); z-index:99999; display:flex; align-items:flex-start; justify-content:center; padding-top:120px; opacity:0; pointer-events:none; transition:.3s; }
-.command-palette.active{ opacity:1; pointer-events:auto; }
-.command-box{ width:700px; max-width:90%; max-height:80vh; background:rgba(10,10,20,.9); border:1px solid rgba(255,255,255,.08); border-radius:30px; overflow:hidden; box-shadow:0 30px 100px rgba(0,0,0,.45); }
-.command-box input{ width:100%; background:none; border:none; outline:none; color:white; padding:24px; font-size:18px; border-bottom:1px solid rgba(255,255,255,.06); }
-.command-results{ padding:14px; }
-.command-item{ display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:20px; cursor:pointer; transition:.3s; color:rgba(255,255,255,.78); border:1px solid transparent; }
-.command-item:hover{ background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.08); transform:translateX(6px); color:white; }
-.command-item i{ width:20px; height:20px; color:#7dd3fc; }
-.loader{ position:fixed; inset:0; visibility:visible; background:radial-gradient(circle at top,rgba(108,99,255,.18),transparent 40%),#050816; z-index:999999; display:flex; align-items:center; justify-content:center; transition:opacity 1s ease, visibility 1s ease; }
-.loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
-.loader-content{ text-align:center; width:320px; }
-.loader-logo{ font-size:56px; font-family:'Space Grotesk'; margin-bottom:24px; background:linear-gradient(90deg,#fff,#00c2ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:pulseLogo 2s infinite; }
-@keyframes pulseLogo{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.03); } }
-.loader-text{ color:rgba(255,255,255,.7); margin-bottom:24px; min-height:20px; }
-.loader-bar{ width:100%; height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; }
-.loader-progress{ width:0%; height:100%; background:linear-gradient(90deg,#6c63ff,#00c2ff); border-radius:999px; position:relative; }
-.loader-progress::after{ content:''; position:absolute; top:0; right:0; width:80px; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.7)); animation:loaderShine 1.2s infinite; }
-@keyframes loaderShine{ from{ transform:translateX(-100%); } to{ transform:translateX(100%); } }
-.loader-percent{ margin-top:16px; color:#7dd3fc; font-weight:700; }
-.metric{ display:flex; justify-content:space-between; align-items:center; padding:18px 0; border-bottom:1px solid rgba(255,255,255,.06); }
-.metric span{ color:rgba(255,255,255,.68); }
-.metric strong{ font-size:24px; background:linear-gradient(90deg,#fff,#7dd3fc); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.voice-ai{ margin-top:24px; text-align:center; }
-.voice-circle{ width:90px; height:90px; border-radius:50%; margin:auto; background:linear-gradient(135deg,#6c63ff,#00c2ff); display:flex; align-items:center; justify-content:center; position:relative; font-size:32px; }
-.voice-wave{ position:absolute; width:100%; height:100%; border-radius:50%; border:2px solid rgba(0,194,255,.5); animation:wave 3s infinite; }
-.voice-wave:nth-child(2){ animation-delay:1s; } .voice-wave:nth-child(3){ animation-delay:2s; }
-.chart-bars{ height:100%; display:flex; align-items:flex-end; justify-content:space-around; padding:30px; }
-.bar{ width:40px; border-radius:14px 14px 0 0; background:linear-gradient(180deg,#00c2ff,#6c63ff); animation:bars 2s ease-in-out infinite; }
-.bar:nth-child(1){height:40%;} .bar:nth-child(2){height:70%;} .bar:nth-child(3){height:50%;} .bar:nth-child(4){height:90%;} .bar:nth-child(5){height:65%;} .bar:nth-child(6){height:85%;}
-.icon{ width:72px; height:72px; border-radius:22px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,rgba(108,99,255,.18),rgba(0,194,255,.12)); border:1px solid rgba(255,255,255,.08); margin-bottom:22px; backdrop-filter:blur(20px); position:relative; overflow:hidden; }
-.icon::before{ content:''; position:absolute; inset:0; background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent); transform:translateX(-100%); transition:.8s; }
-.card:hover .icon::before{ transform:translateX(100%); }
-.icon svg{ width:34px; height:34px; color:#7dd3fc; }
 
-.command-trigger{ position:fixed; bottom:24px; left:24px; width:58px; height:58px; border:none; border-radius:20px; background:rgba(255,255,255,.08); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.1); color:white; display:flex; align-items:center; justify-content:center; z-index:999999; box-shadow:0 10px 40px rgba(0,0,0,.35); cursor:pointer; transition:.35s; }
-.command-trigger:hover{ transform:translateY(-4px) scale(1.05); background:linear-gradient(135deg,#6c63ff,#00c2ff); }
-.command-ai-box{ margin-top:14px; padding:16px; border-top:1px solid rgba(255,255,255,.06); }
-.ai-command-header{ font-size:12px; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.4); margin-bottom:14px; }
-.ai-suggestion{ padding:14px 16px; border-radius:16px; margin-bottom:10px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05); cursor:pointer; transition:.3s; font-size:14px; color:rgba(255,255,255,.78); }
-.ai-suggestion:hover{ transform:translateX(6px); background:linear-gradient(135deg,rgba(108,99,255,.16),rgba(0,194,255,.12)); color:white; }
-@keyframes bars{ 0%,100%{ transform:scaleY(1); } 50%{ transform:scaleY(.7); } }
-@keyframes wave{ 0%{ transform:scale(1); opacity:1; } 100%{ transform:scale(1.8); opacity:0; } }
-.voice-ai p{ margin-top:18px; color:rgba(255,255,255,.7); }
+.trusted{
+  padding:20px 24px 80px;
+  text-align:center;
+}
+
+.trusted span{
+  color:rgba(255,255,255,.5);
+}
+
+.logos{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+.logos div{
+  padding:16px 24px;
+  border-radius:18px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  color:rgba(255,255,255,.8);
+}
 
 /* =========================
-   FLOATING AI CHAT WIDGET
+   STATS
 ========================= */
-.chat-widget-container {
+
+.stats{
+  max-width:1200px;
+  margin:auto;
+
+  display:grid;
+  gap:24px;
+  grid-template-columns:repeat(4,1fr);
+
+  padding:0 24px 100px;
+}
+
+.stat{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  padding:40px;
+  border-radius:30px;
+  text-align:center;
+
+  backdrop-filter:blur(30px);
+}
+
+.stat h2{
+  font-size:58px;
+  margin-bottom:12px;
+
+  background:linear-gradient(90deg,#fff,#7dd3fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.stat p{
+  color:rgba(255,255,255,.65);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+  padding:100px 24px;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:70px;
+}
+
+.section-title h2{
+  font-size:56px;
+  font-family:'Sora',sans-serif;
+  margin-bottom:18px;
+}
+
+.section-title p{
+  max-width:760px;
+  margin:auto;
+  color:rgba(255,255,255,.65);
+  line-height:1.8;
+}
+
+/* =========================
+   BENTO
+========================= */
+
+.bento{
+  max-width:1300px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.card{
+  position:relative;
+
+  overflow:hidden;
+
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(30px);
+
+  border-radius:34px;
+  padding:34px;
+
+  transition:.4s;
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+
+  transform:translateX(-100%);
+  transition:.8s;
+}
+
+.card:hover::before{
+  transform:translateX(100%);
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,255,255,.18);
+}
+
+.card.large{
+  grid-column:span 2;
+}
+
+.icon{
+  font-size:48px;
+  margin-bottom:22px;
+}
+
+.card h3{
+  font-size:30px;
+  margin-bottom:16px;
+}
+
+.card p{
+  color:rgba(255,255,255,.68);
+  line-height:1.8;
+}
+
+/* =========================
+   SHOWCASE
+========================= */
+
+.showcase-grid{
+  max-width:1300px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:24px;
+}
+
+.dashboard{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:36px;
+  padding:34px;
+
+  min-height:420px;
+  backdrop-filter:blur(30px);
+
+  position:relative;
+  overflow:hidden;
+}
+
+.dashboard::after{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(0,194,255,.25),
+  transparent 40%);
+}
+
+.dashboard-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.chart{
+  height:220px;
+  border-radius:26px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(0,194,255,.25),
+    transparent
+  );
+
+  position:relative;
+  overflow:hidden;
+}
+
+.chart-line{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:
+  linear-gradient(90deg,
+  transparent,
+  rgba(255,255,255,.6),
+  transparent);
+
+  animation:scan 4s linear infinite;
+}
+
+@keyframes scan{
+  from{
+    transform:translateX(-100%);
+  }
+  to{
+    transform:translateX(100%);
+  }
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+  max-width:1200px;
+  margin:auto;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(108,99,255,.18),
+    rgba(0,194,255,.14)
+  );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:40px;
+
+  padding:70px 40px;
+  text-align:center;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.cta h2{
+  font-size:58px;
+  font-family:'Sora';
+  margin-bottom:20px;
+}
+
+.cta p{
+  color:rgba(255,255,255,.72);
+  max-width:700px;
+  margin:auto;
+  line-height:1.8;
+  margin-bottom:34px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:70px 24px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.footer-wrap{
+  max-width:1300px;
+  margin:auto;
+
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+  flex-wrap:wrap;
+}
+
+.footer-brand h2{
+  font-family:'Space Grotesk';
+  font-size:34px;
+  margin-bottom:14px;
+}
+
+.footer-brand p{
+  color:rgba(255,255,255,.6);
+  line-height:1.8;
+  max-width:420px;
+}
+
+.footer-links{
+  display:flex;
+  gap:70px;
+  flex-wrap:wrap;
+}
+
+.footer-links div{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.footer-links a{
+  text-decoration:none;
+  color:rgba(255,255,255,.68);
+}
+
+.footer-links a:hover{
+  color:white;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:980px){
+
+.hero-wrap,
+.showcase-grid{
+  grid-template-columns:1fr;
+}
+
+.hero-text{
+  text-align:center;
+}
+
+.hero-buttons{
+  justify-content:center;
+}
+
+.hero-text h1{
+  font-size:56px;
+}
+
+.stats{
+  grid-template-columns:1fr;
+}
+
+.bento{
+  grid-template-columns:1fr;
+}
+
+.card.large{
+  grid-column:span 1;
+}
+
+.dynamic-island{
+  display:flex;
+  top:88px;
+  width:calc(100% - 24px);
+  max-width:none;
+}
+
+}
+
+/* =========================
+   COMMAND PALETTE
+========================= */
+
+.command-palette{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.45);
+
+  backdrop-filter:blur(10px);
+
+  z-index:99999;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+
+  padding-top:120px;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.3s;
+}
+
+.command-palette.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.command-box{
+  width:700px;
+  max-width:90%;
+  max-height:80vh;
+  background:rgba(10,10,20,.9);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:30px;
+
+  overflow:hidden;
+
+  box-shadow:
+  0 30px 100px rgba(0,0,0,.45);
+}
+
+.command-box input{
+  width:100%;
+
+  background:none;
+  border:none;
+  outline:none;
+
+  color:white;
+
+  padding:24px;
+
+  font-size:18px;
+
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.command-results{
+  padding:14px;
+}
+
+.command-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  padding:18px 20px;
+  border-radius:20px;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+  color:rgba(255,255,255,.78);
+
+  border:1px solid transparent;
+}
+
+.command-item:hover{
+
+  background:rgba(255,255,255,.05);
+
+  border-color:rgba(255,255,255,.08);
+
+  transform:translateX(6px);
+
+  color:white;
+}
+
+.command-item i{
+
+  width:20px;
+  height:20px;
+
+  color:#7dd3fc;
+}
+
+/* =========================
+   PREMIUM LOADER
+========================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  visibility:visible;
+  background:
+  radial-gradient(circle at top,
+  rgba(108,99,255,.18),
+  transparent 40%),
+  #050816;
+
+  z-index:999999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+  opacity 1s ease,
+  visibility 1s ease;
+}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader-content{
+  text-align:center;
+  width:320px;
+}
+
+.loader-logo{
+  font-size:56px;
+  font-family:'Space Grotesk';
+
+  margin-bottom:24px;
+
+  background:
+  linear-gradient(90deg,#fff,#00c2ff);
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:pulseLogo 2s infinite;
+}
+
+@keyframes pulseLogo{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.03);
+  }
+
+}
+
+.loader-text{
+  color:rgba(255,255,255,.7);
+  margin-bottom:24px;
+
+  min-height:20px;
+}
+
+.loader-bar{
+  width:100%;
+  height:10px;
+
+  background:rgba(255,255,255,.08);
+
+  border-radius:999px;
+
+  overflow:hidden;
+}
+
+.loader-progress{
+  width:0%;
+  height:100%;
+
+  background:
+  linear-gradient(
+    90deg,
+    #6c63ff,
+    #00c2ff
+  );
+
+  border-radius:999px;
+
+  position:relative;
+}
+
+.loader-progress::after{
+  content:'';
+
+  position:absolute;
+  top:0;
+  right:0;
+
+  width:80px;
+  height:100%;
+
+  background:
+  linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.7)
+  );
+
+  animation:loaderShine 1.2s infinite;
+}
+
+@keyframes loaderShine{
+
+  from{
+    transform:translateX(-100%);
+  }
+
+  to{
+    transform:translateX(100%);
+  }
+
+}
+
+.loader-percent{
+  margin-top:16px;
+  color:#7dd3fc;
+  font-weight:700;
+}
+
+/* =========================
+   METRICS
+========================= */
+
+.metric{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:18px 0;
+
+  border-bottom:
+  1px solid rgba(255,255,255,.06);
+}
+
+.metric span{
+  color:rgba(255,255,255,.68);
+}
+
+.metric strong{
+  font-size:24px;
+
+  background:
+  linear-gradient(90deg,#fff,#7dd3fc);
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* =========================
+   VOICE AI
+========================= */
+
+.voice-ai{
+  margin-top:24px;
+  text-align:center;
+}
+
+.voice-circle{
+  width:90px;
+  height:90px;
+
+  border-radius:50%;
+
+  margin:auto;
+
+  background:
+  linear-gradient(135deg,#6c63ff,#00c2ff);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  position:relative;
+
+  font-size:32px;
+}
+
+.voice-wave{
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  border-radius:50%;
+
+  border:2px solid rgba(0,194,255,.5);
+
+  animation:wave 3s infinite;
+}
+
+.voice-wave:nth-child(2){
+  animation-delay:1s;
+}
+
+.voice-wave:nth-child(3){
+  animation-delay:2s;
+}
+
+/* =========================
+   LIVE CHART
+========================= */
+
+.chart-bars{
+  height:100%;
+
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+
+  padding:30px;
+}
+
+.bar{
+  width:40px;
+
+  border-radius:14px 14px 0 0;
+
+  background:
+  linear-gradient(
+    180deg,
+    #00c2ff,
+    #6c63ff
+  );
+
+  animation:bars 2s ease-in-out infinite;
+}
+
+.bar:nth-child(1){
+  height:40%;
+}
+
+.bar:nth-child(2){
+  height:70%;
+}
+
+.bar:nth-child(3){
+  height:50%;
+}
+
+.bar:nth-child(4){
+  height:90%;
+}
+
+.bar:nth-child(5){
+  height:65%;
+}
+
+.bar:nth-child(6){
+  height:85%;
+}
+
+.icon{
+  width:72px;
+  height:72px;
+
+  border-radius:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(108,99,255,.18),
+    rgba(0,194,255,.12)
+  );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  margin-bottom:22px;
+
+  backdrop-filter:blur(20px);
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.icon::before{
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+
+  transform:translateX(-100%);
+  transition:.8s;
+}
+
+.card:hover .icon::before{
+  transform:translateX(100%);
+}
+
+.icon svg{
+  width:34px;
+  height:34px;
+
+  color:#7dd3fc;
+}
+
+.command-trigger{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:58px;
+  height:58px;
+
+  border:none;
+  border-radius:20px;
+
+  background:rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  z-index:999999;
+
+  box-shadow:
+  0 10px 40px rgba(0,0,0,.35);
+
+  cursor:pointer;
+
+  transition:.35s;
+}
+
+.command-trigger:hover{
+  transform:translateY(-4px) scale(1.05);
+
+  background:
+  linear-gradient(
+    135deg,
+    #6c63ff,
+    #00c2ff
+  );
+}
+
+.command-trigger::before{
+  content:'';
+
+  position:absolute;
+  inset:-1px;
+
+  border-radius:inherit;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,.3),
+    transparent
+  );
+
+  opacity:.5;
+}
+
+.command-ai-box{
+  margin-top:14px;
+  padding:16px;
+
+  border-top:
+  1px solid rgba(255,255,255,.06);
+}
+
+.ai-command-header{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+
+  color:rgba(255,255,255,.4);
+
+  margin-bottom:14px;
+}
+
+.ai-suggestion{
+  padding:14px 16px;
+
+  border-radius:16px;
+
+  margin-bottom:10px;
+
+  background:
+  rgba(255,255,255,.04);
+
+  border:
+  1px solid rgba(255,255,255,.05);
+
+  cursor:pointer;
+
+  transition:.3s;
+
+  font-size:14px;
+
+  color:rgba(255,255,255,.78);
+}
+
+.ai-suggestion:hover{
+
+  transform:translateX(6px);
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(108,99,255,.16),
+    rgba(0,194,255,.12)
+  );
+
+  color:white;
+}
+
+@keyframes bars{
+
+  0%,100%{
+    transform:scaleY(1);
+  }
+
+  50%{
+    transform:scaleY(.7);
+  }
+
+}
+
+@keyframes wave{
+
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1.8);
+    opacity:0;
+  }
+
+}
+
+.voice-ai p{
+  margin-top:18px;
+  color:rgba(255,255,255,.7);
+}
+
+@media(max-width:600px){
+
+.nav-links{
+  display:none;
+}
+
+.hero-text h1{
+  font-size:44px;
+}
+
+.section-title h2,
+.cta h2{
+  font-size:38px;
+}
+
+.bubble{
+  max-width:100%;
+}
+
+}
+
+@media(max-width:768px){
+
+.hero{
+  padding-top:220px;
+}
+
+.hero-text h1{
+  font-size:48px;
+  line-height:1.05;
+}
+
+.hero-wrap{
+  gap:40px;
+}
+
+.ai-window{
+  margin-top:10px;
+}
+
+.dynamic-island{
+  top:82px;
+}
+
+}
+
+/* =========================
+   PREMIUM AI CHAT WIDGET & WA
+========================= */
+
+.chat-trigger-btn {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 999999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6c63ff, #00c2ff);
+  border: none;
+  color: white;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 194, 255, 0.4);
+  z-index: 999999;
+  transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.chat-widget-window {
-  width: 380px;
-  max-height: 600px;
-  background: rgba(10, 10, 20, 0.85);
+.chat-trigger-btn:hover {
+  transform: translateY(-6px) scale(1.08);
+  box-shadow: 0 15px 40px rgba(0, 194, 255, 0.6);
+}
+
+.ai-chat-widget {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  background: rgba(10, 10, 20, 0.75);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 194, 255, 0.1);
-  overflow: hidden;
+  border-radius: 28px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 194, 255, 0.1);
+  z-index: 999998;
   opacity: 0;
-  transform: translateY(20px) scale(0.95);
   pointer-events: none;
+  transform: translateY(20px) scale(0.95);
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  transform-origin: bottom right;
 }
 
-.chat-widget-window.active {
+.ai-chat-widget.active {
   opacity: 1;
-  transform: translateY(0) scale(1);
   pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
-.chat-header {
+.chat-widget-header {
   padding: 20px;
-  background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(0, 194, 255, 0.15));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(255, 255, 255, 0.02);
 }
 
-.chat-header-info {
+.chat-widget-title {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.chat-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #6c63ff, #00c2ff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  box-shadow: 0 5px 15px rgba(0, 194, 255, 0.2);
-}
-
-.chat-header h4 {
-  font-size: 16px;
+  gap: 10px;
   font-weight: 700;
-  margin-bottom: 2px;
-  letter-spacing: -0.3px;
-}
-
-.online-status {
-  font-size: 12px;
-  color: #00ff88;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.online-status::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  background: #00ff88;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #00ff88;
-  animation: pulse 1.5s infinite;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
 }
 
 .close-chat {
-  background: rgba(255, 255, 255, 0.1);
+  background: none;
   border: none;
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: 0.3s;
+  display: flex;
 }
 
 .close-chat:hover {
-  background: rgba(255, 95, 87, 0.8);
+  color: white;
   transform: rotate(90deg);
 }
 
-.chat-body {
-  padding: 20px;
+.chat-widget-body {
   height: 320px;
+  padding: 20px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  scroll-behavior: smooth;
+  gap: 12px;
 }
 
-.chat-body::-webkit-scrollbar {
-  width: 6px;
+.chat-widget-body::-webkit-scrollbar {
+  width: 4px;
 }
 
-.chat-body::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+.chat-widget-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
 }
 
-.chat-message {
-  max-width: 85%;
-  padding: 14px 18px;
+.chat-msg {
+  padding: 12px 16px;
   border-radius: 18px;
   font-size: 14px;
-  line-height: 1.6;
-  animation: fadeUp 0.3s ease forwards;
+  line-height: 1.5;
+  max-width: 85%;
+  animation: fadeUpMsg 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.chat-message.ai {
+@keyframes fadeUpMsg {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ai-msg {
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   align-self: flex-start;
   border-bottom-left-radius: 4px;
 }
 
-.chat-message.user {
+.user-msg {
   background: linear-gradient(135deg, #6c63ff, #00c2ff);
-  color: white;
   align-self: flex-end;
   border-bottom-right-radius: 4px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 194, 255, 0.2);
 }
 
-.chat-quick-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 5px;
-}
-
-.chat-chip {
-  background: rgba(0, 194, 255, 0.1);
-  border: 1px solid rgba(0, 194, 255, 0.3);
-  color: #7dd3fc;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.chat-chip:hover {
-  background: #00c2ff;
-  color: #000;
-  transform: translateY(-2px);
-}
-
-.chat-footer {
+.chat-widget-footer {
   padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  gap: 10px;
   background: rgba(0, 0, 0, 0.2);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.chat-input-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.chat-widget-footer input {
+  flex: 1;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 8px 14px;
-  margin-bottom: 12px;
-}
-
-.chat-input-wrapper input {
-  flex: 1;
-  background: none;
-  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: white;
+  font-family: inherit;
   outline: none;
-  color: white;
-  font-size: 14px;
-}
-
-.chat-input-wrapper button {
-  background: linear-gradient(135deg, #6c63ff, #00c2ff);
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: 0.3s;
 }
 
-.chat-input-wrapper button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 194, 255, 0.3);
+.chat-widget-footer input:focus {
+  border-color: #00c2ff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.wa-integrate-btn {
+.chat-widget-footer button {
+  background: linear-gradient(135deg, #6c63ff, #00c2ff);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 12px;
-  background: rgba(37, 211, 102, 0.15);
-  border: 1px solid rgba(37, 211, 102, 0.3);
-  color: #25D366;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.chat-widget-footer button:hover {
+  transform: scale(1.08);
+}
+
+.wa-integration-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
   text-decoration: none;
-  border-radius: 14px;
   font-size: 14px;
   font-weight: 600;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   transition: 0.3s;
 }
 
-.wa-integrate-btn:hover {
-  background: #25D366;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+.wa-integration-btn:hover {
+  background: linear-gradient(135deg, #28e06d, #149c8c);
 }
 
-.chat-widget-toggle {
-  width: 64px;
-  height: 64px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #6c63ff, #00c2ff);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 194, 255, 0.3), 0 0 20px rgba(108, 99, 255, 0.4);
-  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.chat-widget-toggle:hover {
-  transform: scale(1.1) translateY(-5px);
-}
-
-.chat-widget-toggle i {
-  width: 28px;
-  height: 28px;
-}
-
-.typing-indicator {
-  display: flex;
-  gap: 4px;
-  padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 18px;
-  border-bottom-left-radius: 4px;
-  width: fit-content;
-  align-items: center;
-}
-
-.typing-dot {
-  width: 6px;
-  height: 6px;
-  background: #00c2ff;
-  border-radius: 50%;
-  animation: typingBounce 1.4s infinite ease-in-out both;
-}
-
-.typing-dot:nth-child(1) { animation-delay: -0.32s; }
-.typing-dot:nth-child(2) { animation-delay: -0.16s; }
-
-@keyframes typingBounce {
-  0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-  40% { transform: scale(1); opacity: 1; }
-}
-
-@media(max-width:980px){
-  .hero-wrap, .showcase-grid{ grid-template-columns:1fr; }
-  .hero-text{ text-align:center; }
-  .hero-buttons{ justify-content:center; }
-  .hero-text h1{ font-size:56px; }
-  .stats, .bento{ grid-template-columns:1fr; }
-  .card.large{ grid-column:span 1; }
-}
-@media(max-width:600px){
-  .nav-links{ display:none; }
-  .hero-text h1{ font-size:44px; }
-  .section-title h2, .cta h2{ font-size:38px; }
-  .bubble{ max-width:100%; }
-}
-@media(max-width:768px){
-  .hero{ padding-top:220px; }
-  .hero-text h1{ font-size:48px; line-height:1.05; }
-  .hero-wrap{ gap:40px; }
-  .ai-window{ margin-top:10px; }
-  .dynamic-island{ top:82px; }
-  .chat-widget-window { width: calc(100vw - 48px); right: 0; }
-}
 </style>
 
+<!-- GSAP -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<!-- LENIS -->
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 
 </head>
 <body>
   
+<!-- LOADING SCREEN -->
+
 <div class="loader" id="loader">
+
 <div class="loader-content">
-<div class="loader-logo">DT Script ID</div>
-<div class="loader-text" id="loaderText">Initializing AI System...</div>
+
+<div class="loader-logo">
+DT Script ID
+</div>
+
+<div class="loader-text" id="loaderText">
+Initializing AI System...
+</div>
+
 <div class="loader-bar">
+
 <div class="loader-progress" id="loaderProgress"></div>
+
 </div>
-<div class="loader-percent" id="loaderPercent">0%</div>
+
+<div class="loader-percent" id="loaderPercent">
+0%
 </div>
+
+</div>
+
 </div>
   
+<!-- COMMAND PALETTE -->
+
 <div class="command-palette" id="commandPalette">
+
 <div class="command-box">
-<input type="text" placeholder="Search projects, AI tools, utilities..." id="commandInput"/>
+
+<input
+type="text"
+placeholder="Search projects, AI tools, utilities..."
+id="commandInput"
+/>
+
 <div class="command-results">
-  <div class="command-item" data-link="#project-nexora"><i data-lucide="bot"></i><span>Nexora AI</span></div>
-  <div class="command-item" data-link="#project-kpr"><i data-lucide="calculator"></i><span>AI Utilities</span></div>
-  <div class="command-item" data-link="#showcase"><i data-lucide="layout-dashboard"></i><span>Showcase</span></div>
-  <div class="command-item" data-link="#contact"><i data-lucide="send"></i><span>Contact</span></div>
-  <div class="command-ai-box">
-    <div class="ai-command-header">AI Command Center</div>
-    <div class="ai-suggestion">Generate futuristic landing page</div>
-    <div class="ai-suggestion">Create AI dashboard interface</div>
-    <div class="ai-suggestion">Open Nexora AI system</div>
+
+  <div class="command-item" data-link="#project-nexora">
+
+    <i data-lucide="bot"></i>
+
+    <span>Nexora AI</span>
+
   </div>
+
+  <div class="command-item" data-link="#project-kpr">
+
+    <i data-lucide="calculator"></i>
+
+    <span>AI Utilities</span>
+
+  </div>
+
+  <div class="command-item" data-link="#showcase">
+
+    <i data-lucide="layout-dashboard"></i>
+
+    <span>Showcase</span>
+
+  </div>
+
+  <div class="command-item" data-link="#contact">
+
+    <i data-lucide="send"></i>
+
+    <span>Contact</span>
+
+  </div>
+  
+  <div class="command-ai-box">
+
+<div class="ai-command-header">
+AI Command Center
+</div>
+
+<div class="ai-suggestion">
+Generate futuristic landing page
+</div>
+
+<div class="ai-suggestion">
+Create AI dashboard interface
+</div>
+
+<div class="ai-suggestion">
+Open Nexora AI system
+</div>
+
+<div class="ai-suggestion">
+Deploy premium UI animation
+</div>
+
+</div>
+
 </div>
 </div>
 </div>
 
 <div class="bg-grid"></div>
+
 <div class="cursor-glow"></div>
+
 <div class="aurora aurora1"></div>
 <div class="aurora aurora2"></div>
 <div class="aurora aurora3"></div>
 
+<!-- NAV -->
+
 <nav>
+
 <div class="nav-wrap">
-<div class="logo">DT Script ID</div>
+
+<div class="logo">
+DT Script ID
+</div>
+
 <div class="nav-links">
   <a href="#home">Home</a>
   <a href="#products">Products</a>
+  <a href="#nexora">AI Systems</a>
   <a href="#showcase">Showcase</a>
   <a href="#contact">Contact</a>
 </div>
+
 </div>
+
 </nav>
 
+<!-- DYNAMIC ISLAND -->
+
 <div class="dynamic-island" id="dynamicIsland">
+
 <div class="island-content">
-<div class="island-particles"><span></span><span></span><span></span><span></span></div>
-<div class="island-icon"><span class="pulse-ring"></span>🤖</div>
+
+<div class="island-particles">
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+<div class="island-icon">
+
+<span class="pulse-ring"></span>
+
+🤖
+
+</div>
+
 <div class="island-info">
-<strong id="islandTitle">Nexora AI Core</strong>
-<p id="islandText">Realtime AI System Active</p>
+
+<strong id="islandTitle">
+Nexora AI Core
+</strong>
+
+<p id="islandText">
+Realtime AI System Active
+</p>
+
 <div class="island-metrics">
-<span id="metricProjects">42 Projects</span>
-<span id="metricUsers">128 Live</span>
+
+<span id="metricProjects">
+42 Projects
+</span>
+
+<span id="metricUsers">
+128 Live
+</span>
+
 </div>
+
 <div class="island-wave">
-<div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+
 </div>
+
 <div class="island-expand">
-<div class="activity"><div class="activity-dot"></div><p>Streaming AI response...</p></div>
-<div class="activity"><div class="activity-dot"></div><p>Realtime dashboard synchronized</p></div>
+
+<div class="activity">
+<div class="activity-dot"></div>
+<p>Streaming AI response...</p>
 </div>
+
+<div class="activity">
+<div class="activity-dot"></div>
+<p>Realtime dashboard synchronized</p>
 </div>
+
+<div class="activity">
+<div class="activity-dot"></div>
+<p>Voice assistant connected</p>
+</div>
+
+</div>
+
+</div>
+
 <div class="island-status"></div>
+
 </div>
+
 </div>
+
+<!-- HERO -->
 
 <section class="hero" id="home">
+
 <div class="hero-wrap">
+
 <div class="hero-text">
-<div class="hero-badge"><span class="live-dot"></span>AI Creative Technology Studio</div>
-<h1>Build The Future With <span class="gradient-text">Beautiful AI Experiences</span></h1>
-<p>DT Script ID builds premium AI-powered interfaces, smart automation systems, futuristic utilities, and next-generation digital experiences for modern brands.</p>
+
+<div class="hero-badge">
+<span class="live-dot"></span>
+AI Creative Technology Studio
+</div>
+
+<h1>
+
+Build The Future With
+
+<span class="gradient-text">
+Beautiful AI Experiences
+</span>
+
+</h1>
+
+<p>
+
+DT Script ID builds premium AI-powered interfaces,
+smart automation systems, futuristic utilities,
+and next-generation digital experiences for modern brands.
+
+</p>
+
 <div class="hero-buttons">
-<a href="#products" class="btn btn-primary">Explore Ecosystem</a>
-<a href="#showcase" class="btn btn-secondary">View Showcase</a>
+
+<a href="#products" class="btn btn-primary">
+Explore Ecosystem
+</a>
+
+<a href="#showcase" class="btn btn-secondary">
+View Showcase
+</a>
+
 </div>
+
 </div>
+
+<!-- AI WINDOW -->
 
 <div class="ai-window">
+
 <div class="ai-top">
-<div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+
+<div class="dot red"></div>
+<div class="dot yellow"></div>
+<div class="dot green"></div>
+
 </div>
+
 <div class="chat-area">
+
 <div class="message">
+
 <div class="avatar">✨</div>
+
 <div class="bubble ai-bubble">
+
 <div id="streamText"></div>
-<div class="typing">AI is generating futuristic experience...<span class="cursor"></span></div>
-<button class="copy-btn">Copy Response</button>
-</div>
-</div>
-<div class="message user">
-<div class="bubble user-bubble">Can you build a premium AI platform?</div>
-</div>
-<div class="message">
-<div class="avatar">🤖</div>
-<div class="bubble ai-bubble">Absolutely. We specialize in futuristic SaaS interfaces, AI systems, realtime interaction, glassmorphism experiences, and next-generation web products.</div>
-</div>
-</div>
-</div>
-</div>
-</section>
 
-<div class="stats reveal">
-<div class="stat live-counter"><h2 id="activeUsers">0</h2><p>Active AI Sessions</p></div>
-<div class="stat"><h2>120+</h2><p>AI Projects</p></div>
-<div class="stat"><h2>24/7</h2><p>Realtime Automation</p></div>
-<div class="stat"><h2>99%</h2><p>Premium Experience</p></div>
+<div class="typing">
+AI is generating futuristic experience...
+<span class="cursor"></span>
 </div>
 
-<section>
-<div class="cta reveal">
-<h2>Let's Build The Future</h2>
-<p>Create premium AI experiences, beautiful utility systems, futuristic SaaS platforms, and modern digital branding with DT Script ID.</p>
-<button class="btn btn-primary">Start Your Project</button>
-</div>
-</section>
-
-<footer id="contact">
-  <div class="footer-wrap">
-    <div class="footer-brand">
-      <h2>DT Script ID</h2>
-      <p>AI Creative Technology Studio focused on futuristic interfaces, premium digital experiences, automation systems, and next-generation web products.</p>
-    </div>
-  </div>
-</footer>
-
-<button class="command-trigger" id="commandTrigger">
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-<circle cx="11" cy="11" r="8"/>
-<path d="m21 21-4.3-4.3"/>
-</svg>
+<button class="copy-btn">
+Copy Response
 </button>
 
-<div class="chat-widget-container">
-  <div class="chat-widget-window" id="chatWidgetWindow">
-    <div class="chat-header">
-      <div class="chat-header-info">
-        <div class="chat-avatar">🤖</div>
-        <div>
-          <h4>Nexora AI Sales</h4>
-          <span class="online-status">Online • Siap membantu</span>
-        </div>
-      </div>
-      <button class="close-chat" id="closeChatBtn"><i data-lucide="x"></i></button>
-    </div>
-    
-    <div class="chat-body" id="chatBody">
-      <div class="chat-message ai">
-        Halo! Saya Nexora AI Sales Assistant dari DT Script ID. Ada yang bisa saya bantu hari ini? 🚀
-      </div>
-      
-      <div class="chat-quick-actions">
-        <button class="chat-chip" onclick="sendQuickMessage('Buat Website')">Buat Website</button>
-        <button class="chat-chip" onclick="sendQuickMessage('Tanya Harga')">Tanya Harga</button>
-        <button class="chat-chip" onclick="sendQuickMessage('Hubungi Tim WA')">Hubungi Tim WA</button>
-      </div>
-    </div>
-    
-    <div class="chat-footer">
-      <div class="chat-input-wrapper">
-        <input type="text" id="chatInput" placeholder="Ketik pesan Anda..." autocomplete="off" />
-        <button id="sendChatBtn"><i data-lucide="send"></i></button>
-      </div>
-      <a href="https://wa.me/6285786342988text=Halo%20DT%20Script%20ID,%20saya%20ingin%20konsultasi%20mengenai%20project%20website/AI." target="_blank" class="wa-integrate-btn">
-        <i data-lucide="phone"></i> Lanjutkan via WhatsApp
-      </a>
-    </div>
-  </div>
-  
-  <button class="chat-widget-toggle" id="chatWidgetToggle">
-    <i data-lucide="message-square"></i>
-  </button>
 </div>
 
+</div>
+
+<div class="message user">
+
+<div class="bubble user-bubble">
+Can you build a premium AI platform?
+</div>
+
+</div>
+
+<div class="message">
+
+<div class="avatar">🤖</div>
+
+<div class="bubble ai-bubble">
+
+Absolutely. We specialize in futuristic SaaS interfaces,
+AI systems, realtime interaction,
+glassmorphism experiences,
+and next-generation web products.
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VOICE AI -->
+
+<div class="voice-ai">
+
+<div class="voice-circle">
+
+<div class="voice-wave"></div>
+<div class="voice-wave"></div>
+<div class="voice-wave"></div>
+
+🎙️
+
+</div>
+
+<p>
+AI Voice Assistant Active
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- TRUSTED -->
+
+<div class="trusted reveal">
+
+<span>Trusted by creators & future digital brands</span>
+
+<div class="logos">
+
+<div>Nexora AI</div>
+<div>Future Labs</div>
+<div>AI Utility</div>
+<div>Creative Studio</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats reveal">
+  
+<div class="stat live-counter">
+<h2 id="activeUsers">
+0
+</h2>
+<p>
+Active AI Sessions
+</p>
+</div>
+
+<div class="stat">
+<h2>120+</h2>
+<p>AI Projects</p>
+</div>
+
+<div class="stat">
+<h2>24/7</h2>
+<p>Realtime Automation</p>
+</div>
+
+<div class="stat">
+<h2>99%</h2>
+<p>Premium Experience</p>
+</div>
+
+</div>
+
+<!-- PRODUCTS -->
+
+<section id="products">
+
+<div class="section-title reveal">
+
+<h2>
+Our Digital Ecosystem
+</h2>
+
+<p>
+
+A futuristic ecosystem of AI products,
+automation systems, creative interfaces,
+and modern digital experiences built for the future.
+
+</p>
+
+</div>
+
+<div class="bento">
+
+<div class="card large reveal" id="nexora">
+
+<div class="icon">
+🚀
+</div>
+
+<h3>
+Nexora AI
+</h3>
+
+<p>
+
+Advanced AI content generator with realtime streaming,
+beautiful chat UI,
+prompt intelligence,
+and premium interaction system.
+
+</p>
+
+</div>
+
+<div class="card reveal" id="utilities">
+
+<div class="icon">
+🧠
+</div>
+
+<h3>
+AI Utilities
+</h3>
+
+<p>
+
+Modern AI-powered tools designed for creators,
+developers,
+marketers,
+and digital businesses.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+📊
+</div>
+
+<h3>
+Realtime Systems
+</h3>
+
+<p>
+
+Interactive realtime dashboard,
+analytics engine,
+smart activity systems,
+and live automation experience.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+🎨
+</div>
+
+<h3>
+Premium UI
+</h3>
+
+<p>
+
+Glassmorphism,
+dynamic motion,
+aurora effects,
+ultra smooth interaction,
+and futuristic interface system.
+
+</p>
+
+</div>
+
+<div class="card large reveal">
+
+<div class="icon">
+⚡
+</div>
+
+<h3>
+Future Experience
+</h3>
+
+<p>
+
+We combine AI,
+branding,
+motion,
+interaction,
+and modern frontend technology
+to create digital experiences that feel premium,
+interactive,
+and futuristic.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+  <div class="section-title reveal">
+
+    <h2>
+      Featured Projects
+    </h2>
+
+    <p>
+      Explore futuristic products,
+      AI systems,
+      utilities,
+      and digital experiences built by DT Script ID.
+    </p>
+
+  </div>
+
+  <div class="bento">
+
+    <!-- NEXORA AI -->
+
+    <div class="card reveal" id="project-nexora">
+
+      <div class="icon">
+  <i data-lucide="bot"></i>
+</div>
+
+      <h3>Nexora AI</h3>
+
+      <p>
+        Premium AI chat platform with realtime interaction,
+        futuristic UI,
+        and smart automation system.
+      </p>
+
+      <br>
+
+      <a
+        href="https://nexora-ai-generator.vercel.app/"
+        class="btn btn-primary"
+        target="_blank"
+      >
+        Open Project
+      </a>
+
+    </div>
+
+    <!-- KPR -->
+
+    <div class="card reveal" id="project-kpr">
+
+      <div class="icon">
+  <i data-lucide="calculator"></i>
+</div>
+
+      <h3>Smart Mortgage Calculator</h3>
+
+      <p>
+        Smart mortgage calculator with realtime simulation,
+        DP calculation,
+        installment analysis,
+        and modern dashboard UI.
+      </p>
+
+      <br>
+
+      <a
+        href="https://dt-pro-web.vercel.app/"
+        class="btn btn-primary"
+        target="_blank"
+      >
+        Open Project
+      </a>
+
+    </div>
+
+    <!-- PROPERTY WEBSITE -->
+
+    <div class="card reveal">
+
+      <div class="icon">
+  <i data-lucide="building-2"></i>
+</div>
+
+      <h3>Property Website</h3>
+
+      <p>
+        Premium real estate website with interactive gallery,
+        landing page system,
+        maps integration,
+        and modern property showcase.
+      </p>
+
+      <br>
+
+      <a
+        href="https://dhitopropertyid.netlify.app/"
+        class="btn btn-primary"
+        target="_blank"
+      >
+        Open Project
+      </a>
+
+    </div>
+
+    <!-- CATATAN KEUANGAN -->
+
+    <div class="card reveal">
+
+      <div class="icon">
+  <i data-lucide="wallet"></i>
+</div>
+
+      <h3>Financial Record</h3>
+
+      <p>
+        Financial tracker for income,
+        expenses,
+        budgeting,
+        and smart analytics with beautiful dashboard experience.
+      </p>
+
+      <br>
+
+      <a
+        href="https://dhitoid.github.io/catatan-keuangan/"
+        class="btn btn-primary"
+        target="_blank"
+      >
+        Open Project
+      </a>
+
+    </div>
+
+    <!-- WEDDING -->
+
+    <div class="card reveal">
+
+      <div class="icon">
+  <i data-lucide="heart-handshake"></i>
+</div>
+
+      <h3>Wedding Invitation</h3>
+
+      <p>
+        Elegant wedding invitation website with music,
+        countdown timer,
+        RSVP feature,
+        gallery,
+        and premium romantic animation.
+      </p>
+
+      <br>
+
+      <a
+        href="https://dhitoid.github.io/sample-wedding/"
+        class="btn btn-primary"
+        target="_blank"
+      >
+        Open Project
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SHOWCASE -->
+
+<section id="showcase">
+
+<div class="section-title reveal">
+
+<h2>
+Live AI Showcase
+</h2>
+
+<p>
+Realtime futuristic dashboard experience
+designed with premium interaction system
+and AI-driven interface.
+</p>
+
+</div>
+
+<div class="showcase-grid">
+
+<!-- LEFT -->
+
+<div class="dashboard reveal">
+
+<div class="dashboard-top">
+
+<div>
+<h3 style="font-size:28px;">
+Realtime Analytics
+</h3>
+
+<p style="margin-top:8px;color:rgba(255,255,255,.65);">
+AI System Performance
+</p>
+</div>
+
+<div class="hero-badge">
+LIVE
+</div>
+
+</div>
+
+<div class="chart">
+
+<div class="chart-bars">
+
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+
+</div>
+
+</div>
+
+<div style="margin-top:30px;">
+
+<div class="metric">
+<span>AI Requests</span>
+<strong id="aiRequests">12,421</strong>
+</div>
+
+<div class="metric">
+<span>Projects Running</span>
+<strong id="projectsRunning">42</strong>
+</div>
+
+<div class="metric">
+<span>Realtime Visitors</span>
+<strong id="visitorsLive">128</strong>
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="dashboard reveal">
+
+<h3 style="font-size:28px;margin-bottom:24px;">
+AI Activity
+</h3>
+
+<div class="message">
+
+<div class="avatar">🤖</div>
+
+<div class="bubble ai-bubble">
+Generating landing page structure...
+</div>
+
+</div>
+
+<div class="message">
+
+<div class="avatar">⚡</div>
+
+<div class="bubble ai-bubble">
+Optimizing futuristic animation system...
+</div>
+
+</div>
+
+<div class="message">
+
+<div class="avatar">🚀</div>
+
+<div class="bubble ai-bubble">
+Deploying realtime AI interface...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- WHY -->
+
+<section>
+
+<div class="section-title reveal">
+
+<h2>
+Why DT Script ID?
+</h2>
+
+<p>
+
+We focus on premium interface quality,
+AI interaction,
+future design system,
+and modern digital branding.
+
+</p>
+
+</div>
+
+<div class="bento">
+
+<div class="card reveal">
+
+<div class="icon">
+🔥
+</div>
+
+<h3>
+Modern Design
+</h3>
+
+<p>
+
+Premium futuristic interface with smooth motion,
+glassmorphism,
+and immersive experience.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+🤖
+</div>
+
+<h3>
+AI Integration
+</h3>
+
+<p>
+
+Realtime AI systems with streaming interaction,
+automation,
+and futuristic experience.
+
+</p>
+
+</div>
+
+<div class="card reveal">
+
+<div class="icon">
+📱
+</div>
+
+<h3>
+Mobile First
+</h3>
+
+<p>
+
+Responsive mobile-first experience optimized
+for all modern devices.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section>
+
+<div class="cta reveal">
+
+<h2>
+
+Let's Build The Future
+
+</h2>
+
+<p>
+
+Create premium AI experiences,
+beautiful utility systems,
+futuristic SaaS platforms,
+and modern digital branding with DT Script ID.
+
+</p>
+
+<button class="btn btn-primary">
+Start Your Project
+</button>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer id="contact">
+
+  <div class="footer-wrap">
+
+    <div class="footer-brand">
+
+      <h2>
+        DT Script ID
+      </h2>
+
+      <p>
+        AI Creative Technology Studio focused on futuristic interfaces,
+        premium digital experiences,
+        automation systems,
+        and next-generation web products.
+      </p>
+
+    </div>
+
+    <div class="footer-links">
+
+      <!-- NAVIGATION -->
+
+      <div>
+
+        <strong>Navigation</strong>
+
+        <a href="#home">
+          Home
+        </a>
+
+        <a href="#products">
+          Products
+        </a>
+
+        <a href="#showcase">
+          Showcase
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
+      </div>
+
+      <!-- SERVICES -->
+
+      <div>
+
+        <strong>Services</strong>
+
+        <a href="#nexora">
+          AI Systems
+        </a>
+
+        <a href="#utilities">
+          UI Design
+        </a>
+
+        <a href="#projects">
+          Automation
+        </a>
+
+      </div>
+
+      <!-- SOCIAL -->
+
+      <div>
+
+        <strong>Social</strong>
+
+        <a
+          href="https://www.instagram.com/dtscriptid?utm_source=qr"
+          target="_blank"
+        >
+          Instagram
+        </a>
+
+        <a
+          href="https://www.tiktok.com/@dtscriptid11?_r=1&_t=ZS-96J7FE5WUJp"
+          target="_blank"
+        >
+          TikTok
+        </a>
+
+        <a
+          href="https://github.com/dhitoid"
+          target="_blank"
+        >
+          Github
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+<div class="ai-chat-widget" id="aiChatWidget">
+  
+  <div class="chat-widget-header">
+    <div class="chat-widget-title">
+      <div class="live-dot"></div>
+      Nexora AI Agent
+    </div>
+    <button class="close-chat" id="closeChatBtn">
+      <i data-lucide="x"></i>
+    </button>
+  </div>
+
+  <div class="chat-widget-body" id="chatWidgetBody">
+    <div class="chat-msg ai-msg">
+      Halo! Saya AI Assistant dari DT Script ID. Ada yang bisa saya bantu untuk project canggih Anda hari ini? 🚀
+    </div>
+  </div>
+
+  <div class="chat-widget-footer">
+    <input type="text" id="chatWidgetInput" placeholder="Tanyakan sesuatu..." autocomplete="off"/>
+    <button id="sendChatBtn">
+      <i data-lucide="send"></i>
+    </button>
+  </div>
+
+  <a href="https://wa.me/6285786342988?text=Halo%20DT%20Script%20ID,%20saya%20tertarik%20dengan%20layanan%20Anda!" target="_blank" class="wa-integration-btn">
+    <i data-lucide="message-circle"></i> Hubungi Human (WA)
+  </a>
+
+</div>
+
+<button class="chat-trigger-btn" id="chatTriggerBtn">
+  <i data-lucide="sparkles"></i>
+</button>
+
+<!-- COMMAND BUTTON -->
+
+<button class="command-trigger" id="commandTrigger">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+width="22"
+height="22"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+viewBox="0 0 24 24">
+
+<circle cx="11" cy="11" r="8"/>
+<path d="m21 21-4.3-4.3"/>
+
+</svg>
+
+</button>
+
 <script src="https://unpkg.com/lucide@latest"></script>
+
 <script>
   window.addEventListener('load', () => {
-    lucide.createIcons();
-  });
+  lucide.createIcons();
+});
 </script>
 
 <script>
-/* =========================
-   AI WIDGET CHAT LOGIC
-========================= */
-const chatWidgetToggle = document.getElementById('chatWidgetToggle');
-const chatWidgetWindow = document.getElementById('chatWidgetWindow');
-const closeChatBtn = document.getElementById('closeChatBtn');
-const chatBody = document.getElementById('chatBody');
-const chatInput = document.getElementById('chatInput');
-const sendChatBtn = document.getElementById('sendChatBtn');
-const quickActions = document.querySelector('.chat-quick-actions');
 
-let isChatOpen = false;
+document.querySelectorAll('.ai-suggestion')
+.forEach(item=>{
 
-// Buka/Tutup Chat
-chatWidgetToggle.addEventListener('click', () => {
-  isChatOpen = !isChatOpen;
-  if(isChatOpen) {
-    chatWidgetWindow.classList.add('active');
-    chatWidgetToggle.style.transform = 'scale(0)';
-  }
+  item.addEventListener('click',()=>{
+
+    const value =
+      item.textContent;
+
+    commandInput.value = value;
+
+    simulateAICommand(value);
+
+  });
+
 });
 
-closeChatBtn.addEventListener('click', () => {
-  isChatOpen = false;
-  chatWidgetWindow.classList.remove('active');
-  chatWidgetToggle.style.transform = 'scale(1)';
-});
+function simulateAICommand(command){
 
-// Menambahkan pesan pengguna
-function appendUserMessage(msg) {
-  const div = document.createElement('div');
-  div.className = 'chat-message user';
-  div.textContent = msg;
-  chatBody.insertBefore(div, quickActions);
-  chatBody.scrollTop = chatBody.scrollHeight;
+  const islandTitle =
+    document.getElementById('islandTitle');
+
+  const islandText =
+    document.getElementById('islandText');
+
+  dynamicIsland.classList.add('expanded');
+
+  islandTitle.textContent =
+    'AI Command Running';
+
+  islandText.textContent =
+    command;
+
+  setTimeout(()=>{
+
+    islandTitle.textContent =
+      'Command Completed';
+
+    islandText.textContent =
+      'AI execution finished successfully';
+
+  },2200);
+
 }
 
-// Menampilkan indikator mengetik
-function showTyping() {
-  const div = document.createElement('div');
-  div.className = 'typing-indicator';
-  div.id = 'typingIndicator';
-  div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-  chatBody.insertBefore(div, quickActions);
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
+const islandTitles = [
+  'Nexora AI Core',
+  'Realtime AI Engine',
+  'DT Neural System',
+  'Future Interface OS'
+];
 
-// Menghapus indikator mengetik
-function removeTyping() {
-  const typing = document.getElementById('typingIndicator');
-  if(typing) typing.remove();
-}
+const islandDescriptions = [
+  'Streaming realtime experience...',
+  'Deploying smart automation...',
+  'Generating premium UI...',
+  'Optimizing AI interactions...'
+];
 
-// Menambahkan pesan balasan AI
-function appendAIMessage(msg) {
-  const div = document.createElement('div');
-  div.className = 'chat-message ai';
-  div.innerHTML = msg; 
-  chatBody.insertBefore(div, quickActions);
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
-
-// Logika balasan cerdas AI
-function processAIResponse(userMsg) {
-  showTyping();
-  const lowerMsg = userMsg.toLowerCase();
-  
-  setTimeout(() => {
-    removeTyping();
-    
-    let response = "Wah menarik! Untuk membahas detail teknisnya lebih lanjut, silakan klik tombol <b>WhatsApp</b> di bawah agar langsung terhubung dengan tim kami ya.";
-    
-    if(lowerMsg.includes('harga') || lowerMsg.includes('biaya')) {
-      response = "Untuk harga pembuatan sistem AI atau website sangat bervariasi menyesuaikan tingkat kompleksitas dan fitur. Mau penawaran spesial? Klik tombol WA di bawah! 💸";
-    } else if(lowerMsg.includes('website') || lowerMsg.includes('bikin') || lowerMsg.includes('buat')) {
-      response = "Pilihan yang sangat tepat! Kami ahlinya membuat website futuristik dengan UI glassmorphism modern. Mari diskusikan konsep desain Anda via WhatsApp! ✨";
-    } else if(lowerMsg.includes('wa') || lowerMsg.includes('hubungi') || lowerMsg.includes('kontak')) {
-      response = "Langsung saja klik tombol hijau bertuliskan <b>Lanjutkan via WhatsApp</b> di bagian bawah untuk terhubung langsung dengan Dhito!";
-    }
-    
-    appendAIMessage(response);
-  }, 1500); // delay 1.5 detik agar terlihat seperti AI sedang berpikir/mengetik
-}
-
-// Handler Kirim Pesan
-function handleSend() {
-  const val = chatInput.value.trim();
-  if(!val) return;
-  
-  appendUserMessage(val);
-  chatInput.value = '';
-  processAIResponse(val);
-}
-
-sendChatBtn.addEventListener('click', handleSend);
-chatInput.addEventListener('keypress', (e) => {
-  if(e.key === 'Enter') handleSend();
-});
-
-// Fungsi untuk tombol chip Quick Reply
-window.sendQuickMessage = function(msg) {
-  appendUserMessage(msg);
-  processAIResponse(msg);
-};
-
-
-/* =========================
-   KODE LAMA ANDA TETAP BERJALAN DI BAWAH INI
-   (Loader, GSAP, Island Text, dll)
-========================= */
-const islandTitles = ['Nexora AI Core','Realtime AI Engine','DT Neural System'];
-const islandDescriptions = ['Streaming realtime experience...','Deploying smart automation...','Generating premium UI...'];
 let islandIndex = 0;
 
 setInterval(() => {
+
   islandIndex++;
-  if(islandIndex >= islandTitles.length) islandIndex = 0;
-  document.getElementById('islandTitle').textContent = islandTitles[islandIndex];
-  document.getElementById('islandText').textContent = islandDescriptions[islandIndex];
-}, 3000);
 
-const dynamicIsland = document.getElementById('dynamicIsland');
-dynamicIsland.addEventListener('mouseenter',()=>{ dynamicIsland.classList.add('expanded'); });
-dynamicIsland.addEventListener('mouseleave',()=>{ dynamicIsland.classList.remove('expanded'); });
+  if(islandIndex >= islandTitles.length){
+    islandIndex = 0;
+  }
 
-const metricProjects = document.getElementById('metricProjects');
-const metricUsers = document.getElementById('metricUsers');
+  document.getElementById('islandTitle').textContent =
+    islandTitles[islandIndex];
+
+  document.getElementById('islandText').textContent =
+    islandDescriptions[islandIndex];
+
+},3000);
+
+/* =========================
+   ULTRA DYNAMIC ISLAND
+========================= */
+
+const dynamicIsland =
+document.getElementById('dynamicIsland');
+
+let islandExpanded = false;
+
+dynamicIsland.addEventListener('mouseenter',()=>{
+
+  dynamicIsland.classList.add('expanded');
+
+});
+
+dynamicIsland.addEventListener('mouseleave',()=>{
+
+  dynamicIsland.classList.remove('expanded');
+
+});
+
+/* AUTO METRICS */
+
+const metricProjects =
+document.getElementById('metricProjects');
+
+const metricUsers =
+document.getElementById('metricUsers');
+
 let islandProjects = 42;
 let islandUsers = 128;
 
 setInterval(()=>{
+
   islandProjects += Math.floor(Math.random()*2);
+
   islandUsers += Math.floor(Math.random()*4)-1;
-  if(islandUsers < 80) islandUsers = 80;
-  metricProjects.textContent = islandProjects + ' Projects';
-  metricUsers.textContent = islandUsers + ' Live';
-}, 2000);
+
+  if(islandUsers < 80){
+    islandUsers = 80;
+  }
+
+  metricProjects.textContent =
+  islandProjects + ' Projects';
+
+  metricUsers.textContent =
+  islandUsers + ' Live';
+
+},2000);
+
+/* SCROLL REACTIVE */
 
 window.addEventListener('scroll',()=>{
+
   const scrollY = window.scrollY;
+
   if(scrollY > 120){
-    dynamicIsland.style.transform = 'translateX(-50%) scale(.92)';
+
+    dynamicIsland.style.transform =
+    'translateX(-50%) scale(.92)';
+
     dynamicIsland.style.opacity = '.92';
+
   }else{
-    dynamicIsland.style.transform = 'translateX(-50%) scale(1)';
+
+    dynamicIsland.style.transform =
+    'translateX(-50%) scale(1)';
+
     dynamicIsland.style.opacity = '1';
+
   }
+
 });
 
-const streamText = document.getElementById('streamText');
-const aiMessage = `Welcome to DT Script ID 🚀 We build futuristic AI experiences, premium SaaS interfaces, and next-generation digital products.`;
-let streamIndex = 0;
-function streamAI() {
-  if (streamIndex >= aiMessage.length) return;
-  if(streamText){ streamText.textContent += aiMessage.charAt(streamIndex); }
-  streamIndex++;
-  setTimeout(streamAI, 18);
-}
-if(streamText){ streamAI(); }
+/* =========================
+   PROJECT DATA
+========================= */
 
-const loader = document.getElementById('loader');
-const loaderProgress = document.getElementById('loaderProgress');
-const loaderPercent = document.getElementById('loaderPercent');
-const loaderText = document.getElementById('loaderText');
-let load = 0; let loaderFinished = false;
+const projects = [
+  {
+    name: 'Nexora AI',
+    icon: '🚀',
+    desc: 'Premium AI platform',
+    link: 'https://example.com'
+  },
+  {
+    name: 'AI Utilities',
+    icon: '🧠',
+    desc: 'Smart AI tools',
+    link: 'https://example.com'
+  }
+];
+
+/* =========================
+   SAFE SPEECH SYSTEM
+========================= */
+
+function speak(text) {
+
+  if (!('speechSynthesis' in window)) return;
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = 'en-US';
+  speech.rate = 1;
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(speech);
+
+}
+
+let hasSpoken = false;
+
+document.addEventListener('click', () => {
+
+  if (hasSpoken) return;
+
+  hasSpoken = true;
+
+  setTimeout(() => {
+    speak('Welcome to DT Script ID');
+  }, 400);
+
+}, { once: true });
+
+/* =========================
+   CURSOR GLOW
+========================= */
+
+const glow = document.querySelector('.cursor-glow');
+
+window.addEventListener('mousemove', (e) => {
+
+  requestAnimationFrame(() => {
+
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+
+  });
+
+});
+
+/* =========================
+   COPY BUTTON
+========================= */
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+
+  btn.addEventListener('click', async () => {
+
+    try {
+
+      const text = btn.parentElement.innerText
+        .replace('Copy Response', '')
+        .replace('Copied ✓', '')
+        .trim();
+
+      await navigator.clipboard.writeText(text);
+
+      btn.innerHTML = 'Copied ✓';
+
+      setTimeout(() => {
+        btn.innerHTML = 'Copy Response';
+      }, 2000);
+
+    } catch (err) {
+
+      btn.innerHTML = 'Failed';
+
+      setTimeout(() => {
+        btn.innerHTML = 'Copy Response';
+      }, 2000);
+
+    }
+
+  });
+
+});
+
+/* =========================
+   MAGNETIC BUTTON
+========================= */
+
+document.querySelectorAll('.btn').forEach(btn => {
+
+  btn.addEventListener('mousemove', (e) => {
+
+    const rect = btn.getBoundingClientRect();
+
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    btn.style.transform =
+      `translate(${x * .12}px, ${y * .12}px)`;
+
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+
+});
+
+/* =========================
+   DYNAMIC ISLAND TEXT
+========================= */
+
+const aiTexts = [
+  'Generating futuristic UI...',
+  'Optimizing AI system...',
+  'Deploying premium interface...',
+  'Streaming realtime experience...',
+  'Building smart automation...'
+];
+
+const islandText =
+  document.querySelector('.dynamic-island p');
+
+let aiIndex = 0;
+
+setInterval(() => {
+
+  aiIndex++;
+
+  if (aiIndex >= aiTexts.length) {
+    aiIndex = 0;
+  }
+
+  islandText.textContent = aiTexts[aiIndex];
+
+}, 3000);
+
+/* =========================
+   LENIS SMOOTH SCROLL
+========================= */
+
+let lenis = null;
+
+if (typeof Lenis !== 'undefined') {
+
+  lenis = new Lenis({
+    duration: 1.1,
+    smoothWheel: true,
+    smoothTouch: false
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+
+}
+
+/* =========================
+   COMMAND PALETTE
+========================= */
+
+const commandPalette =
+  document.getElementById('commandPalette');
+
+const commandInput =
+  document.getElementById('commandInput');
+
+function toggleCommandPalette() {
+
+  commandPalette.classList.toggle('active');
+
+  if (commandPalette.classList.contains('active')) {
+    commandInput.focus();
+  }
+
+}
+
+window.addEventListener('keydown', (e) => {
+
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+
+    e.preventDefault();
+
+    toggleCommandPalette();
+
+  }
+
+  if (e.key === 'Escape') {
+
+    commandPalette.classList.remove('active');
+
+  }
+
+});
+
+commandPalette.addEventListener('click', (e) => {
+
+  if (e.target === commandPalette) {
+    commandPalette.classList.remove('active');
+  }
+
+});
+
+document.querySelectorAll('.command-item')
+.forEach(item => {
+
+  item.addEventListener('click', () => {
+
+    const target = item.dataset.link;
+
+    const targetEl = document.querySelector(target);
+
+    if (targetEl) {
+
+      if (lenis) {
+
+        lenis.scrollTo(targetEl);
+
+      } else {
+
+        targetEl.scrollIntoView({
+          behavior: 'smooth'
+        });
+
+      }
+
+    }
+
+    commandPalette.classList.remove('active');
+
+  });
+
+});
+
+/* =========================
+   LIVE COUNTER
+========================= */
+
+const activeUsers =
+  document.getElementById('activeUsers');
+
+const aiRequests =
+  document.getElementById('aiRequests');
+
+const projectsRunning =
+  document.getElementById('projectsRunning');
+
+const visitorsLive =
+  document.getElementById('visitorsLive');
+
+let users = 128;
+let requests = 12421;
+let runningProjects = 42;
+let visitors = 89;
+
+setInterval(() => {
+
+  users += Math.floor(Math.random() * 3);
+
+  requests += Math.floor(Math.random() * 8);
+
+  visitors += Math.floor(Math.random() * 5) - 2;
+
+  if (visitors < 50) visitors = 50;
+
+  runningProjects += Math.floor(Math.random() * 2);
+
+  activeUsers.textContent = users;
+
+  aiRequests.textContent =
+    requests.toLocaleString();
+
+  projectsRunning.textContent =
+    runningProjects;
+
+  visitorsLive.textContent =
+    visitors;
+
+}, 2000);
+
+/* =========================
+   REAL AI STREAMING
+========================= */
+
+const streamText =
+  document.getElementById('streamText');
+
+const aiMessage = `
+Welcome to DT Script ID 🚀
+
+We build futuristic AI experiences,
+premium SaaS interfaces,
+smart automation systems,
+beautiful utilities,
+and next-generation digital products.
+`;
+
+let streamIndex = 0;
+
+function streamAI() {
+
+  if (streamIndex >= aiMessage.length) return;
+
+  streamText.textContent +=
+    aiMessage.charAt(streamIndex);
+
+  streamIndex++;
+
+  setTimeout(streamAI, 18);
+
+}
+
+streamAI();
+
+/* =========================
+   PREMIUM LOADER
+========================= */
+
+const loader =
+  document.getElementById('loader');
+
+const loaderProgress =
+  document.getElementById('loaderProgress');
+
+const loaderPercent =
+  document.getElementById('loaderPercent');
+
+const loaderText =
+  document.getElementById('loaderText');
+
+const loadingTexts = [
+  'Initializing AI System...',
+  'Loading futuristic interface...',
+  'Deploying realtime dashboard...',
+  'Generating premium experience...',
+  'Launching DT Script ID...'
+];
+
+let load = 0;
+let loaderFinished = false;
+
 const loadingInterval = setInterval(() => {
+
   if (loaderFinished) return;
+
   load += Math.floor(Math.random() * 4) + 1;
-  if (load >= 100) { load = 100; loaderFinished = true; clearInterval(loadingInterval); }
+
+  if (load >= 100) {
+
+    load = 100;
+
+    loaderFinished = true;
+
+    clearInterval(loadingInterval);
+
+  }
+
   loaderProgress.style.width = load + '%';
+
   loaderPercent.textContent = load + '%';
+
+  const textIndex = Math.min(
+    Math.floor(load / 20),
+    loadingTexts.length - 1
+  );
+
+  loaderText.textContent =
+    loadingTexts[textIndex];
+
   if (loaderFinished) {
+
     loaderText.textContent = 'System Ready ✓';
+
     setTimeout(() => {
+
       loader.classList.add('hide');
+
       document.body.style.overflowX = 'hidden';
       document.body.style.overflowY = 'auto';
+
     }, 700);
+
   }
+
 }, 60);
 
-const commandTrigger = document.getElementById('commandTrigger');
-const commandPalette = document.getElementById('commandPalette');
+const commandTrigger =
+  document.getElementById('commandTrigger');
+
 commandTrigger.addEventListener('click', () => {
-  commandPalette.classList.toggle('active');
+
+  toggleCommandPalette();
+
 });
 
+/* =========================
+   GSAP
+========================= */
+
 if (typeof gsap !== 'undefined') {
+
   gsap.registerPlugin(ScrollTrigger);
+
+gsap.fromTo('.hero-text',
+{
+  opacity:0,
+  y:60
+},
+{
+  opacity:1,
+  y:0,
+  duration:1.2,
+  ease:'power3.out',
+  clearProps:'all'
+});
+
+gsap.fromTo('.ai-window',
+{
+  opacity:0,
+  y:40,
+  scale:.96
+},
+{
+  opacity:1,
+  y:0,
+  scale:1,
+  duration:1.2,
+  delay:.2,
+  ease:'power3.out',
+  clearProps:'all'
+});
+  
+  gsap.from('.command-box',{
+  y:-40,
+  opacity:0,
+  scale:.96,
+  duration:.4,
+  ease:'power3.out'
+ });
+
   gsap.utils.toArray('.reveal').forEach(el => {
-    gsap.fromTo(el, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%', once: true } });
+
+    gsap.fromTo(el,
+      {
+        opacity: 0,
+        y: 60
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          once: true
+        }
+      }
+    );
+
   });
+
 }
+
+window.addEventListener('scroll',()=>{
+
+  if(window.scrollY > 40){
+
+    document.body.classList.add('scrolled');
+
+  }else{
+
+    document.body.classList.remove('scrolled');
+
+  }
+
+});
+
+/* =========================
+   SAFETY FALLBACK
+========================= */
+
+window.addEventListener('load', () => {
+
+  setTimeout(() => {
+
+    loader.classList.add('hide');
+
+    document.body.style.overflow = 'auto';
+
+    ScrollTrigger.refresh();
+
+  }, 1200);
+
+});
+
+/* =========================
+   FIX DEAD LINKS
+========================= */
+
+document.querySelectorAll('a[href="#"]')
+.forEach(link => {
+
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+
+});
+
+/* =========================
+   AI CHAT WIDGET SYSTEM
+========================= */
+const chatTriggerBtn = document.getElementById('chatTriggerBtn');
+const aiChatWidget = document.getElementById('aiChatWidget');
+const closeChatBtn = document.getElementById('closeChatBtn');
+const chatWidgetBody = document.getElementById('chatWidgetBody');
+const chatWidgetInput = document.getElementById('chatWidgetInput');
+const sendChatBtn = document.getElementById('sendChatBtn');
+
+// Toggle Widget Animasi
+chatTriggerBtn.addEventListener('click', () => {
+  aiChatWidget.classList.add('active');
+  lucide.createIcons(); // Render ulang icon jika diperlukan
+});
+
+closeChatBtn.addEventListener('click', () => {
+  aiChatWidget.classList.remove('active');
+});
+
+// Fungsi Chat Interaktif
+function appendMessage(text, sender) {
+  const msgDiv = document.createElement('div');
+  msgDiv.classList.add('chat-msg', sender === 'user' ? 'user-msg' : 'ai-msg');
+  msgDiv.textContent = text;
+  chatWidgetBody.appendChild(msgDiv);
+  chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight; // Auto-scroll ke bawah
+}
+
+function handleSendChat() {
+  const text = chatWidgetInput.value.trim();
+  if (!text) return;
+  
+  appendMessage(text, 'user');
+  chatWidgetInput.value = '';
+
+  // Efek AI Typing Delay
+  const typingIndicator = document.createElement('div');
+  typingIndicator.classList.add('chat-msg', 'ai-msg');
+  typingIndicator.innerHTML = '<span class="cursor"></span> Mengetik...';
+  chatWidgetBody.appendChild(typingIndicator);
+  chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
+
+  setTimeout(() => {
+    typingIndicator.remove(); // Hapus status mengetik
+    const aiResponses = [
+      "Sistem AI kami sedang menganalisis permintaan Anda... ⚡",
+      "Tentu! Kami bisa membuat antarmuka secanggih itu.",
+      "Integrasi ini sudah berjalan di ekosistem DT Script ID. Ada spesifikasi khusus?",
+      "Untuk diskusi lebih detail mengenai teknis dan harga, silakan klik tombol hijau 'Hubungi Human (WA)' di bawah ya! 🚀"
+    ];
+    const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+    appendMessage(randomResponse, 'ai');
+  }, 1200);
+}
+
+// Event Listeners
+sendChatBtn.addEventListener('click', handleSendChat);
+chatWidgetInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') handleSendChat();
+});
+
 </script>
 
 </body>
