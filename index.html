@@ -4227,68 +4227,130 @@ function removeTypingIndicator() {
   if (typingDiv) typingDiv.remove();
 }
 
-/* =========================
-   SMART SALES ASSISTANT V2
-========================= */
+/* =========================================================
+   ADVANCED AI SALES ASSISTANT V3.0 (FULL UPGRADE)
+   ========================================================= */
 
-// Fungsi untuk mengganti link WhatsApp secara dinamis
-function updateWALink(context) {
-  const waBtn = document.querySelector('.wa-integration-btn');
-  let message = "Halo DT Script ID, saya tertarik dengan ";
-  
-  if (context.includes('harga')) message += "penawaran harga Anda.";
-  else if (context.includes('portofolio')) message += "melihat portofolio lengkap Anda.";
-  else message += "layanan pengembangan website Anda.";
-  
-  waBtn.href = `https://wa.me/6285786342988?text=${encodeURIComponent(message)}`;
-}
+const chatTriggerBtn = document.getElementById('chatTriggerBtn');
+const aiChatWidget = document.getElementById('aiChatWidget');
+const closeChatBtn = document.getElementById('closeChatBtn');
+const chatWidgetBody = document.getElementById('chatWidgetBody');
+const chatWidgetInput = document.getElementById('chatWidgetInput');
+const sendChatBtn = document.getElementById('sendChatBtn');
+const quickRepliesContainer = document.getElementById('quickRepliesContainer');
 
-// Update fungsi processChat
-function processChat(text) {
-  if (!text) return;
-  
-  if (quickRepliesContainer) quickRepliesContainer.style.display = 'none';
-
-  appendMessage(text, 'user');
-  chatWidgetInput.value = '';
-
-  showTypingIndicator();
-
-  setTimeout(() => {
-    removeTypingIndicator();
-    
-    // Bot Logic
-    let response = "";
-    const lowerText = text.toLowerCase();
-    
-    if (lowerText.includes('harga')) {
-      response = "Harga kami sangat kompetitif sesuai dengan fitur yang Anda butuhkan. Klik tombol di bawah untuk mendapatkan penawaran resmi! 👇";
-    } else if (lowerText.includes('portofolio')) {
-      response = "Kami sudah menangani puluhan project skala enterprise. Mau saya berikan akses ke case study terbaru kami? Silakan klik tombol di bawah untuk akses langsung! 🚀";
+// 1. CHAT PERSISTENCE (Simpan chat di browser)
+window.addEventListener('load', () => {
+    const savedChat = localStorage.getItem('dt_chat_history');
+    if (savedChat) {
+        chatWidgetBody.innerHTML = savedChat;
+        if (quickRepliesContainer) quickRepliesContainer.style.display = 'none'; // Sembunyikan quick reply jika sudah pernah chat
+        lucide.createIcons(); // Re-render icon
     } else {
-      response = "Menarik sekali! Mari kita bedah kebutuhan teknis Anda agar hasilnya maksimal. Silakan lanjut diskusi di WhatsApp untuk mendapatkan respon instan dari tim kami. ⚡";
+        // 2. INTELLIGENT GREETING (Sapaan berdasarkan waktu)
+        const hour = new Date().getHours();
+        let greeting = "Halo! Ada yang bisa dibantu untuk project Anda hari ini?";
+        if (hour < 12) greeting = "Selamat pagi! Siap mewujudkan ide project Anda hari ini?";
+        else if (hour > 18) greeting = "Selamat malam! Kami tetap aktif. Ada project mendesak yang ingin dibahas?";
+        
+        setTimeout(() => appendMessage(greeting, 'ai'), 500);
     }
+});
+
+function saveChatHistory() {
+    localStorage.setItem('dt_chat_history', chatWidgetBody.innerHTML);
+}
+
+// 3. FUNGSI UTAMA UI
+function appendMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('chat-msg', sender === 'user' ? 'user-msg' : 'ai-msg');
+    msgDiv.innerHTML = text;
+    chatWidgetBody.appendChild(msgDiv);
+    chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
+    saveChatHistory(); // Auto-save
+}
+
+function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('chat-msg', 'ai-msg', 'typing-indicator-box');
+    typingDiv.id = 'activeTyping';
+    typingDiv.innerHTML = `<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+    chatWidgetBody.appendChild(typingDiv);
+    chatWidgetBody.scrollTop = chatWidgetBody.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const typingDiv = document.getElementById('activeTyping');
+    if (typingDiv) typingDiv.remove();
+}
+
+// 4. LOGIKA SALES AI & HANDOVER
+function updateWALink(context) {
+    const waBtn = document.querySelector('.wa-integration-btn');
+    let message = "Halo DT Script ID, ";
     
-    appendMessage(response, 'ai');
-    updateWALink(lowerText); // UPDATE LINK WA OTOMATIS
-  }, 1500);
+    if (context.includes('harga')) message += "saya ingin bertanya mengenai detail harga.";
+    else if (context.includes('portofolio')) message += "saya tertarik melihat portofolio Anda.";
+    else if (context.includes('admin') || context.includes('human')) message += "saya butuh bantuan langsung dari admin.";
+    else message += "saya ingin konsultasi project custom.";
+    
+    waBtn.href = `https://wa.me/6285786342988?text=${encodeURIComponent(message)}`;
 }
 
-
-function handleSendChat() {
-  processChat(chatWidgetInput.value.trim());
+function getBotResponse(userText) {
+    const text = userText.toLowerCase();
+    
+    // Smart Keyword Detection
+    if (text.includes('admin') || text.includes('human') || text.includes('orang')) {
+        return "Baik, saya hubungkan langsung ke tim teknis kami ya. Silakan klik tombol di bawah untuk chat langsung via WhatsApp! 👇";
+    } else if (text.includes('harga') || text.includes('biaya') || text.includes('budget')) {
+        return "Harga kami fleksibel mengikuti skala fitur. Agar tidak salah estimasi, yuk diskusikan detailnya di WhatsApp! 💼";
+    } else if (text.includes('portofolio') || text.includes('contoh')) {
+        return "Kami punya koleksi project mulai dari SaaS AI hingga Web App. Mau saya kirim link portfolio terupdate di WhatsApp? 🚀";
+    } else {
+        return "Menarik! Mari kita buat sistem yang canggih. Ada spesifikasi teknis yang ingin dibahas? Klik WhatsApp di bawah untuk respon cepat. ⚡";
+    }
 }
 
-// Eksekusi dari Quick Reply (Dipanggil dari atribut HTML onclick)
-window.handleQuickReply = function(text) {
-  processChat(text);
+// 5. CORE ENGINE
+function processChat(text) {
+    if (!text.trim()) return;
+    
+    if (quickRepliesContainer) quickRepliesContainer.style.display = 'none';
+
+    appendMessage(text, 'user');
+    chatWidgetInput.value = '';
+
+    showTypingIndicator();
+
+    // Random delay agar terasa natural (1s - 2s)
+    const randomDelay = Math.floor(Math.random() * 1000) + 1000;
+
+    setTimeout(() => {
+        removeTypingIndicator();
+        const response = getBotResponse(text);
+        appendMessage(response, 'ai');
+        updateWALink(text.toLowerCase());
+    }, randomDelay);
 }
 
 // Event Listeners
-sendChatBtn.addEventListener('click', handleSendChat);
-chatWidgetInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') handleSendChat();
+chatTriggerBtn.addEventListener('click', () => {
+    aiChatWidget.classList.add('active');
+    lucide.createIcons();
 });
+
+closeChatBtn.addEventListener('click', () => {
+    aiChatWidget.classList.remove('active');
+});
+
+sendChatBtn.addEventListener('click', () => processChat(chatWidgetInput.value));
+chatWidgetInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') processChat(chatWidgetInput.value);
+});
+
+window.handleQuickReply = (text) => processChat(text);
 
 </script>
 
