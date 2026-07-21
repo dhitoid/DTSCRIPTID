@@ -4,40 +4,38 @@
     <!-- === ADVANCED SEO & META TAGS === -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DTSCRIPTID | Jasa Pembuatan Website & Profesional Coding</title>
-    <meta name="description" content="DTSCRIPTID adalah web developer profesional yang melayani jasa pembuatan website company profile, undangan pernikahan (wedding), sistem keuangan, invoice, dan custom web apps.">
-    <meta name="keywords" content="jasa pembuatan website, web developer indonesia, dtscriptid, freelance programmer, website perusahaan, bikin website murah profesional">
+    <title>DTSCRIPTID | Web Developer Profesional</title>
+    <meta name="description" content="DTSCRIPTID adalah web developer profesional yang melayani jasa pembuatan website company profile, undangan pernikahan, sistem keuangan, invoice, dan custom web apps.">
+    <meta name="keywords" content="jasa pembuatan website, web developer indonesia, dtscriptid, freelance programmer, website perusahaan">
     <meta name="author" content="DTSCRIPTID">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="DTSCRIPTID | Profesional Web Developer">
-    <meta property="og:description" content="Ubah ide bisnis Anda menjadi website berkinerja tinggi. Mari bangun masa depan digital bersama DTSCRIPTID.">
+    <meta property="og:title" content="DTSCRIPTID | Web Developer Profesional">
+    <meta property="og:description" content="Ubah ide bisnis Anda menjadi website berkinerja tinggi.">
     <meta property="og:type" content="website">
 
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* === VARIABEL WARNA & DASAR (PREMIUM DARK MODE) === */
+        /* === VARIABEL WARNA (MODERN MINIMALIST DARK) === */
         :root {
-            --bg-color: #050507;
-            --surface-color: #0f111a;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --accent-cyan: #00f0ff;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --gradient-text: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            --bg-color: #09090b; /* Zinc 950 */
+            --surface-color: #18181b; /* Zinc 900 */
+            --surface-hover: #27272a; /* Zinc 800 */
+            --text-main: #f8fafc;
+            --text-muted: #a1a1aa;
+            --accent-main: #38bdf8; /* Sky Blue */
+            --accent-hover: #0284c7;
+            --glass-border: #3f3f46;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
 
@@ -45,7 +43,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         /* === NAVIGASI === */
@@ -57,38 +55,37 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(5, 5, 7, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(9, 9, 11, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: -0.5px;
             color: var(--text-main);
             text-decoration: none;
         }
 
         .logo span {
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent-main);
         }
 
         .nav-links {
             display: flex;
-            gap: 35px;
+            gap: 32px;
             align-items: center;
         }
 
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s ease;
-            font-size: 15px;
+            font-weight: 500;
+            transition: 0.2s ease;
+            font-size: 14px;
         }
 
         .nav-links a:hover {
@@ -96,41 +93,27 @@
         }
 
         .btn-nav {
-            padding: 10px 24px;
-            background: var(--glass-bg);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 30px;
-            color: var(--accent-cyan) !important;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-main) !important;
+            transition: all 0.2s ease;
         }
 
         .btn-nav:hover {
-            background: var(--accent-cyan);
+            background: var(--text-main);
             color: var(--bg-color) !important;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
-        /* === HERO SECTION (PERSONALIZED) === */
+        /* === HERO SECTION === */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 120px 8% 50px;
-            position: relative;
+            padding: 140px 8% 60px;
             gap: 50px;
-        }
-
-        .hero-bg-glow {
-            position: absolute;
-            top: 20%;
-            left: 10%;
-            width: 400px;
-            height: 400px;
-            background: var(--accent-purple);
-            filter: blur(150px);
-            opacity: 0.2;
-            z-index: -1;
-            border-radius: 50%;
         }
 
         .hero-content {
@@ -139,28 +122,33 @@
         }
 
         .badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(0, 240, 255, 0.1);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
             border-radius: 20px;
-            color: var(--accent-cyan);
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 25px;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .badge i {
+            color: var(--accent-main);
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 800;
             line-height: 1.1;
+            letter-spacing: -1px;
             margin-bottom: 20px;
         }
 
         .hero h1 span {
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent-main);
         }
 
         .hero p {
@@ -168,50 +156,55 @@
             color: var(--text-muted);
             margin-bottom: 40px;
             max-width: 90%;
+            font-weight: 400;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
         }
 
         .btn-primary {
-            padding: 15px 35px;
-            background: var(--gradient-text);
+            padding: 14px 28px;
+            background: var(--text-main);
             color: var(--bg-color);
-            font-weight: 800;
+            font-weight: 600;
+            font-size: 15px;
             border: none;
-            border-radius: 30px;
+            border-radius: 8px;
             text-decoration: none;
-            transition: 0.3s;
-            cursor: pointer;
+            transition: 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.3);
+            background: var(--text-muted);
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
-            padding: 15px 35px;
-            background: transparent;
+            padding: 14px 28px;
+            background: var(--surface-color);
             color: var(--text-main);
             border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            font-weight: 600;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 15px;
             text-decoration: none;
-            transition: 0.3s;
-            display: flex;
+            transition: 0.2s ease;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn-secondary:hover {
-            background: var(--glass-bg);
-            border-color: var(--text-main);
+            background: var(--surface-hover);
+            border-color: var(--text-muted);
         }
 
-        /* Foto Profil Hero */
+        /* Foto Profil Placeholder yang Elegan */
         .hero-image {
             flex: 1;
             display: flex;
@@ -220,230 +213,182 @@
         }
 
         .profile-img-container {
-            width: 350px;
-            height: 450px;
-            border-radius: 30px;
-            background: linear-gradient(45deg, var(--surface-color), #1a1d27);
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 4/5;
+            border-radius: 16px;
+            background: var(--surface-color);
             border: 1px solid var(--glass-border);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        /* Placeholder foto (Bisa diganti tag <img> aslimu) */
-        .profile-img-container::after {
-            content: '\f2bd';
-            font-family: "FontAwesome";
-            font-size: 8rem;
-            color: var(--glass-border);
+            position: relative;
+            overflow: hidden;
         }
 
-        .tech-stack-float {
+        /* Grid pattern untuk estetika teknologi jika tidak ada foto */
+        .profile-img-container::before {
+            content: '';
             position: absolute;
-            background: var(--surface-color);
-            padding: 12px 20px;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: float 4s ease-in-out infinite;
+            inset: 0;
+            background-image: radial-gradient(var(--glass-border) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
         }
 
-        .ts-1 { bottom: 40px; left: -40px; }
-        .ts-2 { top: 40px; right: -30px; animation-delay: 2s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        .profile-img-container i {
+            font-size: 4rem;
+            color: var(--glass-border);
+            z-index: 1;
         }
 
         /* === SECTIONS UMUM === */
         section { padding: 100px 8%; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
-        .section-header h2 span { color: var(--accent-cyan); }
-        .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        .section-header { margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .section-header p { color: var(--text-muted); max-width: 600px; font-size: 1.05rem; }
 
-        /* === SELLING: PRICING / LAYANAN === */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .pricing-card {
+        /* === PRICING BANNER (NEW) === */
+        .pricing-banner {
             background: var(--surface-color);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px 30px;
-            transition: 0.4s;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-cyan);
-        }
-
-        .pricing-card.popular {
-            background: linear-gradient(180deg, rgba(0, 240, 255, 0.05) 0%, var(--surface-color) 100%);
-            border-color: rgba(0, 240, 255, 0.3);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-text);
-            color: var(--bg-color);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .pricing-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .price { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); }
-        .price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
-        
-        .features-list { list-style: none; margin-bottom: 30px; flex: 1; }
-        .features-list li { margin-bottom: 15px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
-        .features-list li i { color: var(--accent-cyan); }
-
-        .btn-block {
-            width: 100%;
-            text-align: center;
-            padding: 15px;
-            border-radius: 15px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .pricing-card.popular .btn-block {
-            background: var(--accent-cyan);
-            color: var(--bg-color);
-            border: none;
-        }
-        
-        .btn-block:hover { background: var(--text-main); color: var(--bg-color); }
-        .pricing-card.popular .btn-block:hover { box-shadow: 0 0 20px rgba(0,240,255,0.5); }
-
-        /* === PORTFOLIO UPGRADE === */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .portfolio-item {
             border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            aspect-ratio: 4/3;
-            position: relative;
-            group: hover;
-        }
-
-        /* Warna Dummy untuk Gambar (Ganti dengan img nanti) */
-        .p-bg-1 { background: linear-gradient(45deg, #2b1055, #7597de); }
-        .p-bg-2 { background: linear-gradient(45deg, #1f4037, #99f2c8); }
-        .p-bg-3 { background: linear-gradient(45deg, #fc4a1a, #f7b733); }
-        .p-bg-4 { background: linear-gradient(45deg, #108dc7, #ef8e38); }
-        .p-bg-5 { background: linear-gradient(45deg, #8E2DE2, #4A00E0); }
-        .p-bg-6 { background: linear-gradient(45deg, #FF416C, #FF4B2B); }
-        .p-bg-7 { background: linear-gradient(45deg, #00b09b, #96c93d); }
-        .p-bg-8 { background: linear-gradient(45deg, #333333, #dd1818); }
-
-        .portfolio-content {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(5,5,7,0.95) 0%, rgba(5,5,7,0.4) 50%, transparent 100%);
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            transform: translateY(20px);
-            opacity: 0.8;
-            transition: 0.4s ease;
-        }
-
-        .portfolio-item:hover .portfolio-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .tag {
-            font-size: 11px;
-            padding: 4px 10px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 10px;
-            width: max-content;
-            margin-bottom: 10px;
-            color: var(--accent-cyan);
-        }
-
-        .portfolio-content h4 { font-size: 1.2rem; margin-bottom: 5px; }
-        .portfolio-content p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
-        
-        .visit-link {
-            font-size: 0.9rem;
-            color: var(--text-main);
-            text-decoration: none;
+            padding: 50px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 600;
+            justify-content: space-between;
+            gap: 30px;
+            transition: 0.3s ease;
         }
-        .visit-link i { transition: 0.3s; }
-        .visit-link:hover i { transform: translateX(5px); color: var(--accent-cyan); }
+
+        .pricing-banner:hover {
+            border-color: var(--accent-main);
+        }
+
+        .pricing-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .pricing-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .pricing-content p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+
+        .pricing-cta {
+            flex-shrink: 0;
+        }
+
+        /* === PORTFOLIO (TYPOGRAPHIC UI - NO IMAGES NEEDED) === */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .portfolio-card {
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--text-muted);
+            background: var(--surface-hover);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .folder-icon {
+            font-size: 1.8rem;
+            color: var(--accent-main);
+        }
+
+        .external-link {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .external-link:hover {
+            color: var(--text-main);
+        }
+
+        .portfolio-card h4 { 
+            font-size: 1.25rem; 
+            margin-bottom: 10px; 
+            color: var(--text-main);
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .portfolio-card p { 
+            font-size: 0.95rem; 
+            color: var(--text-muted); 
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+        
+        .card-tech {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
 
         /* === CTA KHUSUS (SELLING) === */
         .cta-section {
-            padding: 80px 8%;
+            padding: 60px 8% 100px;
         }
+        
         .cta-box {
-            background: linear-gradient(135deg, var(--surface-color), #131726);
-            border: 1px solid var(--accent-purple);
-            border-radius: 30px;
+            background: var(--text-main);
+            border-radius: 16px;
             padding: 60px 40px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+            color: var(--bg-color);
         }
 
-        .cta-box h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .cta-box p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+        .cta-box h2 { font-size: 2.2rem; margin-bottom: 15px; letter-spacing: -0.5px; font-weight: 800; }
+        .cta-box p { color: #3f3f46; font-size: 1.1rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
         .btn-whatsapp {
             background: #25D366;
             color: #fff;
-            padding: 15px 40px;
-            border-radius: 30px;
+            padding: 14px 32px;
+            border-radius: 8px;
             text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 800;
+            font-size: 1.05rem;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: 0.3s;
+            transition: 0.2s ease;
         }
-        .btn-whatsapp:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); }
+        
+        .btn-whatsapp:hover { 
+            transform: translateY(-2px); 
+            background: #1ebc59;
+        }
 
         /* === FOOTER === */
         footer {
@@ -458,26 +403,24 @@
 
         .social-icons { display: flex; gap: 15px; }
         .social-icons a {
-            width: 40px; height: 40px;
-            display: flex; justify-content: center; align-items: center;
-            background: var(--surface-color);
-            border-radius: 50%;
-            color: var(--text-main);
+            color: var(--text-muted);
             text-decoration: none;
-            transition: 0.3s;
+            transition: 0.2s;
+            font-size: 1.2rem;
         }
-        .social-icons a:hover { background: var(--accent-cyan); color: var(--bg-color); }
+        .social-icons a:hover { color: var(--text-main); }
 
         /* === ANIMASI === */
-        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s ease; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        /* === RESPONSIVE === */
         @media (max-width: 900px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding-top: 150px; }
-            .hero-buttons { justify-content: center; }
-            .hero h1 { font-size: 2.5rem; }
-            .tech-stack-float { display: none; }
+            .hero { flex-direction: column-reverse; padding-top: 120px; text-align: center; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; }
+            .hero p { max-width: 100%; }
             .nav-links { display: none; }
+            .pricing-banner { flex-direction: column; text-align: center; padding: 30px 20px; }
         }
     </style>
 </head>
@@ -487,186 +430,174 @@
     <nav>
         <a href="#home" class="logo">DT<span>SCRIPT</span>ID</a>
         <div class="nav-links">
-            <a href="#layanan">Layanan</a>
+            <a href="#layanan">Layanan & Harga</a>
             <a href="#portfolio">Portofolio</a>
-            <a href="#tentang">Tentang Saya</a>
-            <a href="https://wa.me/6281234567890" target="_blank" class="btn-nav">Hire Me</a>
+            <a href="https://wa.me/6285786342988" target="_blank" class="btn-nav">Hubungi Saya</a>
         </div>
     </nav>
 
-    <!-- HERO SECTION (Personal & Profesional) -->
+    <!-- HERO SECTION -->
     <section id="home" class="hero">
-        <div class="hero-bg-glow"></div>
-        
         <div class="hero-content reveal">
-            <div class="badge">🚀 Freelance Web Developer & Arsitek Kode</div>
-            <h1>Ubah Ide Bisnis Anda Menjadi <span>Website Profesional.</span></h1>
-            <p>Halo, saya pengembang di balik <strong>DTSCRIPTID</strong>. Saya membantu bisnis, UMKM, dan personal brand tampil lebih berkelas dengan website yang cepat, elegan, dan siap menghasilkan penjualan.</p>
+            <div class="badge"><i class="fa-solid fa-code"></i> Freelance Web Developer</div>
+            <h1>Bangun Kehadiran Digital Anda Secara <span>Profesional.</span></h1>
+            <p>Halo, saya pengembang di balik DTSCRIPTID. Saya menciptakan website yang cepat, minimalis, dan fungsional—membantu bisnis Anda tampil berkelas dan siap menghasilkan konversi.</p>
             
             <div class="hero-buttons">
-                <a href="#layanan" class="btn-primary">Lihat Paket Harga</a>
-                <a href="#portfolio" class="btn-secondary"><i class="fa-solid fa-play"></i> Cek Portofolio</a>
+                <a href="#portfolio" class="btn-primary">Lihat Karya Saya</a>
+                <a href="https://wa.me/6285786342988" target="_blank" class="btn-secondary">Konsultasi Gratis</a>
             </div>
         </div>
 
         <div class="hero-image reveal">
+            <!-- Jika Anda punya foto, ganti <i> dengan <img src="foto-anda.jpg" style="width:100%; height:100%; object-fit:cover;"> -->
             <div class="profile-img-container">
-                <!-- Ganti background CSS di class ini dengan tag <img> fotomu yang asli -->
-            </div>
-            <!-- Elemen Melayang Penambah Kredibilitas -->
-            <div class="tech-stack-float ts-1">
-                <i class="fa-brands fa-react" style="color: #61dafb; font-size: 24px;"></i> Modern Stack
-            </div>
-            <div class="tech-stack-float ts-2">
-                <i class="fa-solid fa-code" style="color: var(--accent-cyan); font-size: 24px;"></i> Clean Code
+                <i class="fa-regular fa-user"></i>
             </div>
         </div>
     </section>
 
-    <!-- SELLING: PAKET LAYANAN -->
+    <!-- PRICING SECTION (DIRECT LINK TO PRICE LIST) -->
     <section id="layanan">
         <div class="section-header reveal">
-            <h2>Layanan & <span>Investasi</span></h2>
-            <p>Pilih paket website yang sesuai dengan kebutuhan dan skala bisnis Anda. Transparan, tanpa biaya tersembunyi.</p>
+            <h2>Transparansi Harga</h2>
+            <p>Pilih layanan yang paling sesuai dengan kebutuhan sistem atau bisnis Anda.</p>
         </div>
 
-        <div class="pricing-grid">
-            <!-- Paket 1 -->
-            <div class="pricing-card reveal">
-                <h3>Landing Page</h3>
-                <div class="price">Rp 900k<span>/web</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-check"></i> Desain 1 Halaman Premium</li>
-                    <li><i class="fa-solid fa-check"></i> Copywriting Menjual</li>
-                    <li><i class="fa-solid fa-check"></i> Tombol Chat WhatsApp</li>
-                    <li><i class="fa-solid fa-check"></i> Optimasi Mobile Friendly</li>
-                    <li><i class="fa-solid fa-check"></i> Waktu Pengerjaan 3-5 Hari</li>
-                </ul>
-                <a href="https://wa.me/6281234567890" target="_blank" class="btn-block">Pesan Sekarang</a>
+        <div class="pricing-banner reveal">
+            <div class="pricing-content">
+                <h3>Paket Fleksibel, Tanpa Biaya Tersembunyi</h3>
+                <p>Mulai dari Landing Page yang responsif hingga Custom Web Apps yang kompleks. Lihat daftar harga lengkap, fitur yang Anda dapatkan, dan estimasi waktu pengerjaan di portal price list khusus saya.</p>
             </div>
-
-            <!-- Paket 2 (Best Seller) -->
-            <div class="pricing-card popular reveal">
-                <div class="popular-badge">BEST SELLER</div>
-                <h3>Web Perusahaan</h3>
-                <div class="price">Rp 2.5jt<span>/web</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-check"></i> Hingga 5 Halaman Custom</li>
-                    <li><i class="fa-solid fa-check"></i> SEO Dasar (Mudah di Google)</li>
-                    <li><i class="fa-solid fa-check"></i> Domain .com & Hosting 1 Thn</li>
-                    <li><i class="fa-solid fa-check"></i> Formulir Kontak & Email Bisnis</li>
-                    <li><i class="fa-solid fa-check"></i> Waktu Pengerjaan 7-10 Hari</li>
-                </ul>
-                <a href="https://wa.me/6281234567890" target="_blank" class="btn-block">Pesan Sekarang</a>
-            </div>
-
-            <!-- Paket 3 -->
-            <div class="pricing-card reveal">
-                <h3>Custom Web App</h3>
-                <div class="price">Mulai Rp 5jt</div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-check"></i> Sistem Login & Dashboard Admin</li>
-                    <li><i class="fa-solid fa-check"></i> Integrasi Payment Gateway</li>
-                    <li><i class="fa-solid fa-check"></i> Manajemen Database Kustom</li>
-                    <li><i class="fa-solid fa-check"></i> Fitur sesuai permintaan (CMS/Kasir)</li>
-                    <li><i class="fa-solid fa-check"></i> Maintenance 1 Bulan</li>
-                </ul>
-                <a href="https://wa.me/6281234567890" target="_blank" class="btn-block">Konsultasi Dulu</a>
+            <div class="pricing-cta">
+                <a href="https://price-list-dtscriptid.vercel.app/" target="_blank" class="btn-primary">
+                    Lihat Price List Lengkap <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- PORTFOLIO SECTION -->
+    <!-- PORTFOLIO SECTION (TYPOGRAPHIC CARDS - NO IMAGES) -->
     <section id="portfolio">
         <div class="section-header reveal">
-            <h2>Karya <span>Terbaik</span> Saya</h2>
-            <p>Beberapa contoh proyek yang telah sukses diselesaikan dengan standar kode dan desain yang tinggi.</p>
+            <h2>Karya Pilihan</h2>
+            <p>Kumpulan proyek yang telah saya kembangkan dengan standar penulisan kode yang bersih dan performa optimal.</p>
         </div>
 
         <div class="portfolio-grid">
-            <!-- 1 -->
-            <div class="portfolio-item p-bg-1 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">Web Undangan</div>
-                    <h4>Wedding Invitation (Standar)</h4>
-                    <p>Desain elegan, responsif, & hemat biaya.</p>
-                    <a href="https://wedding-invitation-reynaldi-regita.vercel.app/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+            <!-- Project 1 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://wedding-invitation-reynaldi-regita.vercel.app/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Wedding Invitation</h4>
+                <p>Desain undangan digital yang elegan, responsif di semua perangkat, dengan fitur RSVP.</p>
+                <div class="card-tech">
+                    <span>UI/UX</span> <span>Frontend</span>
                 </div>
             </div>
-            <!-- 2 -->
-            <div class="portfolio-item p-bg-2 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">Web App / CMS</div>
-                    <h4>Wedding CMS Pro</h4>
-                    <p>Panel admin mandiri untuk atur tamu & ucapan.</p>
-                    <a href="https://template-wedding-dtscriptid.vercel.app/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+
+            <!-- Project 2 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://template-wedding-dtscriptid.vercel.app/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Wedding CMS Pro</h4>
+                <p>Sistem manajemen konten khusus untuk mengatur tamu undangan dan ucapan secara mandiri.</p>
+                <div class="card-tech">
+                    <span>Web App</span> <span>CMS</span>
                 </div>
             </div>
-            <!-- 3 -->
-            <div class="portfolio-item p-bg-3 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">Katalog / Listing</div>
-                    <h4>Real Estate Listing</h4>
-                    <p>Sistem listing properti dengan peta & filter harga.</p>
-                    <a href="https://dhitopropertyid.netlify.app/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+
+            <!-- Project 3 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://dhitopropertyid.netlify.app/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Real Estate Listing</h4>
+                <p>Katalog listing properti interaktif dengan fitur filter pencarian dan detail lokasi.</p>
+                <div class="card-tech">
+                    <span>Katalog</span> <span>Listing</span>
                 </div>
             </div>
-            <!-- 4 -->
-            <div class="portfolio-item p-bg-4 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">Dashboard Tool</div>
-                    <h4>Financial Management</h4>
-                    <p>Aplikasi web pelacak arus kas & laporan grafik.</p>
-                    <a href="https://dhitoid.github.io/catatan-keuangan/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+
+            <!-- Project 4 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://dhitoid.github.io/catatan-keuangan/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Financial Management</h4>
+                <p>Aplikasi pelacak arus kas ringan dengan representasi visual untuk memudahkan audit pribadi.</p>
+                <div class="card-tech">
+                    <span>Dashboard</span> <span>Tools</span>
                 </div>
             </div>
-            <!-- 5 -->
-            <div class="portfolio-item p-bg-5 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">Booking System</div>
-                    <h4>Schedule Pro System</h4>
-                    <p>Sistem booking, penjadwalan & kalender pintar.</p>
-                    <a href="https://planner-sales-by-dhito.vercel.app/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+
+            <!-- Project 5 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://planner-sales-by-dhito.vercel.app/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Schedule Pro System</h4>
+                <p>Platform kalender pintar untuk mengatur penjadwalan dan sistem booking klien.</p>
+                <div class="card-tech">
+                    <span>Booking</span> <span>System</span>
                 </div>
             </div>
-            <!-- 6 -->
-            <div class="portfolio-item p-bg-6 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">Business Tool</div>
-                    <h4>Invoice Generator</h4>
-                    <p>Buat, kirim, dan lacak tagihan otomatis ke klien.</p>
-                    <a href="https://invoice-dtscriptid.vercel.app/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+
+            <!-- Project 6 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://invoice-dtscriptid.vercel.app/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Invoice Generator</h4>
+                <p>Alat bisnis untuk membuat, mencetak, dan melacak tagihan klien secara otomatis dan instan.</p>
+                <div class="card-tech">
+                    <span>Generator</span> <span>Business</span>
                 </div>
             </div>
-            <!-- 7 -->
-            <div class="portfolio-item p-bg-7 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">Corporate</div>
-                    <h4>Company Profile</h4>
-                    <p>Branding elegan untuk perusahaan & startup.</p>
-                    <a href="https://website-pt-aksi.vercel.app/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+
+            <!-- Project 7 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://website-pt-aksi.vercel.app/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Company Profile</h4>
+                <p>Branding korporat digital yang dirancang untuk meningkatkan kredibilitas perusahaan atau startup.</p>
+                <div class="card-tech">
+                    <span>Corporate</span> <span>Landing Page</span>
                 </div>
             </div>
-            <!-- 8 -->
-            <div class="portfolio-item p-bg-8 reveal">
-                <div class="portfolio-content">
-                    <div class="tag">LMS / E-Learning</div>
-                    <h4>E-Learning Platform</h4>
-                    <p>Sistem materi, kuis, dan video interaktif.</p>
-                    <a href="https://dtscriptid-dev.vercel.app/" target="_blank" class="visit-link">Lihat Live <i class="fa-solid fa-arrow-right"></i></a>
+
+            <!-- Project 8 -->
+            <div class="portfolio-card reveal">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://dtscriptid-dev.vercel.app/" target="_blank" class="external-link" title="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>E-Learning Platform</h4>
+                <p>Sistem manajemen pembelajaran (LMS) interaktif yang menampung materi, kuis, dan media pembelajaran.</p>
+                <div class="card-tech">
+                    <span>LMS</span> <span>Platform</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CALL TO ACTION (SELLING) -->
+    <!-- CALL TO ACTION -->
     <section class="cta-section">
         <div class="cta-box reveal">
-            <h2>Punya Proyek Website? Mari Diskusi.</h2>
-            <p>Jangan biarkan kompetitor Anda melangkah lebih dulu di dunia digital. Konsultasikan kebutuhan sistem atau website Anda sekarang, gratis!</p>
-            <!-- Ganti angka 6281234567890 dengan nomor WA aslimu -->
-            <a href="https://wa.me/6281234567890" target="_blank" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp"></i> Chat via WhatsApp
+            <h2>Siap Memulai Proyek Anda?</h2>
+            <p>Ceritakan ide atau tantangan bisnis Anda. Mari berdiskusi tentang bagaimana teknologi web dapat menjadi solusi bagi Anda.</p>
+            <a href="https://wa.me/6285786342988" target="_blank" class="btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> Chat Saya di WhatsApp
             </a>
         </div>
     </section>
@@ -688,7 +619,7 @@
             const reveals = document.querySelectorAll('.reveal');
             const revealOnScroll = () => {
                 const windowHeight = window.innerHeight;
-                const elementVisible = 120;
+                const elementVisible = 100;
                 reveals.forEach((reveal) => {
                     const elementTop = reveal.getBoundingClientRect().top;
                     if (elementTop < windowHeight - elementVisible) {
