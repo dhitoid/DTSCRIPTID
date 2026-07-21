@@ -566,6 +566,95 @@
             .cta-box h2 { font-size: 2.4rem; }
             footer { flex-direction: column; text-align: center; }
         }
+        
+            /* === 1. TECH STACK TICKER / MARQUEE === */
+    .tech-ticker {
+        border-top: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--glass-border);
+        padding: 30px 0;
+        background: rgba(9, 9, 11, 0.4);
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+    }
+    .ticker-track {
+        display: inline-flex;
+        gap: 60px;
+        animation: scrollTicker 25s linear infinite;
+    }
+    .ticker-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+    .ticker-item i {
+        color: var(--accent-main);
+        font-size: 1.2rem;
+    }
+    @keyframes scrollTicker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    /* === 2. FILTER TOMBOL PORTOFOLIO === */
+    .portfolio-filters {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+    }
+    .filter-btn {
+        background: var(--surface-color);
+        border: 1px solid var(--glass-border);
+        color: var(--text-muted);
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+        background: var(--text-main);
+        color: var(--bg-color);
+        border-color: var(--text-main);
+    }
+
+    /* === 3. FLOATING BACK TO TOP BUTTON === */
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--surface-hover);
+        color: var(--text-main);
+        border: 1px solid var(--glass-border);
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    .back-to-top:hover {
+        background: var(--accent-main);
+        color: var(--bg-color);
+        transform: translateY(-3px);
+    }
     </style>
 </head>
 <body>
@@ -602,12 +691,41 @@
             </div>
         </div>
     </section>
+    
+        <!-- TECH STACK TICKER -->
+    <div class="tech-ticker">
+        <div class="ticker-track">
+            <div class="ticker-item"><i class="fa-brands fa-html5"></i> HTML5 & CSS3</div>
+            <div class="ticker-item"><i class="fa-brands fa-js"></i> JavaScript ES6+</div>
+            <div class="ticker-item"><i class="fa-brands fa-react"></i> React.js</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Next.js</div>
+            <div class="ticker-item"><i class="fa-brands fa-node-js"></i> Node.js</div>
+            <div class="ticker-item"><i class="fa-solid fa-database"></i> PostgreSQL & MySQL</div>
+            <div class="ticker-item"><i class="fa-brands fa-git-alt"></i> Git & GitHub</div>
+            <!-- Duplikasi untuk infinite loop yang mulus -->
+            <div class="ticker-item"><i class="fa-brands fa-html5"></i> HTML5 & CSS3</div>
+            <div class="ticker-item"><i class="fa-brands fa-js"></i> JavaScript ES6+</div>
+            <div class="ticker-item"><i class="fa-brands fa-react"></i> React.js</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Next.js</div>
+            <div class="ticker-item"><i class="fa-brands fa-node-js"></i> Node.js</div>
+            <div class="ticker-item"><i class="fa-solid fa-database"></i> PostgreSQL & MySQL</div>
+            <div class="ticker-item"><i class="fa-brands fa-git-alt"></i> Git & GitHub</div>
+        </div>
+    </div>
 
     <!-- PRICING SECTION -->
     <section id="layanan">
         <div class="section-header reveal">
             <h2>Transparansi Harga</h2>
             <p>Pilih layanan yang paling sesuai dengan kebutuhan sistem atau bisnis Anda. Skalabilitas tinggi dengan arsitektur kode modern.</p>
+        </div>
+        
+                <!-- FILTER KATEGORI -->
+        <div class="portfolio-filters reveal">
+            <button class="filter-btn active" data-filter="all">Semua Proyek</button>
+            <button class="filter-btn" data-filter="web-app">Web Apps & CMS</button>
+            <button class="filter-btn" data-filter="frontend">Landing & Profile</button>
+            <button class="filter-btn" data-filter="tools">Tools & Bisnis</button>
         </div>
 
         <div class="pricing-banner reveal">
@@ -758,6 +876,11 @@
             <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
     </footer>
+    
+        <!-- BACK TO TOP BUTTON -->
+    <a href="#home" class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
 
     <!-- SCRIPT SCROLL REVEAL -->
     <script>
@@ -780,6 +903,38 @@
             window.addEventListener('scroll', revealOnScroll);
             // Trigger sekali saat web pertama dimuat
             setTimeout(revealOnScroll, 100); 
+        });
+        
+                // --- 1. PORTFOLIO FILTER SYSTEM ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Hapus kelas active dari tombol lain
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                portfolioCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- 2. BACK TO TOP BUTTON LOGIC ---
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
         });
     </script>
 </body>
