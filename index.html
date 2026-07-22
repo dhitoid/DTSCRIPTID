@@ -2022,26 +2022,6 @@
                 // Scroll terminal ke bawah otomatis
                 terminalBody.scrollTop = terminalBody.scrollHeight;
             }
-            
-                        // --- PROFILE MODAL LOGIC ---
-            const terminalAvatar = document.querySelector('.terminal-avatar');
-            const profileModal = document.getElementById('profileModal');
-            const closeModalBtn = document.getElementById('closeModal');
-
-            if (terminalAvatar && profileModal) {
-                terminalAvatar.addEventListener('click', () => {
-                    profileModal.classList.add('active');
-                });
-                closeModalBtn.addEventListener('click', () => {
-                    profileModal.classList.remove('active');
-                });
-                // Tutup modal jika klik di luar card
-                profileModal.addEventListener('click', (e) => {
-                    if (e.target === profileModal) {
-                        profileModal.classList.remove('active');
-                    }
-                });
-            }
 
         });
     </script>
