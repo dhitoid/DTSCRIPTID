@@ -789,6 +789,104 @@
         @keyframes rippleEffect {
             100% { transform: translate(-50%, -50%) scale(4); opacity: 0; border-width: 2px; }
         }
+        
+                /* ========================================== */
+        /* UPGRADE CSS 1: DYNAMIC AMBIENT GLOW */
+        .ambient-glow {
+            position: fixed;
+            top: 50%; left: 50%;
+            width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -2;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            filter: blur(60px);
+        }
+
+        /* UPGRADE CSS 2: ROTATING HIRE BADGE */
+        .hire-badge {
+            position: fixed;
+            bottom: 30px;
+            left: 30px; /* Posisi di kiri, seimbang dengan back-to-top di kanan */
+            width: 90px;
+            height: 90px;
+            z-index: 998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 50%;
+            background: rgba(9, 9, 11, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .hire-badge:hover {
+            transform: scale(1.1) translateY(-5px);
+            border-color: var(--accent-main);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+        }
+        .hire-badge .badge-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: rotateBadge 12s linear infinite;
+        }
+        .hire-badge text {
+            font-size: 11.5px;
+            font-weight: 700;
+            fill: var(--text-muted);
+            letter-spacing: 2px;
+            transition: fill 0.3s ease;
+        }
+        .hire-badge:hover text { fill: var(--text-main); }
+        .hire-badge .badge-icon {
+            font-size: 1.2rem;
+            color: var(--accent-main);
+            transition: transform 0.3s ease;
+        }
+        .hire-badge:hover .badge-icon { transform: rotate(0deg) !important; }
+        @keyframes rotateBadge {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 992px) {
+            .hire-badge { display: none; /* Sembunyikan di HP agar tidak mengganggu layar */ }
+        }
+
+        /* UPGRADE CSS 3: NAVBAR LINK ANIMATION */
+        .nav-links a:not(.btn-nav) {
+            position: relative;
+        }
+        .nav-links a:not(.btn-nav)::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -4px; left: 0;
+            background: var(--gradient-text);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-links a:not(.btn-nav):hover::after {
+            width: 100%;
+        }
+
+        /* UPGRADE CSS 4: COLORFUL TECH TICKER HOVER */
+        .ticker-item {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s;
+            cursor: default;
+        }
+        .ticker-item:hover {
+            transform: scale(1.15);
+            color: var(--text-main);
+        }
+        .ticker-item:hover .fa-html5 { color: #e34f26; text-shadow: 0 0 15px rgba(227, 79, 38, 0.5); }
+        .ticker-item:hover .fa-js { color: #f7df1e; text-shadow: 0 0 15px rgba(247, 223, 30, 0.5); }
+        .ticker-item:hover .fa-react { color: #61dafb; text-shadow: 0 0 15px rgba(97, 218, 251, 0.5); }
+        .ticker-item:hover .fa-node-js { color: #339933; text-shadow: 0 0 15px rgba(51, 153, 51, 0.5); }
+        .ticker-item:hover .fa-git-alt { color: #f05032; text-shadow: 0 0 15px rgba(240, 80, 50, 0.5); }
     </style>
 </head>
 <body>
@@ -1044,9 +1142,24 @@
         </div>
     </footer>
     
-    <!-- BACK TO TOP BUTTON -->
+    <!-- BACK TO TOP BUTTON (Kode aslimu) -->
     <a href="#home" class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
         <i class="fa-solid fa-arrow-up"></i>
+    </a>
+    
+    <!-- ========================================== -->
+    <!-- UPGRADE HTML: DYNAMIC AMBIENT GLOW -->
+    <div class="ambient-glow"></div>
+
+    <!-- UPGRADE HTML: ROTATING HIRE BADGE -->
+    <a href="https://wa.me/6285786342988" target="_blank" class="hire-badge" aria-label="Hire Me">
+        <svg class="badge-text" viewBox="0 0 100 100">
+            <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
+            <text>
+                <textPath href="#circlePath" startOffset="0%">• AVAILABLE FOR HIRE • OPEN TO WORK </textPath>
+            </text>
+        </svg>
+        <i class="fa-solid fa-arrow-right badge-icon" style="transform: rotate(-45deg);"></i>
     </a>
     
     <!-- UPGRADE: ELEMEN CUSTOM CURSOR -->
@@ -1314,6 +1427,46 @@
                     ripple.remove();
                 }, 600);
             });
+            
+                        // ==========================================
+            // UPGRADE JS 1: DYNAMIC AMBIENT GLOW KURSOR
+            const ambientGlow = document.querySelector('.ambient-glow');
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let glowX = mouseX;
+            let glowY = mouseY;
+            
+            // Pergerakan halus (easing) pada cahaya background
+            if (window.matchMedia("(pointer: fine)").matches) {
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+
+                function animateGlow() {
+                    // Matematika easing (0.05 adalah kecepatan delay-nya)
+                    glowX += (mouseX - glowX) * 0.05;
+                    glowY += (mouseY - glowY) * 0.05;
+                    
+                    ambientGlow.style.left = `${glowX}px`;
+                    ambientGlow.style.top = `${glowY}px`;
+                    
+                    requestAnimationFrame(animateGlow);
+                }
+                animateGlow();
+                
+                // Perbesar efek cahaya saat klik
+                document.addEventListener('mousedown', () => {
+                    ambientGlow.style.width = '60vw';
+                    ambientGlow.style.height = '60vw';
+                    ambientGlow.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 60%)';
+                });
+                document.addEventListener('mouseup', () => {
+                    ambientGlow.style.width = '40vw';
+                    ambientGlow.style.height = '40vw';
+                    ambientGlow.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 60%)';
+                });
+            }
 
         });
     </script>
