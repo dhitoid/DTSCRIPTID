@@ -89,34 +89,45 @@
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
-/* === NAVIGASI (UPGRADE: FLOATING PILL MODERN) === */
-nav {
-    position: fixed;
-    top: 20px; /* Mengambang dari atas */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1000px; /* Tidak full width */
-    padding: 12px 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(24, 24, 27, 0.65); /* Glass transparan */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 1000;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 100px; /* Sudut membulat seperti pil */
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
+        /* === NAVIGASI (FLOATING PILL STYLE) === */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1200px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
 
-nav.scrolled {
-    top: 15px;
-    padding: 10px 28px;
-    background: rgba(9, 9, 11, 0.90);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-    border-color: rgba(56, 189, 248, 0.15); /* Glow biru tipis saat scroll */
-}
+        nav.scrolled {
+            top: 15px;
+            background: rgba(9, 9, 11, 0.85);
+            border-color: rgba(56, 189, 248, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 2px; }
+        .logo span { color: var(--accent-main); }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.2s ease; font-size: 14px; position: relative; }
+        .nav-links a:hover { color: var(--text-main); }
+        
+        .btn-nav { padding: 10px 24px; background: #ffffff; border-radius: 50px; color: #000000 !important; font-weight: 600; transition: all 0.3s ease; font-size: 14px; }
+        .btn-nav:hover { background: var(--accent-main); color: #fff !important; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3); }
+
+        .menu-toggle { display: none; cursor: pointer; font-size: 1.4rem; color: var(--text-main); background: none; border: none; }
 
         /* === HERO SECTION === */
         .hero {
@@ -995,110 +1006,93 @@ nav.scrolled {
             }
         }
 
-/* === UPGRADE: PROFILE MODAL LIGHTBOX === */
-.terminal-avatar {
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
-}
-.terminal-avatar:hover {
-    transform: scale(1.15) rotate(-5deg);
-    box-shadow: 0 0 20px var(--accent-main);
-}
-.profile-modal {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(5, 5, 5, 0.85); /* Lebih gelap dan fokus */
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    display: flex; justify-content: center; align-items: center;
-    z-index: 999999; opacity: 0; visibility: hidden;
-    transition: all 0.4s ease;
-}
-.profile-modal.active { opacity: 1; visibility: visible; }
+        /* === UPGRADE: PROFILE MODAL LIGHTBOX (MODERN CARD) === */
+        .terminal-avatar { cursor: pointer; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s; }
+        .terminal-avatar:hover { transform: scale(1.15) rotate(-5deg); box-shadow: 0 0 20px var(--accent-main); }
+        
+        .profile-modal {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 999999; opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .profile-modal.active { opacity: 1; visibility: visible; }
 
-/* Wrapper frame kaca agar rapi dan tidak terlalu besar */
-.modal-image-wrapper {
-    position: relative;
-    width: 90%;
-    max-width: 380px; /* Ukuran pas ala portrait/ID Card */
-    background: rgba(255, 255, 255, 0.03);
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 50px rgba(56, 189, 248, 0.15);
-    transform: scale(0.85) translateY(30px);
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    opacity: 0;
-}
-.profile-modal.active .modal-image-wrapper {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-}
-.profile-modal-img {
-    width: 100%; height: auto;
-    border-radius: 14px;
-    object-fit: cover;
-    display: block;
-}
-.modal-close {
-    position: absolute; 
-    top: -15px; right: -15px; /* Menempel di sudut bingkai foto */
-    background: #18181b; 
-    border: 1px solid var(--glass-border);
-    color: var(--text-muted); 
-    width: 44px; height: 44px; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    font-size: 1.2rem; cursor: pointer; transition: 0.3s; 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-}
-.modal-close:hover { 
-    background: #ff5f56; color: #fff; border-color: #ff5f56; 
-    transform: rotate(90deg) scale(1.1); 
-}
+        .modal-card {
+            background: linear-gradient(145deg, rgba(39,39,42,0.8) 0%, rgba(24,24,27,0.95) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 28px;
+            padding: 40px 30px;
+            width: 90%; max-width: 380px;
+            text-align: center; position: relative;
+            transform: scale(0.8) translateY(40px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .profile-modal.active .modal-card { transform: scale(1) translateY(0); }
 
-/* === UPGRADE: FOOTER MODERN COMPACT === */
-.modern-footer {
-    background: linear-gradient(180deg, var(--bg-color) 0%, #050505 100%);
-    border-top: 1px solid var(--glass-border);
-    padding: 50px 8% 25px; /* Padding diperkecil agar compact */
-    position: relative; overflow: hidden;
-    z-index: 10;
-}
-.modern-footer::before {
-    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-main), transparent); opacity: 0.5;
-}
-.footer-grid {
-    display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1.5fr; 
-    gap: 30px; /* Gap diperkecil */ 
-    margin-bottom: 40px;
-}
-.footer-brand .logo { font-size: 22px; margin-bottom: 12px; display: inline-block; }
-.footer-vision { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; padding-right: 20px; }
-.footer-title { color: var(--text-main); font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.3px; }
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;}
-.footer-links a i { font-size: 0.75rem; color: var(--accent-main); opacity: 0; transform: translateX(-10px); transition: 0.3s; }
-.footer-links a:hover { color: var(--text-main); transform: translateX(5px); }
-.footer-links a:hover i { opacity: 1; transform: translateX(0); }
-.footer-contact-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
-.footer-contact-item i { color: var(--accent-main); font-size: 1.1rem; margin-top: 3px; background: rgba(56, 189, 248, 0.1); padding: 8px; border-radius: 8px; }
-.footer-bottom {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 15px;
-}
+        .modal-close {
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(255,255,255,0.05); border: none;
+            color: var(--text-muted); width: 36px; height: 36px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.1rem; cursor: pointer; transition: 0.3s;
+        }
+        .modal-close:hover { background: #ff5f56; color: #fff; transform: rotate(90deg); }
 
-/* Update Media Query Khusus Nav Menu Mobile (Tambahkan di bagian @media max-width: 992px CSS Anda) */
-@media (max-width: 992px) {
-    nav { width: 92%; padding: 12px 20px; border-radius: 16px; }
-    .nav-links {
-        top: 75px; left: 50%; width: 92%;
-        transform: translate(-50%, -150%);
-        border-radius: 16px;
-        border: 1px solid var(--glass-border);
-    }
-    .nav-links.active { transform: translate(-50%, 0); }
-    .footer-grid { grid-template-columns: 1fr; gap: 35px; }
-    .footer-vision { padding-right: 0; }
-}
+        .modal-img-wrapper {
+            width: 140px; height: 140px; margin: 0 auto 20px;
+            border-radius: 50%; padding: 4px;
+            background: linear-gradient(135deg, var(--accent-main) 0%, #a855f7 100%);
+        }
+        .modal-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid var(--bg-color); }
+        .modal-card h3 { font-size: 1.4rem; color: #fff; font-weight: 800; margin-bottom: 5px; }
+        .modal-card p { font-size: 0.9rem; color: var(--accent-main); margin-bottom: 24px; font-weight: 600; }
+        
+        .modal-socials { display: flex; justify-content: center; gap: 12px; }
+        .modal-socials a {
+            width: 42px; height: 42px; border-radius: 12px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-main); font-size: 1.1rem; transition: 0.3s;
+        }
+        .modal-socials a:hover { background: var(--accent-main); color: #000; transform: translateY(-3px); }
+
+        /* === UPGRADE: FOOTER MODERN 2026 === */
+        .modern-footer {
+            background: linear-gradient(180deg, var(--bg-color) 0%, #000000 100%);
+            border-top: 1px solid var(--glass-border);
+            padding: 80px 8% 30px; position: relative; overflow: hidden; z-index: 10;
+        }
+        .modern-footer::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-main), transparent); opacity: 0.4;
+        }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 60px; }
+        .footer-brand .logo { font-size: 26px; margin-bottom: 16px; display: inline-block; }
+        .footer-vision { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 24px; padding-right: 20px; }
+        .footer-title { color: var(--text-main); font-size: 1.15rem; font-weight: 700; margin-bottom: 24px; letter-spacing: 0.5px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px;}
+        .footer-links a i { font-size: 0.8rem; color: var(--accent-main); opacity: 0; transform: translateX(-10px); transition: 0.3s; }
+        .footer-links a:hover { color: var(--text-main); transform: translateX(5px); }
+        .footer-links a:hover i { opacity: 1; transform: translateX(0); }
+        .footer-contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .footer-contact-item i { color: var(--accent-main); font-size: 1.2rem; margin-top: 3px; background: rgba(56, 189, 248, 0.1); padding: 8px; border-radius: 8px; }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 20px;
+        }
+        
+        /* Mobile Adjustment */
+        @media (max-width: 992px) {
+            nav { top: 10px; width: 95%; border-radius: 16px; }
+            .nav-links { border-radius: 16px; top: 60px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: left; }
+            .footer-vision { padding-right: 0; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -1522,11 +1516,20 @@ nav.scrolled {
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
     
-    <!-- MODAL PROFILE PICTURE (UPGRADED) -->
+    <!-- MODAL PROFILE PICTURE UPGRADE -->
     <div class="profile-modal" id="profileModal">
-        <div class="modal-image-wrapper">
-            <button class="modal-close" id="closeModal" aria-label="Tutup Foto"><i class="fa-solid fa-xmark"></i></button>
-            <img src="" alt="DTSCRIPTID Owner Zoom" class="profile-modal-img" id="modalImg">
+        <div class="modal-card">
+            <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-img-wrapper">
+                <img src="https://i.postimg.cc/cCrRYQWf/3DD42FA5-AAD0-4064-A6CD-AD9EEFA11721.png" alt="DTSCRIPTID Owner" id="modalImg">
+            </div>
+            <h3>DTSCRIPTID</h3>
+            <p>Premium Web Developer</p>
+            <div class="modal-socials">
+                <a href="https://github.com/dhitoid" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
         </div>
     </div>
 
@@ -2020,6 +2023,26 @@ nav.scrolled {
                 terminalBody.scrollTop = terminalBody.scrollHeight;
             }
             
+                        // --- PROFILE MODAL LOGIC ---
+            const terminalAvatar = document.querySelector('.terminal-avatar');
+            const profileModal = document.getElementById('profileModal');
+            const closeModalBtn = document.getElementById('closeModal');
+
+            if (terminalAvatar && profileModal) {
+                terminalAvatar.addEventListener('click', () => {
+                    profileModal.classList.add('active');
+                });
+                closeModalBtn.addEventListener('click', () => {
+                    profileModal.classList.remove('active');
+                });
+                // Tutup modal jika klik di luar card
+                profileModal.addEventListener('click', (e) => {
+                    if (e.target === profileModal) {
+                        profileModal.classList.remove('active');
+                    }
+                });
+            }
+
         });
     </script>
 </body>
