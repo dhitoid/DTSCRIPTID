@@ -3,7 +3,7 @@
 <head>
     <!-- === ADVANCED SEO & META TAGS === -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>DTSCRIPTID | Premium Web Developer</title>
     <meta name="description" content="DTSCRIPTID adalah web developer profesional yang melayani jasa pembuatan website company profile, undangan pernikahan, sistem keuangan, invoice, dan custom web apps.">
     <meta name="keywords" content="jasa pembuatan website, web developer indonesia, dtscriptid, freelance programmer, website perusahaan">
@@ -1037,6 +1037,16 @@
             margin-top: 10px;
             border-top: 1px dashed var(--glass-border);
             padding-top: 8px;
+        }
+        
+        /* --- FIX: Mencegah Layar Zoom-In Saat Ketik Terminal di HP --- */
+        @media screen and (max-width: 768px) {
+            #terminalInput {
+                font-size: 16px !important; /* Wajib 16px agar iOS/Safari tidak auto-zoom */
+            }
+            .terminal-body {
+                font-size: 15px; /* Menyesuaikan teks lain agar tidak jomplang */
+            }
         }
     </style>
 </head>
