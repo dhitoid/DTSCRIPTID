@@ -1747,10 +1747,23 @@
                 });
             }
             
-                        // --- UPGRADE INTERACTIVE TERMINAL LOGIC ---
+            // --- UPGRADE INTERACTIVE TERMINAL LOGIC (FIXED FOCUS) ---
             const termInput = document.getElementById('terminalInput');
             const termCursor = document.querySelector('.terminal-cursor');
             const terminalBody = document.querySelector('.terminal-body');
+            const terminalContainer = document.querySelector('.terminal-container');
+
+            // FIX UTAMA: Otomatis fokus kembali ke input saat area terminal di-klik
+            if (terminalContainer && termInput) {
+                terminalContainer.addEventListener('click', () => {
+                    termInput.focus();
+                });
+                
+                // Pastikan input otomatis fokus saat halaman selesai dimuat / kembali aktif
+                window.addEventListener('focus', () => {
+                    termInput.focus();
+                });
+            }
 
             // Mengatur posisi kursor palsu agar mengikuti ketikan user secara dinamis
             if (termInput) {
