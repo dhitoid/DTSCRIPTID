@@ -1043,9 +1043,9 @@
             </div>
             <div class="hosting-cta">
                 <!-- Link Affiliate Anymhost Anda -->
-                <a href="https://clients.anymhost.id/aff.php?aff=987" target="_blank" class="btn-primary hosting-btn">
-                    Daftar Hosting Sekarang <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+            <a href="https://clients.anymhost.id/aff.php?aff=987" id="trackAffiliate" target="_blank" class="btn-primary hosting-btn">
+                Daftar Hosting Sekarang <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
             </div>
         </div>
     </section>
@@ -1482,6 +1482,62 @@
             closeToastBtn.addEventListener('click', () => {
                 document.getElementById('toastNotification').classList.remove('show');
             });
+            
+                        // --- DISCORD WEBHOOK TRACKER ---
+            // Masukkan URL Webhook Discord Anda di sini
+            const WEBHOOK_URL = "https://discord.com/api/webhooks/1345724283564855366/ikaA0_JQP6dA6wwlmuZ7MOOX0N5DEifQGyJbVpi4l_TgSgn5H8DjYOUSBXQrxi4h1pKQ";
+
+            // Fungsi untuk mengirim data ke Discord
+            const sendToDiscord = async (embed) => {
+                if (!WEBHOOK_URL || WEBHOOK_URL.includes("ISI_DENGAN")) return;
+                try {
+                    await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ embeds: [embed] })
+                    });
+                } catch (error) {
+                    console.error("Gagal mengirim tracker:", error);
+                }
+            };
+
+            // 1. TRACKER PENGUNJUNG WEBSITE (Page Visit)
+            // Menggunakan sessionStorage agar tidak spam webhook jika pengunjung me-refresh halaman
+            if (!sessionStorage.getItem('dtscriptid_visited')) {
+                const visitEmbed = {
+                    title: "Pengunjung Website Baru!",
+                    color: 3447003, // Warna Biru
+                    fields: [
+                        { name: "URL Diakses", value: window.location.href, inline: false },
+                        { name: "Referrer (Asal Web)", value: document.referrer || "Kunjungan Langsung", inline: true },
+                        { name: "Resolusi Layar", value: `${window.screen.width} x ${window.screen.height}`, inline: true },
+                        { name: "Perangkat / Browser", value: navigator.userAgent, inline: false }
+                    ],
+                    footer: { text: `DTSCRIPTID Analytics • ${new Date().toLocaleString('id-ID')}` }
+                };
+                
+                sendToDiscord(visitEmbed);
+                sessionStorage.setItem('dtscriptid_visited', 'true');
+            }
+
+            // 2. TRACKER KLIK AFFILIATE
+            const affiliateBtn = document.getElementById('trackAffiliate');
+            if (affiliateBtn) {
+                affiliateBtn.addEventListener('click', () => {
+                    const clickEmbed = {
+                        title: "Seseorang Mengklik Link Affiliate AnymHost!",
+                        description: "Prospek komisi baru sedang menuju AnymHost.",
+                        color: 1061689, // Warna Hijau Emerald
+                        fields: [
+                            { name: "Link Tujuan", value: affiliateBtn.href, inline: false },
+                            { name: "Perangkat / Browser", value: navigator.userAgent, inline: false }
+                        ],
+                        footer: { text: `DTSCRIPTID Analytics • ${new Date().toLocaleString('id-ID')}` }
+                    };
+                    
+                    sendToDiscord(clickEmbed);
+                });
+            }
             
         });
     </script>
