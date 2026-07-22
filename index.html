@@ -34,7 +34,7 @@
             --accent-glow: rgba(56, 189, 248, 0.12);
             --gradient-text: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 50%, #38bdf8 100%);
             --glass-border: rgba(255, 255, 255, 0.06);
-            --glass-bg: rgba(9, 9, 11, 0.7);
+            --glass-bg: rgba(9, 9, 11, 0.85);
             --success-color: #10b981;
         }
 
@@ -61,7 +61,6 @@
             overflow-x: hidden;
             line-height: 1.7;
             position: relative;
-            /* Developer Dot Grid Pattern */
             background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
             background-size: 32px 32px;
         }
@@ -146,6 +145,16 @@
             box-shadow: 0 4px 12px rgba(255,255,255,0.15);
         }
 
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: var(--text-main);
+            background: none;
+            border: none;
+        }
+
         /* === HERO SECTION === */
         .hero {
             min-height: 100vh;
@@ -161,7 +170,6 @@
             max-width: 680px;
         }
 
-        /* Status Indicator Pill */
         .status-pill {
             display: inline-flex;
             align-items: center;
@@ -193,13 +201,13 @@
         }
 
         .hero h1 {
-            font-size: 4.2rem;
+            font-size: 4rem;
             font-weight: 800;
             line-height: 1.1;
             letter-spacing: -2px;
             margin-bottom: 24px;
             color: #ffffff;
-            min-height: 155px; 
+            min-height: 140px; 
         }
 
         .hero h1 span {
@@ -210,9 +218,9 @@
         }
 
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.125rem;
             color: var(--text-muted);
-            margin-bottom: 44px;
+            margin-bottom: 36px;
             max-width: 90%;
             font-weight: 400;
             line-height: 1.7;
@@ -221,6 +229,7 @@
         .hero-buttons {
             display: flex;
             gap: 16px;
+            margin-bottom: 40px;
         }
 
         .btn-primary {
@@ -236,6 +245,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
         }
 
         .btn-primary:hover {
@@ -265,7 +275,30 @@
             transform: translateY(-4px);
         }
 
-        /* Hero Image - Tech Frame Style */
+        /* Stats Bar Hero */
+        .hero-stats {
+            display: flex;
+            gap: 36px;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 30px;
+        }
+        .stat-item h4 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .stat-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hero Image Container */
         .hero-image {
             flex: 1;
             display: flex;
@@ -275,7 +308,7 @@
 
         .profile-img-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             aspect-ratio: 4/5;
             border-radius: 24px;
             background: linear-gradient(180deg, rgba(39,39,42,0.4) 0%, rgba(24,24,27,0.4) 100%);
@@ -292,41 +325,55 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .profile-img-container::before {
-            content: '';
-            position: absolute;
-            inset: 1px;
-            border-radius: 23px;
-            background: radial-gradient(400px circle at 50% 0%, rgba(56, 189, 248, 0.1), transparent);
-            pointer-events: none;
+            50% { transform: translateY(-12px); }
         }
 
         .profile-img-container i {
             font-size: 5rem;
-            color: rgba(255,255,255,0.05);
-            z-index: 1;
+            color: rgba(255,255,255,0.06);
             transition: color 0.3s ease;
         }
 
-        .profile-img-container:hover i {
-            color: rgba(255,255,255,0.15);
+        /* === SECTIONS UMUM === */
+        section { padding: 110px 8%; }
+        .section-header { margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.6rem; font-weight: 800; margin-bottom: 14px; letter-spacing: -1px; }
+        .section-header p { color: var(--text-muted); max-width: 600px; font-size: 1.1rem; line-height: 1.6; }
+
+        /* === TECH TICKER === */
+        .tech-ticker {
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 28px 0;
+            background: rgba(9, 9, 11, 0.4);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-track {
+            display: inline-flex;
+            gap: 50px;
+            animation: scrollTicker 25s linear infinite;
+        }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .ticker-item i { color: var(--accent-main); font-size: 1.1rem; }
+        @keyframes scrollTicker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        /* === SECTIONS UMUM === */
-        section { padding: 120px 8%; }
-        .section-header { margin-bottom: 64px; }
-        .section-header h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1.2px; }
-        .section-header p { color: var(--text-muted); max-width: 600px; font-size: 1.15rem; line-height: 1.6; }
-
-        /* === PRICING BANNER (SaaS Aesthetic) === */
+        /* === PRICING BANNER === */
         .pricing-banner {
             background: linear-gradient(135deg, rgba(24,24,27,0.6) 0%, rgba(9,9,11,0.8) 100%);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            padding: 56px 64px;
+            padding: 48px 56px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -336,28 +383,36 @@
             overflow: hidden;
             backdrop-filter: blur(10px);
         }
-
-        .pricing-banner::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent);
-        }
-
         .pricing-banner:hover {
             border-color: rgba(56, 189, 248, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(56, 189, 248, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .pricing-content h3 { font-size: 1.7rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -0.5px; }
+
+        /* === PORTFOLIO CARDS === */
+        .portfolio-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--text-main);
+            color: var(--bg-color);
+            border-color: var(--text-main);
         }
 
-        .pricing-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        /* === PORTFOLIO CARDS (Glassy Panels) === */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -368,7 +423,7 @@
             background: var(--surface-color);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 32px;
+            padding: 28px;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
@@ -378,31 +433,28 @@
         }
 
         .portfolio-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             border-color: rgba(255, 255, 255, 0.15);
             background: var(--surface-hover);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.4);
         }
 
         .card-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
-        .folder-icon {
-            font-size: 2rem;
-            color: var(--accent-main);
-        }
+        .folder-icon { font-size: 1.8rem; color: var(--accent-main); }
 
         .external-link {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: 0.3s;
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--glass-border);
-            width: 44px; height: 44px;
+            width: 40px; height: 40px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%;
         }
@@ -413,82 +465,35 @@
             transform: scale(1.05) rotate(5deg);
         }
 
-        .portfolio-card h4 { 
-            font-size: 1.4rem; 
-            margin-bottom: 12px; 
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .portfolio-card p { 
-            font-size: 1rem; 
-            color: var(--text-muted); 
-            flex-grow: 1;
-            margin-bottom: 28px;
-            line-height: 1.6;
-        }
+        .portfolio-card h4 { font-size: 1.35rem; margin-bottom: 10px; font-weight: 700; }
+        .portfolio-card p { font-size: 0.95rem; color: var(--text-muted); flex-grow: 1; margin-bottom: 24px; line-height: 1.6; }
         
-        .card-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
+        .card-tech { display: flex; flex-wrap: wrap; gap: 8px; }
         .card-tech span {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
             color: #d4d4d8;
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.05);
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
-            letter-spacing: 0.5px;
         }
 
-        /* === CTA KHUSUS (Premium Terminal Style) === */
-        .cta-section {
-            padding: 80px 8% 120px;
-        }
-        
+        /* === CTA SECTION === */
+        .cta-section { padding: 40px 8% 100px; }
         .cta-box {
             background: linear-gradient(180deg, rgba(39,39,42,0.3) 0%, rgba(9,9,11,0.5) 100%);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 32px;
-            padding: 80px 40px;
+            padding: 70px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
             box-shadow: 0 24px 48px rgba(0,0,0,0.4);
             backdrop-filter: blur(12px);
         }
-
-        .cta-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 60%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-        }
-
-        .cta-box h2 { 
-            font-size: 3rem; 
-            margin-bottom: 20px; 
-            letter-spacing: -1.2px; 
-            font-weight: 800; 
-            position: relative; z-index: 1;
-        }
-
-        .cta-box p { 
-            color: var(--text-muted); 
-            font-size: 1.15rem; 
-            margin-bottom: 40px; 
-            max-width: 540px; 
-            margin-left: auto; 
-            margin-right: auto; 
-            line-height: 1.6;
-            position: relative; z-index: 1;
-        }
+        .cta-box h2 { font-size: 2.8rem; margin-bottom: 16px; font-weight: 800; }
+        .cta-box p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 36px; max-width: 520px; margin-inline: auto; }
         
         .btn-whatsapp {
             background: #ffffff;
@@ -496,15 +501,13 @@
             padding: 16px 36px;
             border-radius: 14px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; z-index: 1;
         }
-        
         .btn-whatsapp:hover { 
             transform: translateY(-4px); 
             background: #10b981;
@@ -515,7 +518,7 @@
         /* === FOOTER === */
         footer {
             border-top: 1px solid rgba(255,255,255,0.05);
-            padding: 40px 8%;
+            padding: 35px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -523,178 +526,81 @@
             gap: 20px;
             background: var(--bg-color);
         }
-
-        .social-icons { display: flex; gap: 12px; }
+        .social-icons { display: flex; gap: 10px; }
         .social-icons a {
             color: var(--text-muted);
             text-decoration: none;
             transition: 0.3s;
-            font-size: 1.1rem;
+            font-size: 1rem;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.05);
-            width: 40px; height: 40px;
+            width: 38px; height: 38px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 10px;
         }
-        .social-icons a:hover { 
-            color: #ffffff; 
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-        }
+        .social-icons a:hover { color: #ffffff; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
 
-        /* === ANIMASI REVEAL (Snappy Cubic Bezier) === */
-        .reveal { 
-            opacity: 0; 
-            transform: translateY(40px) scale(0.98); 
-            transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1); 
+        /* === BACK TO TOP === */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--surface-hover);
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
-        .reveal.active { 
-            opacity: 1; 
-            transform: translateY(0) scale(1); 
-        }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--accent-main); color: var(--bg-color); transform: translateY(-3px); }
 
-        /* === RESPONSIVE === */
+        /* Typing Cursor */
+        .cursor-blink { color: var(--accent-main); font-weight: 300; animation: blink 0.8s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* === RESPONSIVE MEDIA QUERIES === */
         @media (max-width: 992px) {
-            .hero { flex-direction: column-reverse; padding-top: 160px; text-align: center; gap: 50px;}
+            .hero { flex-direction: column-reverse; padding-top: 150px; text-align: center; gap: 40px; }
             .hero-content { display: flex; flex-direction: column; align-items: center; }
-            .hero h1 { font-size: 3.2rem; min-height: 175px; }
+            .hero h1 { font-size: 3.1rem; min-height: 120px; }
             .hero p { max-width: 100%; }
-            .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; }
+            .hero-buttons { flex-direction: column; width: 100%; max-width: 280px; }
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-            .nav-links { display: none; }
-            .pricing-banner { flex-direction: column; text-align: center; padding: 40px 24px; }
-            .cta-box { padding: 60px 24px; }
-            .cta-box h2 { font-size: 2.4rem; }
+            .hero-stats { justify-content: center; flex-wrap: wrap; gap: 30px; }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px 0;
+                border-bottom: 1px solid var(--glass-border);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease-in-out;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            }
+            .nav-links.active { transform: translateY(0); }
+            .menu-toggle { display: block; }
+            
+            .pricing-banner { flex-direction: column; text-align: center; padding: 36px 24px; }
+            .cta-box { padding: 50px 20px; }
+            .cta-box h2 { font-size: 2.2rem; }
             footer { flex-direction: column; text-align: center; }
         }
-        
-            /* === 1. TECH STACK TICKER / MARQUEE === */
-    .tech-ticker {
-        border-top: 1px solid var(--glass-border);
-        border-bottom: 1px solid var(--glass-border);
-        padding: 30px 0;
-        background: rgba(9, 9, 11, 0.4);
-        overflow: hidden;
-        white-space: nowrap;
-        position: relative;
-    }
-    .ticker-track {
-        display: inline-flex;
-        gap: 60px;
-        animation: scrollTicker 25s linear infinite;
-    }
-    .ticker-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 1rem;
-        letter-spacing: 0.5px;
-    }
-    .ticker-item i {
-        color: var(--accent-main);
-        font-size: 1.2rem;
-    }
-    @keyframes scrollTicker {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-
-    /* === 2. FILTER TOMBOL PORTOFOLIO === */
-    .portfolio-filters {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 36px;
-        flex-wrap: wrap;
-    }
-    .filter-btn {
-        background: var(--surface-color);
-        border: 1px solid var(--glass-border);
-        color: var(--text-muted);
-        padding: 8px 18px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .filter-btn:hover, .filter-btn.active {
-        background: var(--text-main);
-        color: var(--bg-color);
-        border-color: var(--text-main);
-    }
-
-    /* === 3. FLOATING BACK TO TOP BUTTON === */
-    .back-to-top {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: var(--surface-hover);
-        color: var(--text-main);
-        border: 1px solid var(--glass-border);
-        width: 45px;
-        height: 45px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        cursor: pointer;
-        z-index: 999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-    .back-to-top.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    .back-to-top:hover {
-        background: var(--accent-main);
-        color: var(--bg-color);
-        transform: translateY(-3px);
-    }
-    
-        /* === TYPING EFFECT CURSOR === */
-    .cursor-blink {
-        color: var(--accent-main);
-        font-weight: 300;
-        animation: blink 0.8s infinite;
-    }
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-    }
-    
-        /* === STATS BAR HERO === */
-    .hero-stats {
-        display: flex;
-        gap: 40px;
-        margin-top: 50px;
-        border-top: 1px solid var(--glass-border);
-        padding-top: 30px;
-    }
-    .stat-item h4 {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: var(--text-main);
-        line-height: 1;
-        margin-bottom: 5px;
-    }
-    .stat-item p {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin: 0;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    @media (max-width: 992px) {
-        .hero-stats { justify-content: center; flex-wrap: wrap; gap: 20px; }
-    }
     </style>
 </head>
 <body>
@@ -702,11 +608,14 @@
     <!-- NAVBAR -->
     <nav>
         <a href="#home" class="logo">DT<span>SCRIPT</span>ID</a>
-        <div class="nav-links">
+        <div class="nav-links" id="navLinks">
             <a href="#layanan">Layanan & Harga</a>
             <a href="#portfolio">Portofolio</a>
             <a href="https://wa.me/6285786342988" target="_blank" class="btn-nav">Hubungi Saya</a>
         </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </nav>
 
     <!-- HERO SECTION -->
@@ -724,10 +633,9 @@
                 <a href="#portfolio" class="btn-primary">Lihat Karya Saya</a>
                 <a href="https://wa.me/6285786342988" target="_blank" class="btn-secondary">Konsultasi Gratis</a>
             </div>
-        </div>
-        
-                    <!-- STATS BAR -->
-            <div class="hero-stats reveal">
+
+            <!-- STATS BAR -->
+            <div class="hero-stats">
                 <div class="stat-item">
                     <h4>3+</h4>
                     <p>Tahun Pengalaman</p>
@@ -741,6 +649,7 @@
                     <p>Klien Puas</p>
                 </div>
             </div>
+        </div>
 
         <div class="hero-image reveal">
             <div class="profile-img-container">
@@ -749,7 +658,7 @@
         </div>
     </section>
     
-        <!-- TECH STACK TICKER -->
+    <!-- TECH STACK TICKER -->
     <div class="tech-ticker">
         <div class="ticker-track">
             <div class="ticker-item"><i class="fa-brands fa-html5"></i> HTML5 & CSS3</div>
@@ -759,7 +668,7 @@
             <div class="ticker-item"><i class="fa-brands fa-node-js"></i> Node.js</div>
             <div class="ticker-item"><i class="fa-solid fa-database"></i> PostgreSQL & MySQL</div>
             <div class="ticker-item"><i class="fa-brands fa-git-alt"></i> Git & GitHub</div>
-            <!-- Duplikasi untuk infinite loop yang mulus -->
+            <!-- Duplikasi untuk infinite loop mulus -->
             <div class="ticker-item"><i class="fa-brands fa-html5"></i> HTML5 & CSS3</div>
             <div class="ticker-item"><i class="fa-brands fa-js"></i> JavaScript ES6+</div>
             <div class="ticker-item"><i class="fa-brands fa-react"></i> React.js</div>
@@ -780,7 +689,7 @@
         <div class="pricing-banner reveal">
             <div class="pricing-content">
                 <h3>Paket Fleksibel, Tanpa Biaya Tersembunyi</h3>
-                <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 8px;">Mulai dari Landing Page responsif hingga Custom Web Apps. Cek fitur dan estimasi pengerjaan di portal khusus.</p>
+                <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 6px;">Mulai dari Landing Page responsif hingga Custom Web Apps. Cek fitur dan estimasi pengerjaan di portal khusus.</p>
             </div>
             <div class="pricing-cta">
                 <a href="https://price-list-dtscriptid.vercel.app/" target="_blank" class="btn-primary">
@@ -928,27 +837,25 @@
         <div class="logo">DT<span>SCRIPT</span>ID</div>
         <p style="color: var(--text-muted); font-size: 14px;">&copy; 2026 DTSCRIPTID. All rights reserved.</p>
         <div class="social-icons">
-            <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/dhitoid" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
     </footer>
     
-        <!-- BACK TO TOP BUTTON -->
+    <!-- BACK TO TOP BUTTON -->
     <a href="#home" class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
         <i class="fa-solid fa-arrow-up"></i>
     </a>
 
-    <!-- SCRIPT SCROLL REVEAL -->
+    <!-- SCRIPTS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. SCROLL REVEAL ANIMATION ---
             const reveals = document.querySelectorAll('.reveal');
-            
             const revealOnScroll = () => {
                 const windowHeight = window.innerHeight;
-                // Mengurangi elemen trigger agar animasi muncul lebih mulus
                 const elementVisible = 50; 
-                
                 reveals.forEach((reveal) => {
                     const elementTop = reveal.getBoundingClientRect().top;
                     if (elementTop < windowHeight - elementVisible) {
@@ -956,77 +863,93 @@
                     }
                 });
             };
-            
             window.addEventListener('scroll', revealOnScroll);
-            // Trigger sekali saat web pertama dimuat
             setTimeout(revealOnScroll, 100); 
-        });
-        
-                // --- 1. PORTFOLIO FILTER SYSTEM ---
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioCards = document.querySelectorAll('.portfolio-card');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Hapus kelas active dari tombol lain
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+            // --- 2. MOBILE HAMBURGER MENU ---
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-xmark');
+            });
 
-                const filterValue = btn.getAttribute('data-filter');
-
-                portfolioCards.forEach(card => {
-                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
+            // Tutup menu saat link diklik (khusus mobile)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-xmark');
                 });
             });
+
+            // --- 3. PORTFOLIO FILTER SYSTEM ---
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    portfolioCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // --- 4. BACK TO TOP BUTTON LOGIC ---
+            const backToTopBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            // --- 5. TYPING EFFECT HERO ---
+            const typedTextSpan = document.getElementById("typed-text");
+            const words = ["Profesional.", "Modern.", "Fungsional.", "Interaktif."];
+            const typingDelay = 100;
+            const erasingDelay = 70;
+            const newTextDelay = 2000;
+            let wordIndex = 0;
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < words[wordIndex].length) {
+                    typedTextSpan.textContent += words[wordIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, typingDelay);
+                } else {
+                    setTimeout(erase, newTextDelay);
+                }
+            }
+
+            function erase() {
+                if (charIndex > 0) {
+                    typedTextSpan.textContent = words[wordIndex].substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(erase, erasingDelay);
+                } else {
+                    wordIndex++;
+                    if (wordIndex >= words.length) wordIndex = 0;
+                    setTimeout(type, typingDelay + 500);
+                }
+            }
+            
+            if(words.length) setTimeout(type, newTextDelay);
         });
-
-        // --- 2. BACK TO TOP BUTTON LOGIC ---
-        const backToTopBtn = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-        });
-        
-                // --- 3. TYPING EFFECT HERO ---
-        const typedTextSpan = document.getElementById("typed-text");
-        const words = ["Profesional.", "Modern.", "Fungsional.", "Interaktif."];
-        const typingDelay = 100;
-        const erasingDelay = 70;
-        const newTextDelay = 2000;
-        let wordIndex = 0;
-        let charIndex = 0;
-
-        function type() {
-            if (charIndex < words[wordIndex].length) {
-                typedTextSpan.textContent += words[wordIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(type, typingDelay);
-            } else {
-                setTimeout(erase, newTextDelay);
-            }
-        }
-
-        function erase() {
-            if (charIndex > 0) {
-                typedTextSpan.textContent = words[wordIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(erase, erasingDelay);
-            } else {
-                wordIndex++;
-                if (wordIndex >= words.length) wordIndex = 0;
-                setTimeout(type, typingDelay + 500);
-            }
-        }
-        
-        // Mulai animasi ketik saat halaman dimuat
-        if(words.length) setTimeout(type, newTextDelay);
     </script>
 </body>
 </html>
