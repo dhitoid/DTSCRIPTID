@@ -650,6 +650,74 @@
             box-shadow: 0 0 10px var(--accent-main);
             transition: width 0.1s ease;
         }
+                /* ========================================== */
+        /* UPGRADE: CUSTOM CURSOR (Hanya untuk Desktop) */
+        @media (min-width: 992px) {
+            body { cursor: none; /* Menyembunyikan kursor bawaan */ }
+            
+            .custom-cursor {
+                position: fixed;
+                width: 36px;
+                height: 36px;
+                border: 2px solid rgba(56, 189, 248, 0.5);
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+                z-index: 10000;
+                mix-blend-mode: screen;
+            }
+            
+            .cursor-dot {
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background-color: var(--accent-main);
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                z-index: 10001;
+                box-shadow: 0 0 10px var(--accent-main);
+            }
+
+            /* Efek kursor saat hover elemen interaktif */
+            .custom-cursor.hovered {
+                width: 60px;
+                height: 60px;
+                background-color: rgba(56, 189, 248, 0.1);
+                border-color: transparent;
+            }
+        }
+
+        /* ========================================== */
+        /* UPGRADE: SPOTLIGHT EFFECT PADA PORTFOLIO CARDS */
+        .portfolio-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            /* Efek senter (spotlight) mengikuti koordinat X dan Y dari Javascript */
+            background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(56, 189, 248, 0.12), transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .portfolio-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Memastikan teks dan ikon portofolio tetap di atas efek cahaya */
+        .portfolio-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Modifikasi transisi tombol untuk efek Magnetic */
+        .btn-primary, .btn-secondary, .social-icons a, .external-link {
+            transition: transform 0.1s linear, background 0.3s, box-shadow 0.3s !important;
+        }
     </style>
 </head>
 <body>
@@ -898,6 +966,10 @@
     <a href="#home" class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
         <i class="fa-solid fa-arrow-up"></i>
     </a>
+    
+    <!-- UPGRADE: ELEMEN CUSTOM CURSOR -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
 
     <!-- SCRIPTS -->
     <script>
@@ -1018,6 +1090,87 @@
                 const scrolled = (winScroll / height) * 100;
                 document.getElementById('scrollProgress').style.width = scrolled + "%";
             });
+            
+                        // ==========================================
+            // UPGRADE 1: LOGIKA CUSTOM CURSOR
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
+            
+            // Cek apakah perangkat mendukung hover (bukan HP layar sentuh)
+            if (window.matchMedia("(pointer: fine)").matches) {
+                document.addEventListener('mousemove', (e) => {
+                    // Membuat kursor mengikuti posisi mouse dengan sedikit efek smooth (delay) pada lingkaran luar
+                    cursorDot.style.left = `${e.clientX}px`;
+                    cursorDot.style.top = `${e.clientY}px`;
+                    
+                    // Lingkaran luar mengikuti dengan jeda animasi instan
+                    setTimeout(() => {
+                        cursor.style.left = `${e.clientX}px`;
+                        cursor.style.top = `${e.clientY}px`;
+                    }, 50);
+                });
+
+                // Efek membesar saat mengenai link, tombol, atau kartu portofolio
+                const hoverElements = document.querySelectorAll('a, button, .portfolio-card');
+                hoverElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+                });
+            }
+
+            // ==========================================
+            // UPGRADE 2: APPLE-STYLE 3D TILT & SPOTLIGHT PADA KARTU
+            document.querySelectorAll('.portfolio-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Mengirim koordinat ke CSS Variables untuk efek Spotlight
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                    
+                    // Kalkulasi efek 3D Tilt
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -6; // Maksimal rotasi 6 derajat
+                    const rotateY = ((x - centerX) / centerX) * 6;
+                    
+                    // Menggabungkan tilt dengan efek hover bawaan (translateY & scale)
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+                });
+                
+                // Reset posisi saat mouse keluar
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = ''; 
+                });
+            });
+
+            // ==========================================
+            // UPGRADE 3: MAGNETIC BUTTONS
+            const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .social-icons a, .external-link');
+            
+            magneticElements.forEach(elem => {
+                elem.addEventListener('mousemove', (e) => {
+                    const rect = elem.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Kalkulasi jarak dari titik tengah elemen
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const moveX = (x - centerX) * 0.3; // Kekuatan tarik magnet (0.3)
+                    const moveY = (y - centerY) * 0.3;
+                    
+                    elem.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+                
+                // Reset posisi saat mouse keluar
+                elem.addEventListener('mouseleave', () => {
+                    elem.style.transform = 'translate(0, 0)';
+                });
+            });
+
         });
     </script>
 </body>
