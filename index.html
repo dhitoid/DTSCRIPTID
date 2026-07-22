@@ -1255,6 +1255,19 @@
         </div>
 
         <div class="portfolio-grid">
+            <!-- Handover Kit Project -->
+            <div class="portfolio-card reveal" data-category="tools">
+                <div class="card-top">
+                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                    <a href="https://handover-kit-dtscriptid.vercel.app/" target="_blank" class="external-link" aria-label="Visit Handover Kit DTSCRIPTID"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <h4>Handover Kit DTSCRIPTID</h4>
+                <p>Platform dokumentasi dan panduan serah terima proyek secara terstruktur dan profesional untuk klien.</p>
+                <div class="card-tech">
+                    <span>Handover</span> <span>Client Kit</span> <span>Tools</span>
+                </div>
+            </div>
+
             <!-- Project 1 -->
             <div class="portfolio-card reveal" data-category="frontend">
                 <div class="card-top">
@@ -1816,10 +1829,15 @@
                 switch (cmd) {
                     case 'help':
                         responseDiv.innerHTML = `Perintah yang tersedia:<br>
+                        - <b style="color:var(--accent-main)">handover</b> : Buka Handover Kit DTSCRIPTID<br>
                         - <b style="color:var(--accent-main)">contact</b> : Langsung chat WhatsApp<br>
                         - <b style="color:var(--accent-main)">portfolio</b> : Lihat daftar proyek<br>
                         - <b style="color:var(--accent-main)">pricing</b> : Cek price list web<br>
                         - <b style="color:var(--accent-main)">clear</b> : Bersihkan layar terminal`;
+                        break;
+                    case 'handover':
+                        responseDiv.innerHTML = `Membuka Handover Kit DTSCRIPTID...`;
+                        setTimeout(() => { window.open('https://handover-kit-dtscriptid.vercel.app/', '_blank'); }, 800);
                         break;
                     case 'contact':
                         responseDiv.innerHTML = `Mengarahkan ke WhatsApp...`;
