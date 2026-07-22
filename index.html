@@ -608,17 +608,20 @@
         }
         .social-icons a:hover { color: #ffffff; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
 
-        /* === BACK TO TOP === */
-        .back-to-top {
+        /* === BACK TO TOP & BACK TO BOTTOM === */
+        .back-to-top, 
+        .back-to-bottom {
             position: fixed;
-            bottom: 30px;
             right: 30px;
             background: var(--surface-hover);
             color: var(--text-main);
             border: 1px solid var(--glass-border);
-            width: 44px; height: 44px;
+            width: 44px; 
+            height: 44px;
             border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             cursor: pointer;
             z-index: 999;
             opacity: 0;
@@ -626,8 +629,27 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
-        .back-to-top.show { opacity: 1; visibility: visible; }
-        .back-to-top:hover { background: var(--accent-main); color: var(--bg-color); transform: translateY(-3px); }
+
+        /* Posisi bertumpuk vertikal */
+        .back-to-top { 
+            bottom: 30px; 
+        }
+        .back-to-bottom { 
+            bottom: 84px; /* Tepat di atas back-to-top (30px + 44px tinggi + 10px jarak) */
+        }
+
+        .back-to-top.show, 
+        .back-to-bottom.show { 
+            opacity: 1; 
+            visibility: visible; 
+        }
+
+        .back-to-top:hover, 
+        .back-to-bottom:hover { 
+            background: var(--accent-main); 
+            color: var(--bg-color); 
+            transform: translateY(-3px); 
+        }
 
         /* Typing Cursor */
         .cursor-blink { color: var(--accent-main); font-weight: 300; animation: blink 0.8s infinite; }
@@ -1243,7 +1265,7 @@
                     <div class="terminal-line interactive-line">
                         <span class="prompt">➜</span> 
                         <span class="command-input-wrapper">
-                            <input type="text" id="terminalInput" placeholder="ketik 'contact' / 'help'..." autocomplete="off" spellcheck="false" inputmode="none" readonly>
+                            <input type="text" id="terminalInput" placeholder="ketik 'contact' / 'help'..." autocomplete="off" spellcheck="false">
                             <span class="terminal-cursor">█</span>
                         </span>
                     </div>
@@ -1534,9 +1556,12 @@
         </div>
     </footer>
     
-    <!-- BACK TO TOP BUTTON -->
+    <!-- BACK TO TOP & BACK TO BOTTOM BUTTONS -->
     <a href="#home" class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
         <i class="fa-solid fa-arrow-up"></i>
+    </a>
+    <a href="#footer" class="back-to-bottom" id="backToBottom" aria-label="Turun ke bawah">
+        <i class="fa-solid fa-arrow-down"></i>
     </a>
     
     <!-- DYNAMIC AMBIENT GLOW -->
@@ -1644,13 +1669,26 @@
                 });
             });
 
-            // --- 4. BACK TO TOP BUTTON LOGIC ---
+            // --- BACK TO TOP & BACK TO BOTTOM LOGIC ---
             const backToTopBtn = document.getElementById('backToTop');
+            const backToBottomBtn = document.getElementById('backToBottom');
+
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 400) {
+                const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const currentScroll = window.scrollY;
+
+                // Munculkan Back to Top jika scroll lebih dari 400px ke bawah
+                if (currentScroll > 400) {
                     backToTopBtn.classList.add('show');
                 } else {
                     backToTopBtn.classList.remove('show');
+                }
+
+                // Sembunyikan Back to Bottom jika sudah hampir mentok di bawah halaman
+                if (currentScroll < scrollTotal - 400) {
+                    backToBottomBtn.classList.add('show');
+                } else {
+                    backToBottomBtn.classList.remove('show');
                 }
             });
 
