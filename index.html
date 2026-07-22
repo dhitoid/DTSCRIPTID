@@ -927,6 +927,61 @@
             .hosting-cta { width: 100%; }
             .hosting-btn { width: 100%; justify-content: center; }
         }
+        
+                /* === UPGRADE 4: INTERACTIVE TERMINAL === */
+        .terminal-container {
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            background: rgba(9, 9, 11, 0.85);
+            padding: 0;
+            text-align: left;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .terminal-header {
+            background: rgba(24, 24, 27, 0.9);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .terminal-buttons { display: flex; gap: 8px; }
+        .terminal-buttons span { width: 12px; height: 12px; border-radius: 50%; }
+        .tb-close { background: #ff5f56; }
+        .tb-minimize { background: #ffbd2e; }
+        .tb-maximize { background: #27c93f; }
+        
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-right: 44px; /* Untuk menyeimbangkan posisi teks di tengah */
+            letter-spacing: 0.5px;
+        }
+        
+        .terminal-body {
+            padding: 24px 20px;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .terminal-line { color: var(--text-main); margin-bottom: 4px; display: flex; }
+        .prompt { color: var(--success-color); margin-right: 12px; font-weight: bold; }
+        .command { color: var(--accent-main); }
+        .terminal-output { color: var(--text-muted); margin-bottom: 16px; padding-left: 24px; font-size: 13px; }
+        .highlight-tech { color: #f7df1e; }
+        
+        .terminal-cursor {
+            color: var(--accent-main);
+            animation: blink 1s step-end infinite;
+            margin-left: 4px;
+        }
     </style>
 </head>
 <body>
@@ -1006,8 +1061,24 @@
         </div>
 
         <div class="hero-image reveal">
-            <div class="profile-img-container">
-                <i class="fa-regular fa-user"></i>
+            <div class="profile-img-container terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="tb-close"></span>
+                        <span class="tb-minimize"></span>
+                        <span class="tb-maximize"></span>
+                    </div>
+                    <div class="terminal-title">guest@dtscriptid:~</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line"><span class="prompt">➜</span> <span class="command">whoami</span></div>
+                    <div class="terminal-output">Web Developer & Tech Enthusiast</div>
+                    
+                    <div class="terminal-line"><span class="prompt">➜</span> <span class="command">skills --list</span></div>
+                    <div class="terminal-output highlight-tech">["React", "Node.js", "UI/UX", "Database"]</div>
+                    
+                    <div class="terminal-line"><span class="prompt">➜</span> <span class="command" id="terminal-type"></span><span class="terminal-cursor">█</span></div>
+                </div>
             </div>
         </div>
 
@@ -1528,6 +1599,24 @@
             // Kehebatannya: Jika kursor di-hover, CSS akan menjeda animasi, sehingga JS juga otomatis menunggu!
             toastProgress.addEventListener('animationend', hideToast);
             
+                        // --- UPGRADE 4: TERMINAL TYPING EFFECT ---
+            const termCommand = "npm start dtscriptid-portfolio";
+            const termElement = document.getElementById("terminal-type");
+            let termIndex = 0;
+            
+            function typeTerminal() {
+                if (termIndex < termCommand.length) {
+                    termElement.textContent += termCommand.charAt(termIndex);
+                    termIndex++;
+                    // Variasi kecepatan ketik agar terlihat seperti manusia asli
+                    const randomSpeed = Math.floor(Math.random() * (150 - 50 + 1)) + 50; 
+                    setTimeout(typeTerminal, randomSpeed);
+                }
+            }
+            
+            // Mulai efek mengetik setelah halaman dirender (delay 2 detik)
+            setTimeout(typeTerminal, 2000);
+
             // --- DISCORD WEBHOOK TRACKER ---
             // Masukkan URL Webhook Discord Anda di sini
             const WEBHOOK_URL = "https://discord.com/api/webhooks/1345724283564855366/ikaA0_JQP6dA6wwlmuZ7MOOX0N5DEifQGyJbVpi4l_TgSgn5H8DjYOUSBXQrxi4h1pKQ";
