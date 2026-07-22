@@ -837,6 +837,64 @@
             background: var(--gradient-text); transition: width 0.3s ease; border-radius: 2px;
         }
         .nav-links a:not(.btn-nav):hover::after { width: 100%; }
+        
+                /* === HOSTING PARTNER BANNER === */
+        .hosting-banner {
+            background: linear-gradient(135deg, rgba(9,9,11,0.8) 0%, rgba(24,24,27,0.6) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            margin-bottom: 50px;
+        }
+        .hosting-banner:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(16, 185, 129, 0.05);
+        }
+        .hosting-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .hosting-content h3 { font-size: 1.8rem; margin-bottom: 12px; font-weight: 800; letter-spacing: -0.5px; }
+        .hosting-content p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6; max-width: 600px;}
+        .hosting-features { list-style: none; display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 0; }
+        .hosting-features li { display: flex; align-items: center; gap: 8px; color: #e4e4e7; font-size: 0.95rem; font-weight: 600; }
+        .hosting-features i { color: var(--success-color); }
+        
+        .hosting-btn { 
+            background: var(--success-color); 
+            color: #ffffff; 
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); 
+            animation: none;
+        }
+        .hosting-btn::before { background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent); }
+        .hosting-btn:hover { 
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); 
+            background: #059669; 
+            color: #ffffff;
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 992px) {
+            .hosting-banner { flex-direction: column; text-align: left; padding: 36px 24px; }
+            .hosting-features { flex-direction: column; gap: 12px; }
+            .hosting-cta { width: 100%; }
+            .hosting-btn { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -960,6 +1018,33 @@
             <div class="pricing-cta">
                 <a href="https://price-list-dtscriptid.vercel.app/" target="_blank" class="btn-primary" style="animation: none;">
                     Lihat Price List <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+        <!-- HOSTING AFFILIATE SECTION -->
+    <section id="hosting" style="padding-top: 0;">
+        <div class="section-header reveal">
+            <h2>Rekomendasi Hosting</h2>
+            <p>Performa website maksimal dimulai dari server yang andal. Saya menggunakan dan merekomendasikan layanan hosting terbaik untuk menunjang proyek Anda.</p>
+        </div>
+
+        <div class="hosting-banner reveal">
+            <div class="hosting-content">
+                <div class="hosting-badge"><i class="fa-solid fa-handshake"></i> Partner Resmi</div>
+                <h3>AnymHost - High Performance SSD</h3>
+                <p>Dapatkan performa server stabil, uptime 99.9%, dan dukungan teknis 24/7. Sangat cocok untuk website company profile hingga aplikasi web yang kompleks.</p>
+                <ul class="hosting-features">
+                    <li><i class="fa-solid fa-check-circle"></i> SSD NVMe Storage</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Gratis SSL Selamanya</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Bandwidth Unlimited</li>
+                </ul>
+            </div>
+            <div class="hosting-cta">
+                <!-- Link Affiliate Anymhost Anda -->
+                <a href="https://clients.anymhost.id/aff.php?aff=987" target="_blank" class="btn-primary hosting-btn">
+                    Daftar Hosting Sekarang <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
         </div>
