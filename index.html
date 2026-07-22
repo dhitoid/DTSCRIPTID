@@ -1048,6 +1048,80 @@
                 font-size: 15px; /* Menyesuaikan teks lain agar tidak jomplang */
             }
         }
+        
+                /* === UPGRADE: PROFILE MODAL LIGHTBOX === */
+        .terminal-avatar {
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        }
+        .terminal-avatar:hover {
+            transform: scale(1.15) rotate(-5deg);
+            box-shadow: 0 0 20px var(--accent-main);
+        }
+        .profile-modal {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(9, 9, 11, 0.9); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 999999; opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .profile-modal.active { opacity: 1; visibility: visible; }
+        
+        .profile-modal-img {
+            max-width: 85vw; max-height: 85vh; border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 50px rgba(56, 189, 248, 0.15);
+            transform: scale(0.8) translateY(40px); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid var(--glass-border);
+            object-fit: cover;
+        }
+        .profile-modal.active .profile-modal-img { transform: scale(1) translateY(0); }
+        
+        .modal-close {
+            position: absolute; top: 30px; right: 40px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+            color: white; width: 48px; height: 48px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.3rem; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px);
+        }
+        .modal-close:hover { background: #ff5f56; color: #fff; transform: rotate(90deg) scale(1.1); border-color: #ff5f56; }
+
+        /* === UPGRADE: FOOTER MODERN 2026 === */
+        .modern-footer {
+            background: linear-gradient(180deg, var(--bg-color) 0%, #050505 100%);
+            border-top: 1px solid var(--glass-border);
+            padding: 80px 8% 30px;
+            position: relative; overflow: hidden;
+            z-index: 10;
+        }
+        .modern-footer::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-main), transparent); opacity: 0.5;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 60px;
+        }
+        .footer-brand .logo { font-size: 26px; margin-bottom: 16px; display: inline-block; }
+        .footer-vision { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 24px; padding-right: 20px; }
+        .footer-title { color: var(--text-main); font-size: 1.15rem; font-weight: 700; margin-bottom: 24px; letter-spacing: 0.5px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px;}
+        .footer-links a i { font-size: 0.8rem; color: var(--accent-main); opacity: 0; transform: translateX(-10px); transition: 0.3s; }
+        .footer-links a:hover { color: var(--text-main); transform: translateX(5px); }
+        .footer-links a:hover i { opacity: 1; transform: translateX(0); }
+        .footer-contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .footer-contact-item i { color: var(--accent-main); font-size: 1.2rem; margin-top: 3px; background: rgba(56, 189, 248, 0.1); padding: 8px; border-radius: 8px; }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 20px;
+        }
+        
+        /* Mobile Adjustment Footer */
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: left; }
+            .footer-vision { padding-right: 0; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .modal-close { top: 20px; right: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -1385,14 +1459,66 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="logo">DT<span>SCRIPT</span>ID</div>
-        <p style="color: var(--text-muted); font-size: 14px;">&copy; 2026 DTSCRIPTID. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="https://github.com/dhitoid" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <!-- FOOTER MODERN 2026 -->
+    <footer class="modern-footer">
+        <div class="footer-grid">
+            <!-- Kolom 1: Brand & Visi -->
+            <div class="footer-brand">
+                <div class="logo">DT<span>SCRIPT</span>ID</div>
+                <p class="footer-vision">Berkomitmen menghadirkan ekosistem digital premium. Misi kami adalah mentransformasi ide bisnis Anda menjadi arsitektur web modern yang cepat, aman, dan berorientasi pada konversi tinggi.</p>
+                <div class="social-icons">
+                    <a href="https://github.com/dhitoid" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Kolom 2: Layanan -->
+            <div class="footer-widget">
+                <h4 class="footer-title">Layanan Utama</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Custom Web Apps</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Company Profile</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Undangan Digital</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Sistem Kasir & Invoice</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 3: Navigasi -->
+            <div class="footer-widget">
+                <h4 class="footer-title">Eksplorasi</h4>
+                <ul class="footer-links">
+                    <li><a href="#portfolio"><i class="fa-solid fa-chevron-right"></i> Portofolio Klien</a></li>
+                    <li><a href="https://price-list-dtscriptid.vercel.app/" target="_blank"><i class="fa-solid fa-chevron-right"></i> Transparansi Harga</a></li>
+                    <li><a href="#hosting"><i class="fa-solid fa-chevron-right"></i> Rekomendasi Hosting</a></li>
+                    <li><a href="https://handover-kit-dtscriptid.vercel.app/" target="_blank"><i class="fa-solid fa-chevron-right"></i> Client Handover Kit</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 4: Kontak Info -->
+            <div class="footer-widget">
+                <h4 class="footer-title">Hubungi Saya</h4>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <strong style="color: #fff; display: block; margin-bottom: 2px;">Base of Operations</strong>
+                        Remote (Tersedia untuk klien di seluruh Indonesia & Global)
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <div>
+                        <strong style="color: #fff; display: block; margin-bottom: 2px;">Direct Message</strong>
+                        +62 857-8634-2988
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p style="color: var(--text-muted); font-size: 14px; margin: 0;">&copy; 2026 DTSCRIPTID. Designed & Engineered with precision.</p>
+            <p style="color: var(--text-muted); font-size: 14px; margin: 0;">Status: <span style="color: var(--success-color); font-weight: 600;">All Systems Operational</span></p>
         </div>
     </footer>
     
@@ -1418,6 +1544,12 @@
     <!-- CUSTOM CURSOR -->
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
+    
+    <!-- MODAL PROFILE PICTURE -->
+    <div class="profile-modal" id="profileModal">
+        <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+        <img src="" alt="DTSCRIPTID Owner Zoom" class="profile-modal-img" id="modalImg">
+    </div>
 
     <!-- SCRIPTS -->
     <script>
@@ -1696,7 +1828,7 @@
             // Kehebatannya: Jika kursor di-hover, CSS akan menjeda animasi, sehingga JS juga otomatis menunggu!
             toastProgress.addEventListener('animationend', hideToast);
             
-                        // --- UPGRADE 4: TERMINAL TYPING EFFECT ---
+            // --- UPGRADE 4: TERMINAL TYPING EFFECT ---
             const termCommand = "npm start dtscriptid-portfolio";
             const termElement = document.getElementById("terminal-type");
             let termIndex = 0;
@@ -1713,6 +1845,44 @@
             
             // Mulai efek mengetik setelah halaman dirender (delay 2 detik)
             setTimeout(typeTerminal, 2000);
+            
+                        // --- UPGRADE: PROFILE PICTURE LIGHTBOX LOGIC ---
+            const avatarContainer = document.querySelector('.terminal-avatar');
+            const avatarImg = document.querySelector('.terminal-avatar img');
+            const profileModal = document.getElementById('profileModal');
+            const modalImg = document.getElementById('modalImg');
+            const closeModal = document.getElementById('closeModal');
+
+            if (avatarContainer && profileModal) {
+                // Buka modal saat foto diklik
+                avatarContainer.addEventListener('click', () => {
+                    modalImg.src = avatarImg.src; // Ambil src gambar dari avatar
+                    profileModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Kunci scroll web
+                });
+
+                // Tutup modal saat tombol silang diklik
+                closeModal.addEventListener('click', () => {
+                    profileModal.classList.remove('active');
+                    document.body.style.overflow = 'auto'; // Buka scroll web
+                });
+
+                // Tutup modal saat area kosong/gelap di luar gambar diklik
+                profileModal.addEventListener('click', (e) => {
+                    if (e.target === profileModal) {
+                        profileModal.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+
+                // Tutup modal menggunakan tombol ESC di keyboard
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && profileModal.classList.contains('active')) {
+                        profileModal.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
 
             // --- DISCORD WEBHOOK TRACKER ---
             // Masukkan URL Webhook Discord Anda di sini
