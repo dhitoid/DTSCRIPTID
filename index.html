@@ -718,9 +718,91 @@
         .btn-primary, .btn-secondary, .social-icons a, .external-link {
             transition: transform 0.1s linear, background 0.3s, box-shadow 0.3s !important;
         }
+        
+                /* ========================================== */
+        /* UPGRADE: PREMIUM PRELOADER */
+        .preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .preloader-content { text-align: center; }
+
+        .preloader-logo {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: pulse-glow 1.5s infinite alternate;
+        }
+
+        .loading-bar {
+            width: 150px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-progress {
+            position: absolute;
+            top: 0; left: 0; height: 100%;
+            background: var(--accent-main);
+            width: 0%;
+            box-shadow: 0 0 10px var(--accent-main);
+            animation: loadingAnim 1.5s ease-in-out forwards;
+        }
+
+        @keyframes pulse-glow {
+            0% { text-shadow: 0 0 10px rgba(56, 189, 248, 0); transform: scale(1); }
+            100% { text-shadow: 0 0 20px rgba(56, 189, 248, 0.5); transform: scale(1.05); }
+        }
+
+        @keyframes loadingAnim {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* Menyembunyikan preloader setelah loading selesai */
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+
+        /* ========================================== */
+        /* UPGRADE: NEON CLICK RIPPLE */
+        .click-ripple {
+            position: fixed;
+            border-radius: 50%;
+            border: 1px solid var(--accent-main);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.8), inset 0 0 10px rgba(56, 189, 248, 0.4);
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0);
+            animation: rippleEffect 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            z-index: 10002;
+        }
+
+        @keyframes rippleEffect {
+            100% { transform: translate(-50%, -50%) scale(4); opacity: 0; border-width: 2px; }
+        }
     </style>
 </head>
 <body>
+    
+    <body>
+    <!-- UPGRADE: PREMIUM PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="logo preloader-logo">DT<span>SCRIPT</span>ID</div>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+        </div>
+    </div>
+    <!-- ========================================== -->
+
     <!-- SCROLL PROGRESS BAR -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -753,18 +835,18 @@
                 <a href="https://wa.me/6285786342988" target="_blank" class="btn-secondary">Konsultasi Gratis</a>
             </div>
 
-            <!-- STATS BAR -->
+            <!-- STATS BAR (UPGRADED DENGAN CLASS COUNTER) -->
             <div class="hero-stats">
                 <div class="stat-item">
-                    <h4>3+</h4>
+                    <h4><span class="counter" data-target="3">0</span>+</h4>
                     <p>Tahun Pengalaman</p>
                 </div>
                 <div class="stat-item">
-                    <h4>20+</h4>
+                    <h4><span class="counter" data-target="20">0</span>+</h4>
                     <p>Proyek Selesai</p>
                 </div>
                 <div class="stat-item">
-                    <h4>100%</h4>
+                    <h4><span class="counter" data-target="100">0</span>%</h4>
                     <p>Klien Puas</p>
                 </div>
             </div>
@@ -1169,6 +1251,68 @@
                 elem.addEventListener('mouseleave', () => {
                     elem.style.transform = 'translate(0, 0)';
                 });
+            });
+            
+                        // ==========================================
+            // UPGRADE 4: PREMIUM PRELOADER
+            const preloader = document.getElementById('preloader');
+            window.addEventListener('load', () => {
+                // Memberi sedikit jeda agar animasi loading bar terlihat selesai
+                setTimeout(() => {
+                    preloader.classList.add('hidden');
+                    // Memicu ulang scroll reveal setelah preloader hilang
+                    setTimeout(revealOnScroll, 100);
+                }, 1500); 
+            });
+
+            // ==========================================
+            // UPGRADE 5: ANIMATED NUMBER COUNTER (Intersection Observer)
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // Semakin kecil angkanya, semakin cepat animasinya
+
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const updateCount = () => {
+                            const target = +counter.getAttribute('data-target');
+                            const count = +counter.innerText;
+                            const inc = target / speed;
+
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count + inc);
+                                setTimeout(updateCount, 20);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter); // Animasi hanya berjalan 1 kali
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+
+            // ==========================================
+            // UPGRADE 6: NEON CLICK RIPPLE
+            document.addEventListener('mousedown', function (e) {
+                // Membuat elemen ripple
+                const ripple = document.createElement('div');
+                ripple.classList.add('click-ripple');
+                
+                // Set posisi tepat di kursor mouse
+                ripple.style.left = `${e.clientX}px`;
+                ripple.style.top = `${e.clientY}px`;
+                
+                document.body.appendChild(ripple);
+                
+                // Menghapus elemen ripple setelah animasi selesai (600ms)
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
             });
 
         });
