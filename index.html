@@ -694,11 +694,14 @@
             align-items: center;
             gap: 16px;
             z-index: 1000;
-            transition: right 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            transition: right 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(16, 185, 129, 0.1); /* Tambah soft glow */
             border-left: 4px solid var(--success-color);
+            overflow: hidden; /* Penting untuk progress bar */
         }
         .toast-notification.show { right: 24px; }
+        
+        /* Animasi Pulse pada Icon */
         .toast-icon {
             width: 40px; height: 40px;
             background: rgba(16, 185, 129, 0.15);
@@ -706,7 +709,14 @@
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.1rem;
+            animation: pulse-icon 2s infinite;
         }
+        @keyframes pulse-icon {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
         .toast-content h5 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
         .toast-content p { font-size: 13px; color: var(--text-muted); margin: 0; }
         .toast-close {
@@ -714,6 +724,28 @@
             margin-left: 10px; font-size: 1.1rem; transition: 0.3s;
         }
         .toast-close:hover { color: #fff; transform: scale(1.1); }
+
+        /* Progress Bar Countdown */
+        .toast-progress {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 3px;
+            background: var(--success-color);
+            width: 100%;
+            box-shadow: 0 0 10px var(--success-color);
+        }
+        
+        /* Animasi Progress Bar (Jeda saat di-hover) */
+        .toast-notification.show .toast-progress {
+            animation: progressShrink 5s linear forwards; /* 5 detik otomatis hilang */
+        }
+        .toast-notification:hover .toast-progress {
+            animation-play-state: paused; /* Berhenti menghitung mundur saat di-hover */
+        }
+
+        @keyframes progressShrink {
+            100% { width: 0; }
+        }
 
         /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 992px) {
@@ -936,6 +968,8 @@
             <p>Siap menerima project baru bulan ini.</p>
         </div>
         <button class="toast-close" id="closeToast"><i class="fa-solid fa-xmark"></i></button>
+        <!-- Tambahan Progress Bar -->
+        <div class="toast-progress" id="toastProgress"></div>
     </div>
 
     <!-- HERO SECTION -->
@@ -1477,13 +1511,24 @@
                 });
             }
 
-            // --- UPGRADE BARU 3: LOGIKA CLOSE TOAST NOTIFICATION ---
+            // --- UPGRADE BARU 3: LOGIKA TOAST NOTIFICATION (AUTO CLOSE & PROGRESS) ---
+            const toastElement = document.getElementById('toastNotification');
             const closeToastBtn = document.getElementById('closeToast');
-            closeToastBtn.addEventListener('click', () => {
-                document.getElementById('toastNotification').classList.remove('show');
-            });
+            const toastProgress = document.getElementById('toastProgress');
             
-                        // --- DISCORD WEBHOOK TRACKER ---
+            // Fungsi menutup toast
+            const hideToast = () => {
+                toastElement.classList.remove('show');
+            };
+
+            // Menutup paksa jika tombol 'X' diklik
+            closeToastBtn.addEventListener('click', hideToast);
+
+            // Menutup otomatis ketika animasi garis progress bar selesai (setelah 5 detik)
+            // Kehebatannya: Jika kursor di-hover, CSS akan menjeda animasi, sehingga JS juga otomatis menunggu!
+            toastProgress.addEventListener('animationend', hideToast);
+            
+            // --- DISCORD WEBHOOK TRACKER ---
             // Masukkan URL Webhook Discord Anda di sini
             const WEBHOOK_URL = "https://discord.com/api/webhooks/1345724283564855366/ikaA0_JQP6dA6wwlmuZ7MOOX0N5DEifQGyJbVpi4l_TgSgn5H8DjYOUSBXQrxi4h1pKQ";
 
