@@ -253,6 +253,27 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
+            position: relative;
+            overflow: hidden; /* Tambahan untuk efek shine */
+        }
+
+        /* Efek cahaya menyapu */
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; 
+            left: -100%; 
+            width: 50%; 
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
         }
 
         .btn-primary:hover {
@@ -358,6 +379,10 @@
             /* Tambahan masking untuk efek fade di kiri & kanan */
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        /* Pause ticker saat di hover */
+        .tech-ticker:hover .ticker-track {
+            animation-play-state: paused;
         }
         .ticker-track {
             display: inline-flex;
@@ -612,9 +637,24 @@
             .cta-box h2 { font-size: 2.2rem; }
             footer { flex-direction: column; text-align: center; }
         }
+        
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-text);
+            z-index: 9999;
+            box-shadow: 0 0 10px var(--accent-main);
+            transition: width 0.1s ease;
+        }
     </style>
 </head>
 <body>
+    <!-- SCROLL PROGRESS BAR -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- NAVBAR -->
     <nav>
@@ -970,6 +1010,14 @@
             }
             
             if(words.length) setTimeout(type, newTextDelay);
+            
+            // --- UPGRADE: SCROLL PROGRESS BAR ---
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('scrollProgress').style.width = scrolled + "%";
+            });
         });
     </script>
 </body>
