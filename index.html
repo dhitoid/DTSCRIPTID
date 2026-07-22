@@ -928,20 +928,22 @@
             .hosting-btn { width: 100%; justify-content: center; }
         }
         
-                /* === UPGRADE 4: INTERACTIVE TERMINAL === */
+        /* === UPGRADE INTERACTIVE TERMINAL DENGAN FOTO PROFIL === */
         .terminal-container {
             flex-direction: column;
             justify-content: flex-start;
             align-items: stretch;
-            background: rgba(9, 9, 11, 0.85);
+            background: rgba(9, 9, 11, 0.9);
             padding: 0;
             text-align: left;
             border: 1px solid var(--glass-border);
             box-shadow: 0 24px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            max-width: 440px;
+            width: 100%;
         }
         
         .terminal-header {
-            background: rgba(24, 24, 27, 0.9);
+            background: rgba(24, 24, 27, 0.95);
             padding: 12px 16px;
             display: flex;
             align-items: center;
@@ -960,27 +962,81 @@
             color: var(--text-muted);
             font-size: 13px;
             font-family: 'Courier New', Courier, monospace;
-            margin-right: 44px; /* Untuk menyeimbangkan posisi teks di tengah */
+            margin-right: 44px;
             letter-spacing: 0.5px;
         }
         
         .terminal-body {
-            padding: 24px 20px;
+            padding: 20px;
             font-family: 'Fira Code', 'Courier New', Courier, monospace;
-            font-size: 14px;
+            font-size: 13.5px;
             line-height: 1.6;
         }
+
+        /* Foto Profil di dalam Terminal */
+        .terminal-profile-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .terminal-avatar {
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-main);
+            flex-shrink: 0;
+        }
+        .terminal-avatar img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .terminal-user-info { display: flex; flex-direction: column; }
+        .t-username { font-weight: 700; color: #fff; font-size: 13px; }
+        .t-status { font-size: 11px; color: var(--success-color); }
         
-        .terminal-line { color: var(--text-main); margin-bottom: 4px; display: flex; }
-        .prompt { color: var(--success-color); margin-right: 12px; font-weight: bold; }
+        .terminal-line { color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; }
+        .prompt { color: var(--success-color); margin-right: 10px; font-weight: bold; }
         .command { color: var(--accent-main); }
-        .terminal-output { color: var(--text-muted); margin-bottom: 16px; padding-left: 24px; font-size: 13px; }
-        .highlight-tech { color: #f7df1e; }
+        .terminal-output { color: var(--text-muted); margin-bottom: 12px; padding-left: 20px; font-size: 12.5px; line-height: 1.5; }
         
+        /* Input Field untuk Interaksi Pengunjung */
+        .interactive-line { position: relative; margin-top: 8px; }
+        .command-input-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        #terminalInput {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--accent-main);
+            font-family: inherit;
+            font-size: 13.5px;
+            width: 100%;
+            caret-color: transparent; /* Sembunyikan kursor asli input */
+        }
         .terminal-cursor {
             color: var(--accent-main);
-            animation: blink 1s step-end infinite;
-            margin-left: 4px;
+            animation: blink 0.8s infinite;
+            font-weight: bold;
+            margin-left: 2px;
+            position: absolute;
+            left: 0;
+            pointer-events: none;
+        }
+        .terminal-help-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            border-top: 1px dashed var(--glass-border);
+            padding-top: 8px;
         }
     </style>
 </head>
@@ -1068,16 +1124,34 @@
                         <span class="tb-minimize"></span>
                         <span class="tb-maximize"></span>
                     </div>
-                    <div class="terminal-title">guest@dtscriptid:~</div>
+                    <div class="terminal-title">dtscriptid@core:~</div>
                 </div>
+                
                 <div class="terminal-body">
-                    <div class="terminal-line"><span class="prompt">➜</span> <span class="command">whoami</span></div>
-                    <div class="terminal-output">Web Developer & Tech Enthusiast</div>
+                    <!-- Foto Profil Anda Tetap Ada di Sini -->
+                    <div class="terminal-profile-header">
+                        <div class="terminal-avatar">
+                            <!-- Ganti 'src' dengan link foto profil Anda (bisa berupa foto asli atau ilustrasi) -->
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="DTSCRIPTID Owner">
+                        </div>
+                        <div class="terminal-user-info">
+                            <span class="t-username">root@dtscriptid</span>
+                            <span class="t-status">● Ready to code</span>
+                        </div>
+                    </div>
+
+                    <div class="terminal-line"><span class="prompt">➜</span> <span class="command">cat about.txt</span></div>
+                    <div class="terminal-output">Web Developer & Automation Expert. Ketik perintah di bawah atau klik tombol interaktif.</div>
                     
-                    <div class="terminal-line"><span class="prompt">➜</span> <span class="command">skills --list</span></div>
-                    <div class="terminal-output highlight-tech">["React", "Node.js", "UI/UX", "Database"]</div>
-                    
-                    <div class="terminal-line"><span class="prompt">➜</span> <span class="command" id="terminal-type"></span><span class="terminal-cursor">█</span></div>
+                    <!-- Bagian Interaktif: Pengunjung bisa mengetik perintah -->
+                    <div class="terminal-line interactive-line">
+                        <span class="prompt">➜</span> 
+                        <span class="command-input-wrapper">
+                            <input type="text" id="terminalInput" placeholder="ketik 'contact' / 'help'..." autocomplete="off" spellcheck="false">
+                            <span class="terminal-cursor">█</span>
+                        </span>
+                    </div>
+                    <div class="terminal-help-hint">💡 Tips: Ketik <span style="color: var(--accent-main)">help</span> untuk melihat daftar perintah.</div>
                 </div>
             </div>
         </div>
@@ -1671,6 +1745,89 @@
                     
                     sendToDiscord(clickEmbed);
                 });
+            }
+            
+                        // --- UPGRADE INTERACTIVE TERMINAL LOGIC ---
+            const termInput = document.getElementById('terminalInput');
+            const termCursor = document.querySelector('.terminal-cursor');
+            const terminalBody = document.querySelector('.terminal-body');
+
+            // Mengatur posisi kursor palsu agar mengikuti ketikan user secara dinamis
+            if (termInput) {
+                termInput.addEventListener('input', () => {
+                    const textWidth = getTextWidth(termInput.value, getComputedStyle(termInput).font);
+                    termCursor.style.left = `${textWidth}px`;
+                });
+
+                // Menangani perintah saat user menekan Enter
+                termInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const val = termInput.value.trim().toLowerCase();
+                        executeTerminalCommand(val);
+                        termInput.value = '';
+                        termCursor.style.left = '0px';
+                    }
+                });
+            }
+
+            // Fungsi pengukur lebar teks agar kursor terminal pas di ujung tulisan
+            function getTextWidth(text, font) {
+                const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+                const context = canvas.getContext("2d");
+                context.font = font;
+                const metrics = context.measureText(text);
+                return metrics.width;
+            }
+
+            // Eksekusi Perintah Konsol
+            function executeTerminalCommand(cmd) {
+                // Buat elemen log riwayat perintah
+                const historyLine = document.createElement('div');
+                historyLine.className = 'terminal-line';
+                historyLine.innerHTML = `<span class="prompt">➜</span> <span style="color:#fafafa;">${cmd}</span>`;
+                
+                const responseDiv = document.createElement('div');
+                responseDiv.className = 'terminal-output';
+
+                // Daftar perintah yang bisa diketik pengunjung
+                switch (cmd) {
+                    case 'help':
+                        responseDiv.innerHTML = `Perintah yang tersedia:<br>
+                        - <b style="color:var(--accent-main)">contact</b> : Langsung chat WhatsApp<br>
+                        - <b style="color:var(--accent-main)">portfolio</b> : Lihat daftar proyek<br>
+                        - <b style="color:var(--accent-main)">pricing</b> : Cek price list web<br>
+                        - <b style="color:var(--accent-main)">clear</b> : Bersihkan layar terminal`;
+                        break;
+                    case 'contact':
+                        responseDiv.innerHTML = `Mengarahkan ke WhatsApp...`;
+                        setTimeout(() => { window.open('https://wa.me/6285786342988', '_blank'); }, 800);
+                        break;
+                    case 'portfolio':
+                        responseDiv.innerHTML = `Menggeser layar ke bagian portofolio...`;
+                        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case 'pricing':
+                        responseDiv.innerHTML = `Membuka portal Price List...`;
+                        setTimeout(() => { window.open('https://price-list-dtscriptid.vercel.app/', '_blank'); }, 800);
+                        break;
+                    case 'clear':
+                        // Hapus semua teks output kecuali header profil & baris perintah dasar
+                        const outputs = terminalBody.querySelectorAll('.terminal-output, .terminal-line:not(.interactive-line)');
+                        outputs.forEach(el => el.remove());
+                        return;
+                    case '':
+                        return;
+                    default:
+                        responseDiv.innerHTML = `Perintah '${cmd}' tidak dikenal. Ketik <b style="color:var(--accent-main)">help</b> untuk bantuan.`;
+                }
+
+                // Masukkan riwayat perintah sebelum baris input aktif
+                const interactiveLine = terminalBody.querySelector('.interactive-line');
+                terminalBody.insertBefore(historyLine, interactiveLine);
+                terminalBody.insertBefore(responseDiv, interactiveLine);
+                
+                // Scroll terminal ke bawah otomatis
+                terminalBody.scrollTop = terminalBody.scrollHeight;
             }
             
         });
