@@ -1494,7 +1494,7 @@
     </section>
 
     <!-- FOOTER MODERN UPGRADE -->
-    <footer class="modern-footer">
+    <footer class="modern-footer" id="footer">
         <div class="footer-grid">
             <!-- Kolom 1: Brand & Visi -->
             <div class="footer-brand">
@@ -1690,6 +1690,15 @@
                 } else {
                     backToBottomBtn.classList.remove('show');
                 }
+            });
+            
+            // --- KLIK EVENT UNTUK BACK TO BOTTOM ---
+            document.getElementById('backToBottom').addEventListener('click', (e) => {
+                e.preventDefault(); // Mencegah loncatan instan bawaan browser
+                window.scrollTo({
+                    top: document.documentElement.scrollHeight,
+                    behavior: 'smooth'
+                });
             });
 
             // --- 5. TYPING EFFECT HERO ---
