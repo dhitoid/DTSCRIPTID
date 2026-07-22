@@ -79,6 +79,16 @@
             pointer-events: none;
         }
 
+        /* === UPGRADE BARU 1: CINEMATIC NOISE OVERLAY === */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03; /* Sangat tipis dan elegan */
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
         /* === NAVIGASI === */
         nav {
             position: fixed;
@@ -170,6 +180,7 @@
             justify-content: space-between;
             padding: 140px 8% 60px;
             gap: 50px;
+            position: relative;
         }
 
         .hero-content {
@@ -254,10 +265,18 @@
             gap: 8px;
             cursor: pointer;
             position: relative;
-            overflow: hidden; /* Tambahan untuk efek shine */
+            overflow: hidden;
+            /* UPGRADE BARU: Neon Glow Animation di Tombol Utama */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            animation: btnPulse 3s infinite;
         }
 
-        /* Efek cahaya menyapu */
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.4); }
+            100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+        }
+
         .btn-primary::before {
             content: '';
             position: absolute;
@@ -278,7 +297,8 @@
 
         .btn-primary:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+            animation: none;
         }
 
         .btn-secondary {
@@ -362,6 +382,44 @@
             transition: color 0.3s ease;
         }
 
+        /* === UPGRADE BARU 2: SCROLL DOWN INDICATOR === */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        .scroll-down:hover { opacity: 1; }
+        .mouse {
+            width: 26px;
+            height: 42px;
+            border: 2px solid var(--text-muted);
+            border-radius: 15px;
+            position: relative;
+        }
+        .mouse::before {
+            content: '';
+            width: 4px;
+            height: 6px;
+            background: var(--accent-main);
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            animation: scrollWheel 2s infinite;
+        }
+        @keyframes scrollWheel {
+            0% { top: 8px; opacity: 1; }
+            100% { top: 22px; opacity: 0; }
+        }
+
         /* === SECTIONS UMUM === */
         section { padding: 110px 8%; }
         .section-header { margin-bottom: 50px; }
@@ -376,11 +434,9 @@
             background: rgba(9, 9, 11, 0.4);
             overflow: hidden;
             white-space: nowrap;
-            /* Tambahan masking untuk efek fade di kiri & kanan */
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
-        /* Pause ticker saat di hover */
         .tech-ticker:hover .ticker-track {
             animation-play-state: paused;
         }
@@ -396,12 +452,20 @@
             color: var(--text-muted);
             font-weight: 600;
             font-size: 0.95rem;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s;
+            cursor: default;
         }
         .ticker-item i { color: var(--accent-main); font-size: 1.1rem; }
         @keyframes scrollTicker {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
+        .ticker-item:hover { transform: scale(1.15); color: var(--text-main); }
+        .ticker-item:hover .fa-html5 { color: #e34f26; text-shadow: 0 0 15px rgba(227, 79, 38, 0.5); }
+        .ticker-item:hover .fa-js { color: #f7df1e; text-shadow: 0 0 15px rgba(247, 223, 30, 0.5); }
+        .ticker-item:hover .fa-react { color: #61dafb; text-shadow: 0 0 15px rgba(97, 218, 251, 0.5); }
+        .ticker-item:hover .fa-node-js { color: #339933; text-shadow: 0 0 15px rgba(51, 153, 51, 0.5); }
+        .ticker-item:hover .fa-git-alt { color: #f05032; text-shadow: 0 0 15px rgba(240, 80, 50, 0.5); }
 
         /* === PRICING BANNER === */
         .pricing-banner {
@@ -472,8 +536,22 @@
             border-color: rgba(56, 189, 248, 0.3);
             background: var(--surface-hover);
             box-shadow: 0 20px 40px rgba(0,0,0,0.5), 
-                        0 0 40px rgba(56, 189, 248, 0.1); /* Efek Glow Biru */
+                        0 0 40px rgba(56, 189, 248, 0.1);
         }
+
+        .portfolio-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(56, 189, 248, 0.12), transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .portfolio-card:hover::before { opacity: 1; }
+        .portfolio-card > * { position: relative; z-index: 1; }
 
         .card-top {
             display: flex;
@@ -481,9 +559,7 @@
             align-items: flex-start;
             margin-bottom: 24px;
         }
-
         .folder-icon { font-size: 1.8rem; color: var(--accent-main); }
-
         .external-link {
             color: var(--text-muted);
             font-size: 1rem;
@@ -494,7 +570,6 @@
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%;
         }
-
         .external-link:hover {
             color: var(--bg-color);
             background: #ffffff;
@@ -605,7 +680,42 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* === RESPONSIVE MEDIA QUERIES === */
+        /* === UPGRADE BARU 3: TOAST NOTIFICATION UI === */
+        .toast-notification {
+            position: fixed;
+            top: 90px;
+            right: -100%;
+            background: rgba(24, 24, 27, 0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 16px 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 1000;
+            transition: right 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border-left: 4px solid var(--success-color);
+        }
+        .toast-notification.show { right: 24px; }
+        .toast-icon {
+            width: 40px; height: 40px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success-color);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        .toast-content h5 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+        .toast-content p { font-size: 13px; color: var(--text-muted); margin: 0; }
+        .toast-close {
+            background: none; border: none; color: var(--text-muted); cursor: pointer;
+            margin-left: 10px; font-size: 1.1rem; transition: 0.3s;
+        }
+        .toast-close:hover { color: #fff; transform: scale(1.1); }
+
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 992px) {
             .hero { flex-direction: column-reverse; padding-top: 150px; text-align: center; gap: 40px; }
             .hero-content { display: flex; flex-direction: column; align-items: center; }
@@ -614,6 +724,7 @@
             .hero-buttons { flex-direction: column; width: 100%; max-width: 280px; }
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
             .hero-stats { justify-content: center; flex-wrap: wrap; gap: 30px; }
+            .scroll-down { display: none; } /* Sembunyikan scroll down di HP */
             
             .nav-links {
                 position: fixed;
@@ -636,268 +747,110 @@
             .cta-box { padding: 50px 20px; }
             .cta-box h2 { font-size: 2.2rem; }
             footer { flex-direction: column; text-align: center; }
+            .toast-notification.show { right: 50%; transform: translateX(50%); top: 80px; width: 90%; }
         }
         
-        /* Scroll Progress Bar */
         .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--gradient-text);
-            z-index: 9999;
-            box-shadow: 0 0 10px var(--accent-main);
-            transition: width 0.1s ease;
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: var(--gradient-text); z-index: 9999;
+            box-shadow: 0 0 10px var(--accent-main); transition: width 0.1s ease;
         }
-                /* ========================================== */
-        /* UPGRADE: CUSTOM CURSOR (Hanya untuk Desktop) */
+
+        /* CUSTOM CURSOR */
         @media (min-width: 992px) {
-            body { cursor: none; /* Menyembunyikan kursor bawaan */ }
-            
+            body { cursor: none; }
             .custom-cursor {
-                position: fixed;
-                width: 36px;
-                height: 36px;
-                border: 2px solid rgba(56, 189, 248, 0.5);
-                border-radius: 50%;
-                pointer-events: none;
-                transform: translate(-50%, -50%);
+                position: fixed; width: 36px; height: 36px;
+                border: 2px solid rgba(56, 189, 248, 0.5); border-radius: 50%;
+                pointer-events: none; transform: translate(-50%, -50%);
                 transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
-                z-index: 10000;
-                mix-blend-mode: screen;
+                z-index: 10000; mix-blend-mode: screen;
             }
-            
             .cursor-dot {
-                position: fixed;
-                width: 6px;
-                height: 6px;
-                background-color: var(--accent-main);
-                border-radius: 50%;
-                pointer-events: none;
-                transform: translate(-50%, -50%);
-                z-index: 10001;
-                box-shadow: 0 0 10px var(--accent-main);
+                position: fixed; width: 6px; height: 6px;
+                background-color: var(--accent-main); border-radius: 50%;
+                pointer-events: none; transform: translate(-50%, -50%);
+                z-index: 10001; box-shadow: 0 0 10px var(--accent-main);
             }
-
-            /* Efek kursor saat hover elemen interaktif */
             .custom-cursor.hovered {
-                width: 60px;
-                height: 60px;
-                background-color: rgba(56, 189, 248, 0.1);
-                border-color: transparent;
+                width: 60px; height: 60px; background-color: rgba(56, 189, 248, 0.1); border-color: transparent;
             }
         }
 
-        /* ========================================== */
-        /* UPGRADE: SPOTLIGHT EFFECT PADA PORTFOLIO CARDS */
-        .portfolio-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: inherit;
-            /* Efek senter (spotlight) mengikuti koordinat X dan Y dari Javascript */
-            background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(56, 189, 248, 0.12), transparent 40%);
-            z-index: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .portfolio-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Memastikan teks dan ikon portofolio tetap di atas efek cahaya */
-        .portfolio-card > * {
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Modifikasi transisi tombol untuk efek Magnetic */
-        .btn-primary, .btn-secondary, .social-icons a, .external-link {
+        /* Magnetic button transition */
+        .btn-primary, .btn-secondary, .social-icons a, .external-link, .toast-close {
             transition: transform 0.1s linear, background 0.3s, box-shadow 0.3s !important;
         }
         
-                /* ========================================== */
-        /* UPGRADE: PREMIUM PRELOADER */
+        /* PRELOADER */
         .preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color); display: flex; justify-content: center; align-items: center;
+            z-index: 99999; transition: opacity 0.6s ease, visibility 0.6s ease;
         }
-
         .preloader-content { text-align: center; }
-
-        .preloader-logo {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            animation: pulse-glow 1.5s infinite alternate;
-        }
-
-        .loading-bar {
-            width: 150px;
-            height: 3px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-            margin: 0 auto;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .loading-progress {
-            position: absolute;
-            top: 0; left: 0; height: 100%;
-            background: var(--accent-main);
-            width: 0%;
-            box-shadow: 0 0 10px var(--accent-main);
-            animation: loadingAnim 1.5s ease-in-out forwards;
-        }
-
-        @keyframes pulse-glow {
-            0% { text-shadow: 0 0 10px rgba(56, 189, 248, 0); transform: scale(1); }
-            100% { text-shadow: 0 0 20px rgba(56, 189, 248, 0.5); transform: scale(1.05); }
-        }
-
-        @keyframes loadingAnim {
-            0% { width: 0%; }
-            50% { width: 70%; }
-            100% { width: 100%; }
-        }
-
-        /* Menyembunyikan preloader setelah loading selesai */
+        .preloader-logo { font-size: 2.5rem; margin-bottom: 20px; animation: pulse-glow 1.5s infinite alternate; }
+        .loading-bar { width: 150px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 0 auto; overflow: hidden; position: relative; }
+        .loading-progress { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent-main); width: 0%; box-shadow: 0 0 10px var(--accent-main); animation: loadingAnim 1.5s ease-in-out forwards; }
+        @keyframes pulse-glow { 0% { text-shadow: 0 0 10px rgba(56, 189, 248, 0); transform: scale(1); } 100% { text-shadow: 0 0 20px rgba(56, 189, 248, 0.5); transform: scale(1.05); } }
+        @keyframes loadingAnim { 0% { width: 0%; } 50% { width: 70%; } 100% { width: 100%; } }
         .preloader.hidden { opacity: 0; visibility: hidden; }
 
-        /* ========================================== */
-        /* UPGRADE: NEON CLICK RIPPLE */
+        /* NEON CLICK RIPPLE */
         .click-ripple {
-            position: fixed;
-            border-radius: 50%;
-            border: 1px solid var(--accent-main);
+            position: fixed; border-radius: 50%; border: 1px solid var(--accent-main);
             box-shadow: 0 0 15px rgba(56, 189, 248, 0.8), inset 0 0 10px rgba(56, 189, 248, 0.4);
-            pointer-events: none;
-            transform: translate(-50%, -50%) scale(0);
-            animation: rippleEffect 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            z-index: 10002;
+            pointer-events: none; transform: translate(-50%, -50%) scale(0);
+            animation: rippleEffect 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; z-index: 10002;
         }
-
-        @keyframes rippleEffect {
-            100% { transform: translate(-50%, -50%) scale(4); opacity: 0; border-width: 2px; }
-        }
+        @keyframes rippleEffect { 100% { transform: translate(-50%, -50%) scale(4); opacity: 0; border-width: 2px; } }
         
-                /* ========================================== */
-        /* UPGRADE CSS 1: DYNAMIC AMBIENT GLOW */
+        /* DYNAMIC AMBIENT GLOW */
         .ambient-glow {
-            position: fixed;
-            top: 50%; left: 50%;
-            width: 40vw; height: 40vw;
+            position: fixed; top: 50%; left: 50%; width: 40vw; height: 40vw;
             background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 60%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -2;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-            filter: blur(60px);
+            border-radius: 50%; pointer-events: none; z-index: -2; transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s; filter: blur(60px);
         }
 
-        /* UPGRADE CSS 2: ROTATING HIRE BADGE */
+        /* ROTATING HIRE BADGE */
         .hire-badge {
-            position: fixed;
-            bottom: 30px;
-            left: 30px; /* Posisi di kiri, seimbang dengan back-to-top di kanan */
-            width: 90px;
-            height: 90px;
-            z-index: 998;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            border-radius: 50%;
-            background: rgba(9, 9, 11, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
+            position: fixed; bottom: 30px; left: 30px; width: 90px; height: 90px;
+            z-index: 998; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; border-radius: 50%; background: rgba(9, 9, 11, 0.6);
+            backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .hire-badge:hover {
-            transform: scale(1.1) translateY(-5px);
-            border-color: var(--accent-main);
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
-        }
-        .hire-badge .badge-text {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            animation: rotateBadge 12s linear infinite;
-        }
-        .hire-badge text {
-            font-size: 11.5px;
-            font-weight: 700;
-            fill: var(--text-muted);
-            letter-spacing: 2px;
-            transition: fill 0.3s ease;
-        }
+        .hire-badge:hover { transform: scale(1.1) translateY(-5px); border-color: var(--accent-main); box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2); }
+        .hire-badge .badge-text { position: absolute; width: 100%; height: 100%; animation: rotateBadge 12s linear infinite; }
+        .hire-badge text { font-size: 11.5px; font-weight: 700; fill: var(--text-muted); letter-spacing: 2px; transition: fill 0.3s ease; }
         .hire-badge:hover text { fill: var(--text-main); }
-        .hire-badge .badge-icon {
-            font-size: 1.2rem;
-            color: var(--accent-main);
-            transition: transform 0.3s ease;
-        }
+        .hire-badge .badge-icon { font-size: 1.2rem; color: var(--accent-main); transition: transform 0.3s ease; }
         .hire-badge:hover .badge-icon { transform: rotate(0deg) !important; }
-        @keyframes rotateBadge {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @media (max-width: 992px) {
-            .hire-badge { display: none; /* Sembunyikan di HP agar tidak mengganggu layar */ }
-        }
+        @keyframes rotateBadge { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @media (max-width: 992px) { .hire-badge { display: none; } }
 
-        /* UPGRADE CSS 3: NAVBAR LINK ANIMATION */
-        .nav-links a:not(.btn-nav) {
-            position: relative;
-        }
+        /* NAVBAR LINK ANIMATION */
+        .nav-links a:not(.btn-nav) { position: relative; }
         .nav-links a:not(.btn-nav)::after {
-            content: '';
-            position: absolute;
-            width: 0; height: 2px;
-            bottom: -4px; left: 0;
-            background: var(--gradient-text);
-            transition: width 0.3s ease;
-            border-radius: 2px;
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+            background: var(--gradient-text); transition: width 0.3s ease; border-radius: 2px;
         }
-        .nav-links a:not(.btn-nav):hover::after {
-            width: 100%;
-        }
-
-        /* UPGRADE CSS 4: COLORFUL TECH TICKER HOVER */
-        .ticker-item {
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s;
-            cursor: default;
-        }
-        .ticker-item:hover {
-            transform: scale(1.15);
-            color: var(--text-main);
-        }
-        .ticker-item:hover .fa-html5 { color: #e34f26; text-shadow: 0 0 15px rgba(227, 79, 38, 0.5); }
-        .ticker-item:hover .fa-js { color: #f7df1e; text-shadow: 0 0 15px rgba(247, 223, 30, 0.5); }
-        .ticker-item:hover .fa-react { color: #61dafb; text-shadow: 0 0 15px rgba(97, 218, 251, 0.5); }
-        .ticker-item:hover .fa-node-js { color: #339933; text-shadow: 0 0 15px rgba(51, 153, 51, 0.5); }
-        .ticker-item:hover .fa-git-alt { color: #f05032; text-shadow: 0 0 15px rgba(240, 80, 50, 0.5); }
+        .nav-links a:not(.btn-nav):hover::after { width: 100%; }
     </style>
 </head>
 <body>
-    <!-- UPGRADE: PREMIUM PRELOADER -->
+
+    <!-- UPGRADE BARU 1: CINEMATIC NOISE OVERLAY -->
+    <div class="noise-overlay"></div>
+
+    <!-- PRELOADER -->
     <div class="preloader" id="preloader">
         <div class="preloader-content">
             <div class="logo preloader-logo">DT<span>SCRIPT</span>ID</div>
             <div class="loading-bar"><div class="loading-progress"></div></div>
         </div>
     </div>
-    <!-- ========================================== -->
 
     <!-- SCROLL PROGRESS BAR -->
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -915,6 +868,18 @@
         </button>
     </nav>
 
+    <!-- UPGRADE BARU 3: TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toastNotification">
+        <div class="toast-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="toast-content">
+            <h5>Available for Work</h5>
+            <p>Siap menerima project baru bulan ini.</p>
+        </div>
+        <button class="toast-close" id="closeToast"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
     <!-- HERO SECTION -->
     <section id="home" class="hero">
         <div class="hero-content reveal">
@@ -931,7 +896,7 @@
                 <a href="https://wa.me/6285786342988" target="_blank" class="btn-secondary">Konsultasi Gratis</a>
             </div>
 
-            <!-- STATS BAR (UPGRADED DENGAN CLASS COUNTER) -->
+            <!-- STATS BAR -->
             <div class="hero-stats">
                 <div class="stat-item">
                     <h4><span class="counter" data-target="3">0</span>+</h4>
@@ -953,6 +918,11 @@
                 <i class="fa-regular fa-user"></i>
             </div>
         </div>
+
+        <!-- UPGRADE BARU 2: SCROLL DOWN INDICATOR -->
+        <a href="#layanan" class="scroll-down">
+            <div class="mouse"></div>
+        </a>
     </section>
     
     <!-- TECH STACK TICKER -->
@@ -965,7 +935,6 @@
             <div class="ticker-item"><i class="fa-brands fa-node-js"></i> Node.js</div>
             <div class="ticker-item"><i class="fa-solid fa-database"></i> PostgreSQL & MySQL</div>
             <div class="ticker-item"><i class="fa-brands fa-git-alt"></i> Git & GitHub</div>
-            <!-- Duplikasi untuk infinite loop mulus -->
             <div class="ticker-item"><i class="fa-brands fa-html5"></i> HTML5 & CSS3</div>
             <div class="ticker-item"><i class="fa-brands fa-js"></i> JavaScript ES6+</div>
             <div class="ticker-item"><i class="fa-brands fa-react"></i> React.js</div>
@@ -989,7 +958,7 @@
                 <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 6px;">Mulai dari Landing Page responsif hingga Custom Web Apps. Cek fitur dan estimasi pengerjaan di portal khusus.</p>
             </div>
             <div class="pricing-cta">
-                <a href="https://price-list-dtscriptid.vercel.app/" target="_blank" class="btn-primary">
+                <a href="https://price-list-dtscriptid.vercel.app/" target="_blank" class="btn-primary" style="animation: none;">
                     Lihat Price List <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
@@ -1140,16 +1109,15 @@
         </div>
     </footer>
     
-    <!-- BACK TO TOP BUTTON (Kode aslimu) -->
+    <!-- BACK TO TOP BUTTON -->
     <a href="#home" class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
         <i class="fa-solid fa-arrow-up"></i>
     </a>
     
-    <!-- ========================================== -->
-    <!-- UPGRADE HTML: DYNAMIC AMBIENT GLOW -->
+    <!-- DYNAMIC AMBIENT GLOW -->
     <div class="ambient-glow"></div>
 
-    <!-- UPGRADE HTML: ROTATING HIRE BADGE -->
+    <!-- ROTATING HIRE BADGE -->
     <a href="https://wa.me/6285786342988" target="_blank" class="hire-badge" aria-label="Hire Me">
         <svg class="badge-text" viewBox="0 0 100 100">
             <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
@@ -1160,7 +1128,7 @@
         <i class="fa-solid fa-arrow-right badge-icon" style="transform: rotate(-45deg);"></i>
     </a>
     
-    <!-- UPGRADE: ELEMEN CUSTOM CURSOR -->
+    <!-- CUSTOM CURSOR -->
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
 
@@ -1193,7 +1161,6 @@
                 icon.classList.toggle('fa-xmark');
             });
             
-            // --- UPGRADE: DYNAMIC NAVBAR ON SCROLL ---
             const navbar = document.querySelector('nav');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -1203,7 +1170,6 @@
                 }
             });
 
-            // Tutup menu saat link diklik (khusus mobile)
             navLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     navLinks.classList.remove('active');
@@ -1226,8 +1192,10 @@
                     portfolioCards.forEach(card => {
                         if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
                             card.style.display = 'flex';
+                            setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
                         } else {
-                            card.style.display = 'none';
+                            card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+                            setTimeout(() => { card.style.display = 'none'; }, 300);
                         }
                     });
                 });
@@ -1273,10 +1241,9 @@
                     setTimeout(type, typingDelay + 500);
                 }
             }
-            
             if(words.length) setTimeout(type, newTextDelay);
             
-            // --- UPGRADE: SCROLL PROGRESS BAR ---
+            // --- SCROLL PROGRESS BAR ---
             window.addEventListener('scroll', () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -1284,102 +1251,79 @@
                 document.getElementById('scrollProgress').style.width = scrolled + "%";
             });
             
-                        // ==========================================
-            // UPGRADE 1: LOGIKA CUSTOM CURSOR
+            // --- CUSTOM CURSOR ---
             const cursor = document.querySelector('.custom-cursor');
             const cursorDot = document.querySelector('.cursor-dot');
             
-            // Cek apakah perangkat mendukung hover (bukan HP layar sentuh)
             if (window.matchMedia("(pointer: fine)").matches) {
                 document.addEventListener('mousemove', (e) => {
-                    // Membuat kursor mengikuti posisi mouse dengan sedikit efek smooth (delay) pada lingkaran luar
                     cursorDot.style.left = `${e.clientX}px`;
                     cursorDot.style.top = `${e.clientY}px`;
                     
-                    // Lingkaran luar mengikuti dengan jeda animasi instan
                     setTimeout(() => {
                         cursor.style.left = `${e.clientX}px`;
                         cursor.style.top = `${e.clientY}px`;
                     }, 50);
                 });
 
-                // Efek membesar saat mengenai link, tombol, atau kartu portofolio
-                const hoverElements = document.querySelectorAll('a, button, .portfolio-card');
+                const hoverElements = document.querySelectorAll('a, button, .portfolio-card, .toast-close');
                 hoverElements.forEach(el => {
                     el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
                     el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
                 });
             }
 
-            // ==========================================
-            // UPGRADE 2: APPLE-STYLE 3D TILT & SPOTLIGHT PADA KARTU
+            // --- 3D TILT & SPOTLIGHT ---
             document.querySelectorAll('.portfolio-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
-                    
-                    // Mengirim koordinat ke CSS Variables untuk efek Spotlight
                     card.style.setProperty('--mouse-x', `${x}px`);
                     card.style.setProperty('--mouse-y', `${y}px`);
                     
-                    // Kalkulasi efek 3D Tilt
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -6; // Maksimal rotasi 6 derajat
+                    const rotateX = ((y - centerY) / centerY) * -6; 
                     const rotateY = ((x - centerX) / centerX) * 6;
-                    
-                    // Menggabungkan tilt dengan efek hover bawaan (translateY & scale)
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
                 });
-                
-                // Reset posisi saat mouse keluar
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = ''; 
-                });
+                card.addEventListener('mouseleave', () => { card.style.transform = ''; });
             });
 
-            // ==========================================
-            // UPGRADE 3: MAGNETIC BUTTONS
-            const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .social-icons a, .external-link');
-            
+            // --- MAGNETIC BUTTONS ---
+            const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .social-icons a, .external-link, .toast-close');
             magneticElements.forEach(elem => {
                 elem.addEventListener('mousemove', (e) => {
                     const rect = elem.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
-                    
-                    // Kalkulasi jarak dari titik tengah elemen
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    const moveX = (x - centerX) * 0.3; // Kekuatan tarik magnet (0.3)
+                    const moveX = (x - centerX) * 0.3; 
                     const moveY = (y - centerY) * 0.3;
-                    
                     elem.style.transform = `translate(${moveX}px, ${moveY}px)`;
                 });
-                
-                // Reset posisi saat mouse keluar
-                elem.addEventListener('mouseleave', () => {
-                    elem.style.transform = 'translate(0, 0)';
-                });
+                elem.addEventListener('mouseleave', () => { elem.style.transform = 'translate(0, 0)'; });
             });
             
-                        // ==========================================
-            // UPGRADE 4: PREMIUM PRELOADER
+            // --- PRELOADER ---
             const preloader = document.getElementById('preloader');
             window.addEventListener('load', () => {
-                // Memberi sedikit jeda agar animasi loading bar terlihat selesai
                 setTimeout(() => {
                     preloader.classList.add('hidden');
-                    // Memicu ulang scroll reveal setelah preloader hilang
                     setTimeout(revealOnScroll, 100);
+                    
+                    // Trigger Toast Notification 2.5 detik setelah preloader selesai (UPGRADE)
+                    setTimeout(() => {
+                        document.getElementById('toastNotification').classList.add('show');
+                    }, 2500);
                 }, 1500); 
             });
 
-            // ==========================================
-            // UPGRADE 5: ANIMATED NUMBER COUNTER (Intersection Observer)
+            // --- ANIMATED NUMBER COUNTER ---
             const counters = document.querySelectorAll('.counter');
-            const speed = 200; // Semakin kecil angkanya, semakin cepat animasinya
+            const speed = 200; 
 
             const counterObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -1398,62 +1342,44 @@
                             }
                         };
                         updateCount();
-                        observer.unobserve(counter); // Animasi hanya berjalan 1 kali
+                        observer.unobserve(counter); 
                     }
                 });
             }, { threshold: 0.5 });
 
-            counters.forEach(counter => {
-                counterObserver.observe(counter);
-            });
+            counters.forEach(counter => { counterObserver.observe(counter); });
 
-            // ==========================================
-            // UPGRADE 6: NEON CLICK RIPPLE
+            // --- NEON CLICK RIPPLE ---
             document.addEventListener('mousedown', function (e) {
-                // Membuat elemen ripple
                 const ripple = document.createElement('div');
                 ripple.classList.add('click-ripple');
-                
-                // Set posisi tepat di kursor mouse
                 ripple.style.left = `${e.clientX}px`;
                 ripple.style.top = `${e.clientY}px`;
-                
                 document.body.appendChild(ripple);
-                
-                // Menghapus elemen ripple setelah animasi selesai (600ms)
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
+                setTimeout(() => { ripple.remove(); }, 600);
             });
             
-                        // ==========================================
-            // UPGRADE JS 1: DYNAMIC AMBIENT GLOW KURSOR
+            // --- DYNAMIC AMBIENT GLOW ---
             const ambientGlow = document.querySelector('.ambient-glow');
             let mouseX = window.innerWidth / 2;
             let mouseY = window.innerHeight / 2;
             let glowX = mouseX;
             let glowY = mouseY;
             
-            // Pergerakan halus (easing) pada cahaya background
             if (window.matchMedia("(pointer: fine)").matches) {
                 document.addEventListener('mousemove', (e) => {
                     mouseX = e.clientX;
                     mouseY = e.clientY;
                 });
-
                 function animateGlow() {
-                    // Matematika easing (0.05 adalah kecepatan delay-nya)
                     glowX += (mouseX - glowX) * 0.05;
                     glowY += (mouseY - glowY) * 0.05;
-                    
                     ambientGlow.style.left = `${glowX}px`;
                     ambientGlow.style.top = `${glowY}px`;
-                    
                     requestAnimationFrame(animateGlow);
                 }
                 animateGlow();
                 
-                // Perbesar efek cahaya saat klik
                 document.addEventListener('mousedown', () => {
                     ambientGlow.style.width = '60vw';
                     ambientGlow.style.height = '60vw';
@@ -1466,6 +1392,12 @@
                 });
             }
 
+            // --- UPGRADE BARU 3: LOGIKA CLOSE TOAST NOTIFICATION ---
+            const closeToastBtn = document.getElementById('closeToast');
+            closeToastBtn.addEventListener('click', () => {
+                document.getElementById('toastNotification').classList.remove('show');
+            });
+            
         });
     </script>
 </body>
