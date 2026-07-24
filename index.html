@@ -822,27 +822,6 @@
             box-shadow: 0 0 10px var(--accent-main); transition: width 0.1s ease;
         }
 
-        /* CUSTOM CURSOR */
-        @media (min-width: 992px) {
-            body { cursor: none; }
-            .custom-cursor {
-                position: fixed; width: 36px; height: 36px;
-                border: 2px solid rgba(56, 189, 248, 0.5); border-radius: 50%;
-                pointer-events: none; transform: translate(-50%, -50%);
-                transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
-                z-index: 10000; mix-blend-mode: screen;
-            }
-            .cursor-dot {
-                position: fixed; width: 6px; height: 6px;
-                background-color: var(--accent-main); border-radius: 50%;
-                pointer-events: none; transform: translate(-50%, -50%);
-                z-index: 10001; box-shadow: 0 0 10px var(--accent-main);
-            }
-            .custom-cursor.hovered {
-                width: 60px; height: 60px; background-color: rgba(56, 189, 248, 0.1); border-color: transparent;
-            }
-        }
-
         /* Magnetic button transition */
         .btn-primary, .btn-secondary, .social-icons a, .external-link, .toast-close {
             transition: transform 0.1s linear, background 0.3s, box-shadow 0.3s !important;
@@ -1685,10 +1664,6 @@
         <i class="fa-solid fa-arrow-right badge-icon" style="transform: rotate(-45deg);"></i>
     </a>
     
-    <!-- CUSTOM CURSOR -->
-    <div class="custom-cursor"></div>
-    <div class="cursor-dot"></div>
-    
     <!-- MODAL PROFILE PICTURE UPGRADE -->
     <div class="profile-modal" id="profileModal">
         <div class="modal-card">
@@ -1847,28 +1822,6 @@
                 const scrolled = (winScroll / height) * 100;
                 document.getElementById('scrollProgress').style.width = scrolled + "%";
             });
-            
-            // --- CUSTOM CURSOR ---
-            const cursor = document.querySelector('.custom-cursor');
-            const cursorDot = document.querySelector('.cursor-dot');
-            
-            if (window.matchMedia("(pointer: fine)").matches) {
-                document.addEventListener('mousemove', (e) => {
-                    cursorDot.style.left = `${e.clientX}px`;
-                    cursorDot.style.top = `${e.clientY}px`;
-                    
-                    setTimeout(() => {
-                        cursor.style.left = `${e.clientX}px`;
-                        cursor.style.top = `${e.clientY}px`;
-                    }, 50);
-                });
-
-                const hoverElements = document.querySelectorAll('a, button, .portfolio-card, .toast-close');
-                hoverElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-                    el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-                });
-            }
 
             // --- 3D TILT & SPOTLIGHT ---
             document.querySelectorAll('.portfolio-card').forEach(card => {
