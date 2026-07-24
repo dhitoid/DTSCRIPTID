@@ -1281,6 +1281,41 @@
             .modern-footer { padding: 60px 5% 30px; }
             .footer-grid { gap: 30px; }
         }
+
+        /* === FOOTER INTERACTIVE UPGRADES === */
+        .copy-contact {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px;
+            margin-left: -10px; /* Offset padding */
+            border-radius: 12px;
+            background: transparent;
+        }
+        .copy-contact:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+        .copy-contact .copy-hint {
+            font-size: 0.75rem;
+            color: var(--accent-main);
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            height: 0;
+            overflow: hidden;
+        }
+        .copy-contact:hover .copy-hint {
+            opacity: 1;
+            transform: translateY(0);
+            height: auto;
+            margin-top: 4px;
+        }
+        .news-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none !important;
+        }
     </style>
 </head>
 <body>
@@ -1688,19 +1723,25 @@
             <div class="footer-widget">
                 <h4 class="footer-title">Stay Updated</h4>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Dapatkan info update fitur & promo pembuatan web terbaru.</p>
-                <div class="newsletter-box">
-                    <input type="email" placeholder="Email Anda..." class="news-input">
-                    <button class="news-btn" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
-                </div>
-                <div class="footer-contact-item" style="margin-top: 25px;">
+                
+                <!-- UPGRADE: Menggunakan tag form agar bisa di-submit via JS -->
+                <form id="newsletterForm" class="newsletter-box">
+                    <input type="email" id="newsEmail" placeholder="Email Anda..." class="news-input" required>
+                    <button type="submit" id="newsSubmitBtn" class="news-btn" aria-label="Subscribe">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+
+                <!-- UPGRADE: Tambahkan ID dan class interaktif untuk Click-to-Copy -->
+                <div class="footer-contact-item copy-contact" id="copyContact" title="Klik untuk menyalin">
                     <i class="fa-brands fa-whatsapp"></i>
                     <div>
                         <strong style="color: #fff; display: block; margin-bottom: 2px;">Direct Message</strong>
-                        +62 857-8634-2988
+                        <span id="contactNumber">+62 857-8634-2988</span>
+                        <div class="copy-hint">Klik untuk menyalin</div>
                     </div>
                 </div>
             </div>
-        </div>
 
         <!-- Copyright -->
         <div class="footer-bottom">
@@ -2284,6 +2325,123 @@
             }
 
         });
+
+        // ==========================================
+            // UPGRADE CANGGIH FOOTER 
+            // ==========================================
+
+            // 1. DYNAMIC TOAST NOTIFICATION SYSTEM
+            const showToast = (title, message, type = 'success') => {
+                const toast = document.getElementById('toastNotification');
+                const icon = toast.querySelector('.toast-icon i');
+                const toastIconBg = toast.querySelector('.toast-icon');
+                const titleEl = toast.querySelector('.toast-content h5');
+                const msgEl = toast.querySelector('.toast-content p');
+                const progressBar = document.getElementById('toastProgress');
+                
+                // Set Teks
+                titleEl.textContent = title;
+                msgEl.textContent = message;
+                
+                // Konfigurasi Tema Berdasarkan Tipe
+                if (type === 'success') {
+                    icon.className = 'fa-solid fa-check';
+                    toast.style.borderLeftColor = 'var(--success-color)';
+                    toastIconBg.style.color = 'var(--success-color)';
+                    toastIconBg.style.background = 'rgba(16, 185, 129, 0.15)';
+                    progressBar.style.background = 'var(--success-color)';
+                    progressBar.style.boxShadow = '0 0 10px var(--success-color)';
+                } else if (type === 'info') {
+                    icon.className = 'fa-solid fa-copy';
+                    toast.style.borderLeftColor = 'var(--accent-main)';
+                    toastIconBg.style.color = 'var(--accent-main)';
+                    toastIconBg.style.background = 'rgba(56, 189, 248, 0.15)';
+                    progressBar.style.background = 'var(--accent-main)';
+                    progressBar.style.boxShadow = '0 0 10px var(--accent-main)';
+                } else if (type === 'error') {
+                    icon.className = 'fa-solid fa-triangle-exclamation';
+                    toast.style.borderLeftColor = '#ef4444';
+                    toastIconBg.style.color = '#ef4444';
+                    toastIconBg.style.background = 'rgba(239, 68, 68, 0.15)';
+                    progressBar.style.background = '#ef4444';
+                    progressBar.style.boxShadow = '0 0 10px #ef4444';
+                }
+
+                // Reset Animasi & Tampilkan Toast
+                toast.classList.remove('show');
+                progressBar.style.animation = 'none'; // Matikan animasi sementara
+                
+                // Trigger Reflow agar animasi bisa di-restart
+                void toast.offsetWidth; 
+                
+                toast.classList.add('show');
+                progressBar.style.animation = 'progressShrink 5s linear forwards';
+            };
+
+            // 2. LOGIKA KLIK-UNTUK-SALIN (COPY TO CLIPBOARD)
+            const copyContactBtn = document.getElementById('copyContact');
+            const contactNumberTxt = document.getElementById('contactNumber');
+
+            if (copyContactBtn && contactNumberTxt) {
+                copyContactBtn.addEventListener('click', async () => {
+                    // Hanya mengambil angka dan plus (membersihkan spasi/strip)
+                    const pureNumber = contactNumberTxt.textContent.replace(/[^0-9+]/g, '');
+                    
+                    try {
+                        await navigator.clipboard.writeText(pureNumber);
+                        showToast('Disalin ke Clipboard!', `Nomor ${pureNumber} berhasil disalin.`, 'info');
+                    } catch (err) {
+                        console.error('Gagal menyalin:', err);
+                        showToast('Gagal Menyalin', 'Izin clipboard ditolak browser.', 'error');
+                    }
+                });
+            }
+
+            // 3. LOGIKA FORM NEWSLETTER -> DISCORD WEBHOOK
+            const newsletterForm = document.getElementById('newsletterForm');
+            const newsEmailInput = document.getElementById('newsEmail');
+            const newsSubmitBtn = document.getElementById('newsSubmitBtn');
+
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', async (e) => {
+                    e.preventDefault(); // Mencegah reload halaman
+                    const email = newsEmailInput.value.trim();
+                    if (!email) return;
+
+                    // Ubah UI menjadi Loading State
+                    const originalIcon = newsSubmitBtn.innerHTML;
+                    newsSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+                    newsSubmitBtn.disabled = true;
+
+                    // Siapkan Data untuk Discord Webhook
+                    const embed = {
+                        title: "📬 Subscriber Newsletter Baru!",
+                        description: "Ada pengunjung yang tertarik mendapatkan update.",
+                        color: 3447003, // Warna Biru
+                        fields: [
+                            { name: "Email Terdaftar", value: email, inline: false },
+                            { name: "URL Referensi", value: window.location.href, inline: false }
+                        ],
+                        footer: { text: `DTSCRIPTID System • ${new Date().toLocaleString('id-ID')}` }
+                    };
+
+                    try {
+                        // Menggunakan fungsi sendToDiscord yang sudah kamu buat sebelumnya
+                        await sendToDiscord(embed);
+                        
+                        // Notifikasi Sukses
+                        showToast('Berlangganan Berhasil', 'Email Anda telah masuk ke dalam sistem kami.', 'success');
+                        newsEmailInput.value = ''; // Kosongkan input
+                    } catch (error) {
+                        // Notifikasi Gagal
+                        showToast('Sistem Sibuk', 'Gagal mendaftar newsletter, coba beberapa saat lagi.', 'error');
+                    } finally {
+                        // Kembalikan tombol seperti semula
+                        newsSubmitBtn.innerHTML = originalIcon;
+                        newsSubmitBtn.disabled = false;
+                    }
+                });
+            }
     </script>
 </body>
 </html>
