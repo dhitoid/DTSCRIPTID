@@ -832,8 +832,19 @@
             .cta-box h2 { font-size: 2rem; }
             
             /* Toast Notification Mobile Centering Fix */
-            .toast-notification { top: 90px; right: auto; left: 50%; transform: translateX(-50%) translateY(-150%); width: 90%; max-width: 380px; }
-            .toast-notification.show { transform: translateX(-50%) translateY(0); right: auto; left: 50%; }
+            .toast-notification { 
+                bottom: auto; /* KUNCI FIX: Melepaskan posisi bawah dari setingan desktop */
+                top: 90px; 
+                right: auto; 
+                left: 50%; 
+                transform: translate(-50%, -150%); 
+                width: 90%; 
+                max-width: 380px;
+                z-index: 9999; /* Memastikan tidak nyangkut di belakang elemen lain */
+            }
+            .toast-notification.show { 
+                transform: translate(-50%, 0); 
+            }
 
             /* Footer Mobile Fix */
             .modern-footer { padding: 60px 5% 30px; }
