@@ -781,92 +781,39 @@
             100% { width: 0; }
         }
 
-        /* === UPGRADE: RESPONSIVE MEDIA QUERIES & MOBILE OPTIMIZATION === */
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 992px) {
-            /* Section & Padding Global */
-            section { padding: 80px 5%; }
-            
-            /* Hero Section Fix */
-            .hero { flex-direction: column-reverse; padding: 130px 5% 60px; text-align: center; gap: 30px; }
-            .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
-            .hero h1 { font-size: 2.8rem; min-height: auto; margin-bottom: 20px; }
-            .hero p { max-width: 100%; font-size: 1rem; }
-            .hero-buttons { flex-direction: column; width: 100%; max-width: 100%; gap: 12px; }
+            .hero { flex-direction: column-reverse; padding-top: 150px; text-align: center; gap: 40px; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; }
+            .hero h1 { font-size: 3.1rem; min-height: 120px; }
+            .hero p { max-width: 100%; }
+            .hero-buttons { flex-direction: column; width: 100%; max-width: 280px; }
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-            .hero-stats { justify-content: center; flex-wrap: wrap; gap: 20px; width: 100%; }
-            .scroll-down { display: none; }
+            .hero-stats { justify-content: center; flex-wrap: wrap; gap: 30px; }
+            .scroll-down { display: none; } /* Sembunyikan scroll down di HP */
             
-            /* Navbar Mobile Fix (Floating Menu Card) */
-            nav { top: 15px; width: 92%; border-radius: 50px; padding: 10px 20px; }
             .nav-links {
-                position: fixed; top: 75px; left: 4%; width: 92%;
-                background: rgba(24, 24, 27, 0.95);
-                backdrop-filter: blur(25px);
-                -webkit-backdrop-filter: blur(25px);
-                flex-direction: column; padding: 30px 20px;
-                border: 1px solid var(--glass-border);
-                border-radius: 24px;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px 0;
+                border-bottom: 1px solid var(--glass-border);
                 transform: translateY(-150%);
-                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-                gap: 20px;
+                transition: transform 0.3s ease-in-out;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.5);
             }
             .nav-links.active { transform: translateY(0); }
-            .menu-toggle { display: block; font-size: 1.5rem; }
-
-            /* Terminal UI Fix */
-            .terminal-container { max-width: 100%; width: 100%; }
+            .menu-toggle { display: block; }
             
-            /* Portfolio Grid Fix */
-            .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); }
-            
-            /* Banner Layanan & Hosting Fix */
-            .pricing-banner, .hosting-banner { flex-direction: column; text-align: center; padding: 30px 20px; gap: 20px; }
-            .hosting-banner { text-align: left; }
-            .hosting-features { flex-direction: column; gap: 12px; }
-            .hosting-cta, .hosting-btn { width: 100%; justify-content: center; text-align: center; }
-            
-            /* Call To Action Fix */
-            .cta-section { padding: 40px 5% 80px; }
-            .cta-box { padding: 40px 20px; border-radius: 24px; }
-            .cta-box h2 { font-size: 2rem; }
-            
-            /* Toast Notification Mobile Centering Fix */
-            .toast-notification { 
-                bottom: auto; /* KUNCI FIX: Melepaskan posisi bawah dari setingan desktop */
-                top: 90px; 
-                right: auto; 
-                left: 50%; 
-                transform: translate(-50%, -150%); 
-                width: 90%; 
-                max-width: 380px;
-                z-index: 9999; /* Memastikan tidak nyangkut di belakang elemen lain */
-            }
-            .toast-notification.show { 
-                transform: translate(-50%, 0); 
-            }
-
-            /* Footer Mobile Fix */
-            .modern-footer { padding: 60px 5% 30px; }
-            .footer-grid { grid-template-columns: 1fr; gap: 35px; text-align: center; }
-            .footer-vision { padding-right: 0; margin: 0 auto 20px; }
-            .footer-links { align-items: center; }
-            .footer-contact-item { justify-content: center; text-align: left; }
-            .footer-bottom { flex-direction: column; text-align: center; gap: 15px; }
-            
-            /* Sembunyikan Hire Badge di HP agar tidak menutupi konten */
-            .hire-badge { display: none; }
-        }
-
-        /* === EXTRA SMALL DEVICES (Layar HP Kecil < 480px) === */
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 2.2rem; letter-spacing: -1px; }
-            .section-header h2 { font-size: 1.8rem; }
-            .stat-item h4 { font-size: 1.5rem; }
-            .btn-primary, .btn-secondary, .btn-whatsapp, .hosting-btn { font-size: 0.95rem; padding: 14px 20px; }
-            .terminal-body { font-size: 13px; padding: 15px; }
-            .profile-img-container { border-radius: 20px; }
-            .modal-card { padding: 30px 20px; width: 95%; }
+            .pricing-banner { flex-direction: column; text-align: center; padding: 36px 24px; }
+            .cta-box { padding: 50px 20px; }
+            .cta-box h2 { font-size: 2.2rem; }
+            footer { flex-direction: column; text-align: center; }
+            .toast-notification.show { right: 50%; transform: translateX(50%); top: 80px; width: 90%; }
         }
         
         .scroll-progress {
@@ -1263,6 +1210,115 @@
         .news-btn:hover {
             background: #fff;
             transform: scale(1.05);
+        }
+        
+                /* =========================================================
+           === UPGRADE: FULL RESPONSIVE OPTIMIZATION (MOBILE, DLL) ===
+           ========================================================= */
+
+        /* 1. Layar Laptop Kecil / Tablet Landscape (max 1200px) */
+        @media (max-width: 1200px) {
+            .hero { gap: 30px; padding: 140px 5% 60px; }
+            section { padding: 80px 5%; }
+            .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        }
+
+        /* 2. Layar Tablet Portrait / HP Layar Besar (max 992px) */
+        @media (max-width: 992px) {
+            /* General Section & Hero */
+            section { padding: 60px 5%; }
+            .hero { padding-top: 130px; gap: 40px; }
+            .hero h1 { font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 15px; }
+            .hero p { font-size: 1rem; line-height: 1.6; }
+            
+            /* Stats Bar */
+            .hero-stats { gap: 20px; flex-wrap: wrap; justify-content: center; }
+            .stat-item h4 { font-size: 1.5rem; }
+            
+            /* Profile Container & Terminal (Mencegah overflow/geser ke kanan) */
+            .hero-image { width: 100%; padding: 0 10px; }
+            .profile-img-container, .terminal-container { 
+                max-width: 100%; 
+                width: 100%; 
+                aspect-ratio: auto;
+                margin: 0 auto;
+            }
+            .terminal-body { padding: 15px; }
+            
+            /* Portfolio Adjustments */
+            .portfolio-grid { gap: 16px; }
+            .portfolio-card { padding: 22px; }
+            
+            /* Banners (Store & Hosting) */
+            .pricing-banner, .hosting-banner { 
+                padding: 24px; 
+                border-radius: 20px; 
+            }
+            
+            /* CTA Section */
+            .cta-box { padding: 40px 20px; border-radius: 20px; }
+            .cta-box h2 { font-size: 2rem; margin-bottom: 12px; }
+            
+            /* Footer Adjustments */
+            .modern-footer { padding: 60px 5% 30px; }
+            .footer-grid { gap: 35px; }
+        }
+
+        /* 3. Layar HP Reguler / HP Kecil (max 576px) */
+        @media (max-width: 576px) {
+            /* Navbar Mobile */
+            nav { padding: 10px 16px; width: 92%; }
+            .logo { font-size: 16px; }
+            .logo img { width: 35px !important; height: 35px !important; margin-right: 8px !important; }
+            .menu-toggle { font-size: 1.2rem; }
+            
+            /* Hero Teks Mobile */
+            .hero h1 { font-size: 2.2rem; }
+            .btn-primary, .btn-secondary { font-size: 14px; padding: 14px 24px; }
+            
+            /* Ticker Text */
+            .ticker-item { font-size: 0.85rem; }
+            
+            /* Portfolio strictly 1 kolom agar tidak gepeng */
+            .portfolio-grid { grid-template-columns: 1fr; }
+            
+            /* Toast Notification Mobile Fix */
+            .toast-notification { 
+                width: 90%; 
+                padding: 12px 16px; 
+                right: 50%; 
+                transform: translateX(50%); 
+                top: 85px; 
+            }
+            
+            /* Modal Profile Fix */
+            .modal-card { width: 90%; padding: 30px 20px; }
+            .modal-img-wrapper { width: 110px; height: 110px; }
+            .modal-card h3 { font-size: 1.2rem; }
+            
+            /* Newsletter Fix di Mobile (Membuat tombol ke bawah) */
+            .newsletter-box { 
+                flex-direction: column; 
+                background: transparent; 
+                border: none; 
+                gap: 10px;
+            }
+            .newsletter-box:focus-within { box-shadow: none; }
+            .news-input { 
+                border: 1px solid var(--glass-border); 
+                border-radius: 12px; 
+                background: rgba(24, 24, 27, 0.6);
+            }
+            .news-btn { 
+                border-radius: 12px; 
+                padding: 12px; 
+                width: 100%; 
+                justify-content: center;
+            }
+            
+            /* Tombol Back to Top geser agar tidak terpotong */
+            .back-to-top { right: 20px; bottom: 20px; width: 40px; height: 40px; }
+            .back-to-bottom { right: 20px; bottom: 70px; width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -2240,3 +2296,4 @@
     </script>
 </body>
 </html>
+
