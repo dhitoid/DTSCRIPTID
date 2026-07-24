@@ -827,19 +827,74 @@
             transition: transform 0.1s linear, background 0.3s, box-shadow 0.3s !important;
         }
         
-        /* PRELOADER */
+/* =========================================
+           UPGRADE PRELOADER 2.0 (PREMIUM TECH)
+           ========================================= */
         .preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: var(--bg-color); display: flex; justify-content: center; align-items: center;
-            z-index: 99999; transition: opacity 0.6s ease, visibility 0.6s ease;
+            z-index: 99999; transition: opacity 0.8s cubic-bezier(0.8, 0, 0.2, 1), visibility 0.8s;
+            overflow: hidden;
         }
-        .preloader-content { text-align: center; }
-        .preloader-logo { font-size: 2.5rem; margin-bottom: 20px; animation: pulse-glow 1.5s infinite alternate; }
-        .loading-bar { width: 150px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 0 auto; overflow: hidden; position: relative; }
-        .loading-progress { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent-main); width: 0%; box-shadow: 0 0 10px var(--accent-main); animation: loadingAnim 1.5s ease-in-out forwards; }
-        @keyframes pulse-glow { 0% { text-shadow: 0 0 10px rgba(56, 189, 248, 0); transform: scale(1); } 100% { text-shadow: 0 0 20px rgba(56, 189, 248, 0.5); transform: scale(1.05); } }
-        @keyframes loadingAnim { 0% { width: 0%; } 50% { width: 70%; } 100% { width: 100%; } }
+
+        /* Ambient background glow pada saat loading */
+        .preloader::before {
+            content: ''; position: absolute; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 60%);
+            border-radius: 50%; filter: blur(60px); animation: pulse-loader-glow 2s infinite alternate;
+            z-index: 1; pointer-events: none;
+        }
+
+        .preloader-content {
+            position: relative; z-index: 2; width: 100%; max-width: 420px;
+            padding: 0 24px; text-align: center;
+            transition: transform 0.8s cubic-bezier(0.8, 0, 0.2, 1), opacity 0.8s;
+        }
+
+        /* Animasi saat preloader menghilang */
+        .preloader.hidden .preloader-content {
+            transform: translateY(-60px) scale(0.95); opacity: 0;
+        }
         .preloader.hidden { opacity: 0; visibility: hidden; }
+
+        /* Terminal Loading Style */
+        .loader-terminal {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 13px; color: var(--text-muted); text-align: left; margin-bottom: 24px;
+            background: rgba(24, 24, 27, 0.6); padding: 12px 18px; border-radius: 10px;
+            border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+        .loader-cmd { color: var(--success-color); font-weight: bold; margin-right: 6px; }
+        .loader-text { color: var(--accent-main); }
+
+        .preloader-logo {
+            font-size: 3rem; letter-spacing: -1px; margin-bottom: 30px;
+            animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        }
+
+        .loading-wrapper { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+        .loading-bar {
+            width: 100%; max-width: 300px; height: 4px; background: rgba(255,255,255,0.05);
+            border-radius: 10px; overflow: hidden; position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .loading-progress {
+            position: absolute; top: 0; left: 0; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-main), #fff);
+            width: 0%; border-radius: 10px; transition: width 0.1s ease;
+            box-shadow: 0 0 15px var(--accent-main), 0 0 5px #fff;
+        }
+
+        .loading-percentage {
+            font-size: 15px; font-weight: 700; color: var(--text-main); font-family: 'Fira Code', monospace;
+            letter-spacing: 2px;
+        }
+
+        @keyframes pulse-loader-glow { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.1); opacity: 1; } }
+        @keyframes text-focus-in { 0% { filter: blur(12px); opacity: 0; } 100% { filter: blur(0px); opacity: 1; } }
 
         /* NEON CLICK RIPPLE */
         .click-ripple {
@@ -1233,11 +1288,27 @@
     <!-- UPGRADE BARU 1: CINEMATIC NOISE OVERLAY -->
     <div class="noise-overlay"></div>
 
-    <!-- PRELOADER -->
+<!-- PRELOADER 2.0 -->
     <div class="preloader" id="preloader">
         <div class="preloader-content">
-            <div class="logo preloader-logo">DT<span>SCRIPT</span>ID</div>
-            <div class="loading-bar"><div class="loading-progress"></div></div>
+            <!-- Terminal Text Animation -->
+            <div class="loader-terminal">
+                <span class="loader-cmd">sys@dtscriptid:~#</span> 
+                <span id="loader-text" class="loader-text">Loading kernel...</span><span class="cursor-blink">█</span>
+            </div>
+            
+            <!-- Logo -->
+            <div class="loader-brand">
+                <div class="logo preloader-logo">DT<span>SCRIPT</span>ID</div>
+            </div>
+            
+            <!-- Progress Bar & Counter -->
+            <div class="loading-wrapper">
+                <div class="loading-bar">
+                    <div class="loading-progress" id="loading-progress"></div>
+                </div>
+                <div class="loading-percentage" id="loading-percentage">0%</div>
+            </div>
         </div>
     </div>
 
@@ -1856,19 +1927,60 @@
                 elem.addEventListener('mouseleave', () => { elem.style.transform = 'translate(0, 0)'; });
             });
             
-            // --- PRELOADER ---
+// --- PRELOADER 2.0 LOGIC ---
             const preloader = document.getElementById('preloader');
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    preloader.classList.add('hidden');
-                    setTimeout(revealOnScroll, 100);
+            const loaderText = document.getElementById('loader-text');
+            const loadingProgress = document.getElementById('loading-progress');
+            const loadingPercentage = document.getElementById('loading-percentage');
+            
+            const loaderMessages = [
+                "Initializing core systems...",
+                "Resolving dependencies...",
+                "Compiling UI components...",
+                "Establishing secure connection...",
+                "System ready."
+            ];
+            
+            let msgIndex = 0;
+            let loadAmount = 0;
+
+            // Ganti teks terminal setiap 350ms
+            const textInterval = setInterval(() => {
+                if (msgIndex < loaderMessages.length) {
+                    loaderText.textContent = loaderMessages[msgIndex];
+                    msgIndex++;
+                }
+            }, 350);
+
+            // Simulasi persentase loading dan lebar progress bar
+            const progressInterval = setInterval(() => {
+                // Angka persentase naik secara acak agar terlihat natural (antara 1 - 4%)
+                loadAmount += Math.floor(Math.random() * 4) + 1; 
+                
+                if (loadAmount >= 100) {
+                    loadAmount = 100;
+                    clearInterval(progressInterval);
+                    clearInterval(textInterval);
+                    loaderText.textContent = "Boot sequence complete.";
                     
-                    // Trigger Toast Notification 2.5 detik setelah preloader selesai (UPGRADE)
+                    // Beri jeda 0.6 detik di 100% sebelum preloader dihilangkan
                     setTimeout(() => {
-                        document.getElementById('toastNotification').classList.add('show');
-                    }, 2500);
-                }, 1500); 
-            });
+                        preloader.classList.add('hidden');
+                        setTimeout(revealOnScroll, 100);
+                        
+                        // Memanggil Toast Notification setelah preloader hilang
+                        setTimeout(() => {
+                            const toast = document.getElementById('toastNotification');
+                            if(toast) toast.classList.add('show');
+                        }, 2000);
+                    }, 600);
+                }
+                
+                // Update UI Loading
+                loadingProgress.style.width = `${loadAmount}%`;
+                loadingPercentage.textContent = `${loadAmount}%`;
+                
+            }, 45); // Kecepatan loop (45ms)
 
             // --- ANIMATED NUMBER COUNTER ---
             const counters = document.querySelectorAll('.counter');
