@@ -1316,6 +1316,51 @@
             cursor: not-allowed;
             transform: none !important;
         }
+
+        /* === UPGRADE: LIVE STATUS SYSTEM WIDGET === */
+        .live-status-container {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
+        }
+        .live-status-container:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--success-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.25);
+        }
+        .live-status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success-color);
+            animation: pulse-dot 2s infinite ease-in-out;
+            margin-right: 8px;
+            display: inline-block;
+        }
+        .live-status-text {
+            color: var(--success-color);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .live-status-text i {
+            font-size: 11px;
+            transition: transform 0.3s ease;
+        }
+        .live-status-container:hover .live-status-text i {
+            transform: translateX(3px);
+        }
     </style>
 </head>
 <body>
@@ -1743,13 +1788,18 @@
                 </div>
             </div>
 
-        <!-- Copyright -->
+<!-- Copyright -->
         <div class="footer-bottom">
             <p style="color: var(--text-muted); font-size: 14px; margin: 0;">&copy; <span id="dynamicYear"></span> DTSCRIPTID. Designed & Engineered with precision.</p>
-            <p style="color: var(--text-muted); font-size: 14px; margin: 0; display: flex; align-items: center; gap: 8px;">
-                Status: <span style="display: flex; align-items: center; gap: 6px; color: var(--success-color); font-weight: 600;">
-                <span class="status-dot" style="position: static; width: 8px; height: 8px;"></span> All Systems Operational</span>
-            </p>
+            
+            <!-- UPGRADE LIVE STATUS LINK -->
+            <a href="https://dtscriptid-livestatusoperational.vercel.app/" target="_blank" class="live-status-container" aria-label="Lihat Status Live Operasional">
+                <span class="live-status-text">
+                    <span class="live-status-dot"></span> 
+                    Status: All Systems Operational 
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+            </a>
         </div>
     </footer>
     
