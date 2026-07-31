@@ -2146,19 +2146,33 @@ async function updateStatus() {
         }
     }
 
-    // 3. EVENT LISTENER UNTUK TOMBOL UPDATE & ENTER KEY
-    if (saveAdminStatus) {
-        saveAdminStatus.addEventListener('click', updateStatus);
-    }
+if (saveAdminStatus && adminStatusInput) {
+    saveAdminStatus.addEventListener('click', async () => {
+        const newStatusText = adminStatusInput.value.trim();
+        
+        if (!newStatusText) {
+            alert('Status tidak boleh kosong!');
+            return;
+        }
 
-    if (adminStatusInput) {
-        adminStatusInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                updateStatus();
-            }
-        });
-    }
+        try {
+            // Mengirim data baru ke Firestore (Otomatis memicu onSnapshot di semua perangkat pengunjung)
+            await setDoc(statusDocRef, {
+                currentStatus: newStatusText,
+                updatedAt: new Date().toISOString()
+            });
+
+            // Reset input, tutup modal, dan beri feedback
+            adminStatusInput.value = '';
+            if (adminModal) adminModal.classList.remove('active');
+            
+            alert('Status berhasil diperbarui secara real-time!');
+        } catch (error) {
+            console.error("Gagal memperbarui status: ", error);
+            alert('Terjadi kesalahan saat menyimpan ke database.');
+        }
+    });
+}
 
     // 4. FUNGSI SHOW TOAST (Notifikasi UI)
     function showToast(title, message) {
@@ -2177,6 +2191,15 @@ async function updateStatus() {
     // --- TAHUN DINAMIS ---
     const dynamicYearEl = document.getElementById('dynamicYear');
     if(dynamicYearEl) dynamicYearEl.textContent = new Date().getFullYear();
+
+    // 2. Toast Notification Close Handler
+    const closeToast = document.getElementById('closeToast');
+    const toastNotification = document.getElementById('toastNotification');
+    if (closeToast && toastNotification) {
+        closeToast.addEventListener('click', () => {
+            toastNotification.classList.remove('show');
+        });
+    }
 
     // --- 1. SCROLL REVEAL ANIMATION ---
     const reveals = document.querySelectorAll('.reveal');
