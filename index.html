@@ -2114,39 +2114,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    async function updateStatus() {
+async function updateStatus() {
         if(!adminStatusInput || !saveAdminStatus) return;
         const newStatus = adminStatusInput.value.trim();
+        
         if(newStatus !== "") {
+            const originalBtnText = saveAdminStatus.innerHTML;
             try {
-                const originalBtnText = saveAdminStatus.innerHTML;
+                // Ubah status tombol menjadi loading
                 saveAdminStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Updating...`;
                 saveAdminStatus.disabled = true;
 
+                // Simpan ke Firebase (Ini akan otomatis men-trigger onSnapshot di semua device)
                 await setDoc(statusDocRef, { currentStatus: newStatus });
                 
-                showToast("Status Updated!", "Status berhasil di-sync ke semua device.", "success");
-                
+                // Tutup modal dan reset input
                 adminStatusInput.value = "";
                 adminModal.classList.remove('active');
                 
-                saveAdminStatus.innerHTML = originalBtnText;
-                saveAdminStatus.disabled = false;
-
+                // Tampilkan notifikasi sukses
+                showToast("Status Updated!", "Status berhasil di-sync ke semua device.");
+                
             } catch (error) {
-                console.error("Error updating status: ", error);
-                alert("Gagal mengupdate status. Cek koneksi atau rules Firebase.");
-                saveAdminStatus.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Update Status`;
+                console.error("Gagal update status Firebase: ", error);
+                alert("Gagal update status. Pastikan Rules Firestore Anda mengizinkan 'write'.");
+            } finally {
+                // Kembalikan kondisi tombol seperti semula
+                saveAdminStatus.innerHTML = originalBtnText;
                 saveAdminStatus.disabled = false;
             }
         }
     }
 
-    if(saveAdminStatus) saveAdminStatus.addEventListener('click', updateStatus);
-    if(adminStatusInput) {
+    // 3. EVENT LISTENER UNTUK TOMBOL UPDATE & ENTER KEY
+    if (saveAdminStatus) {
+        saveAdminStatus.addEventListener('click', updateStatus);
+    }
+
+    if (adminStatusInput) {
         adminStatusInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') updateStatus();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                updateStatus();
+            }
         });
+    }
+
+    // 4. FUNGSI SHOW TOAST (Notifikasi UI)
+    function showToast(title, message) {
+        if(toastNotification) {
+            toastNotification.querySelector('h5').innerText = title;
+            toastNotification.querySelector('p').innerText = message;
+            toastNotification.classList.add('show');
+            
+            // Hilangkan toast setelah 5 detik (menyesuaikan animasi CSS)
+            setTimeout(() => {
+                toastNotification.classList.remove('show');
+            }, 5000);
+        }
     }
 
     // --- TAHUN DINAMIS ---
