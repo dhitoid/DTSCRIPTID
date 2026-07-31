@@ -2675,72 +2675,120 @@
         }
     });
 
-        // --- SECRET ADMIN SYSTEM ---
-        let clickCount = 0;
-        let clickTimer;
-        const statusPill = document.querySelector('.status-pill');
-        statusPill.style.cursor = 'pointer'; 
-        statusPill.title = 'Klik 3x untuk akses admin';
+// Import Firebase SDK (Versi Modular v10)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        const adminModal = document.getElementById('adminModal');
-        const closeAdminModal = document.getElementById('closeAdminModal');
-        const saveAdminStatus = document.getElementById('saveAdminStatus');
-        const adminStatusInput = document.getElementById('adminStatusInput');
-        const toastNotification = document.getElementById('toastNotification');
+// 1. MASUKKAN KONFIGURASI FIREBASE KAMU DI SINI
+const firebaseConfig = {
+    apiKey: "AIzaSyDZU4G5zH0HQG0z1mnSB6zRIVej7TIM-ws",
+    authDomain: "website-dtscriptid.firebaseapp.com",
+    projectId: "website-dtscriptid",
+    storageBucket: "website-dtscriptid.firebasestorage.app",
+    messagingSenderId: "716040361375",
+    appId: "1:716040361375:web:643c3e4770b9d33a1499aa"
+};
 
-        statusPill.addEventListener('click', () => {
-            clickCount++;
-            clearTimeout(clickTimer);
+// Inisialisasi Firebase & Firestore
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Menentukan lokasi data (Collection: 'portfolio', Document: 'status')
+const statusDocRef = doc(db, 'portfolio', 'status');
+
+// --- VARIABEL DOM ---
+let clickCount = 0;
+let clickTimer;
+const statusPill = document.querySelector('.status-pill');
+statusPill.style.cursor = 'pointer'; 
+statusPill.title = 'Klik 3x untuk akses admin';
+
+const adminModal = document.getElementById('adminModal');
+const closeAdminModal = document.getElementById('closeAdminModal');
+const saveAdminStatus = document.getElementById('saveAdminStatus');
+const adminStatusInput = document.getElementById('adminStatusInput');
+const toastNotification = document.getElementById('toastNotification');
+
+// --- 2. FITUR REAL-TIME LISTENER (TERIMA DATA) ---
+// Fungsi ini akan otomatis berjalan setiap kali data di Firebase berubah
+onSnapshot(statusDocRef, (docSnap) => {
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        // Ubah UI seketika di semua device yang sedang membuka web
+        statusPill.innerHTML = `<div class="status-dot"></div> ${data.currentStatus}`;
+    }
+});
+
+// --- LOGIKA KLIK 3X UNTUK MODAL ---
+statusPill.addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(clickTimer);
+    
+    if (clickCount === 3) {
+        adminModal.classList.add('active');
+        setTimeout(() => adminStatusInput.focus(), 300);
+        clickCount = 0; 
+    } else {
+        clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+    }
+});
+
+closeAdminModal.addEventListener('click', () => {
+    adminModal.classList.remove('active');
+});
+
+adminModal.addEventListener('click', (e) => {
+    if(e.target === adminModal) {
+        adminModal.classList.remove('active');
+    }
+});
+
+// --- 3. FUNGSI KIRIM DATA KE FIREBASE ---
+async function updateStatus() {
+    const newStatus = adminStatusInput.value.trim();
+    if(newStatus !== "") {
+        try {
+            // Ubah teks tombol jadi loading sementara
+            const originalBtnText = saveAdminStatus.innerHTML;
+            saveAdminStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Updating...`;
+            saveAdminStatus.disabled = true;
+
+            // Simpan ke Firebase Firestore
+            await setDoc(statusDocRef, { currentStatus: newStatus });
             
-            if (clickCount === 3) {
-                adminModal.classList.add('active');
-                // Memberi sedikit jeda agar animasi modal selesai sebelum input difokuskan
-                setTimeout(() => adminStatusInput.focus(), 300);
-                clickCount = 0; 
-            } else {
-                clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+            // Tampilkan Toast
+            if(toastNotification) {
+                toastNotification.querySelector('h5').innerText = "Status Updated!";
+                toastNotification.querySelector('p').innerText = "Status berhasil di-sync ke semua device.";
+                toastNotification.classList.add('show');
+                // Hapus toast setelah 3 detik
+                setTimeout(() => toastNotification.classList.remove('show'), 3000);
             }
-        });
-
-        // Tutup modal jika tombol X diklik
-        closeAdminModal.addEventListener('click', () => {
+            
+            // Reset modal
+            adminStatusInput.value = "";
             adminModal.classList.remove('active');
-        });
+            
+            // Kembalikan tombol
+            saveAdminStatus.innerHTML = originalBtnText;
+            saveAdminStatus.disabled = false;
 
-        // Tutup modal jika area luar (backdrop) diklik
-        adminModal.addEventListener('click', (e) => {
-            if(e.target === adminModal) {
-                adminModal.classList.remove('active');
-            }
-        });
-
-        // Fungsi untuk menyimpan status
-        function updateStatus() {
-            const newStatus = adminStatusInput.value.trim();
-            if(newStatus !== "") {
-                statusPill.innerHTML = `<div class="status-dot"></div> ${newStatus}`;
-                
-                if(toastNotification) {
-                    toastNotification.querySelector('h5').innerText = "Status Updated!";
-                    toastNotification.querySelector('p').innerText = "Status pengerjaan berhasil diubah.";
-                    toastNotification.classList.add('show');
-                    // Pastikan kamu punya logika untuk menghilangkan toast setelah beberapa detik di kodemu
-                }
-                
-                adminStatusInput.value = ""; // Typo fixed di sini
-                adminModal.classList.remove('active');
-            }
+        } catch (error) {
+            console.error("Error updating status: ", error);
+            alert("Gagal mengupdate status. Cek koneksi atau rules Firebase.");
+            saveAdminStatus.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Update Status`;
+            saveAdminStatus.disabled = false;
         }
+    }
+}
 
-        // Simpan jika tombol diklik
-        saveAdminStatus.addEventListener('click', updateStatus);
+saveAdminStatus.addEventListener('click', updateStatus);
 
-        // Simpan jika tekan tombol Enter di dalam input
-        adminStatusInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                updateStatus();
-            }
-        });
+adminStatusInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        updateStatus();
+    }
+});
 
     </script>
 </body>
