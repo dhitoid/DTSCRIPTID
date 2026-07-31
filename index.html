@@ -2191,15 +2191,7 @@ if (saveAdminStatus && adminStatusInput) {
     // --- TAHUN DINAMIS ---
     const dynamicYearEl = document.getElementById('dynamicYear');
     if(dynamicYearEl) dynamicYearEl.textContent = new Date().getFullYear();
-
-    // 2. Toast Notification Close Handler
-    const closeToast = document.getElementById('closeToast');
-    const toastNotification = document.getElementById('toastNotification');
-    if (closeToast && toastNotification) {
-        closeToast.addEventListener('click', () => {
-            toastNotification.classList.remove('show');
-        });
-    }
+    
 
     // --- 1. SCROLL REVEAL ANIMATION ---
     const reveals = document.querySelectorAll('.reveal');
