@@ -1362,39 +1362,93 @@
             transform: translateX(3px);
         }
 
-        /* === SECRET ADMIN MODAL === */
+        /* === SECRET ADMIN MODAL (ULTRA-PREMIUM) === */
         .admin-modal {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: fixed; inset: 0; /* Menggantikan top/left/width/height */
+            background: rgba(9, 9, 11, 0.6);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             display: flex; justify-content: center; align-items: center;
             z-index: 9999999; opacity: 0; visibility: hidden;
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .admin-modal.active { opacity: 1; visibility: visible; }
+
         .admin-card {
-            background: linear-gradient(145deg, rgba(39,39,42,0.95) 0%, rgba(9,9,11,0.98) 100%);
-            border: 1px solid var(--accent-main);
-            border-radius: 24px; padding: 30px;
-            width: 90%; max-width: 400px; text-align: left; position: relative;
-            transform: scale(0.8) translateY(40px);
+            background: rgba(24, 24, 27, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px; padding: 40px; /* Padding lebih luas */
+            width: 90%; max-width: 420px; text-align: left; position: relative;
+            transform: scale(0.95) translateY(20px);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+            /* Soft premium shadow + inner glow */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         .admin-modal.active .admin-card { transform: scale(1) translateY(0); }
-        .admin-card h3 { color: #fff; margin-bottom: 5px; display: flex; align-items: center; gap: 10px;}
-        .admin-card h3 i { color: var(--accent-main); }
-        .admin-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+        /* Tombol Close Modern */
+        .modal-close {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted, #a1a1aa);
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.15); /* Tint merah */
+            color: #ef4444; border-color: rgba(239, 68, 68, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* Typography & Layout Header */
+        .admin-badge {
+            display: inline-block; padding: 4px 10px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-main, #38bdf8);
+            font-size: 0.75rem; font-weight: 700;
+            border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .admin-card h3 { color: #fff; font-size: 1.5rem; margin-bottom: 8px; font-weight: 600; }
+        .admin-card p { color: var(--text-muted, #a1a1aa); font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; }
+
+        /* Input Field dengan Ikon */
+        .admin-input-group { position: relative; margin-bottom: 25px; }
+        .admin-input-group i {
+            position: absolute; top: 50%; left: 16px; transform: translateY(-50%);
+            color: var(--text-muted, #a1a1aa); font-size: 1rem; transition: 0.3s;
+        }
         .admin-input {
-            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);
-            color: #fff; padding: 12px 15px; border-radius: 12px; margin-bottom: 20px;
-            font-family: inherit; outline: none; transition: 0.3s;
+            width: 100%; background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1); color: #fff;
+            padding: 14px 16px 14px 45px; /* Ruang untuk ikon di kiri */
+            border-radius: 14px; font-family: inherit; font-size: 0.95rem;
+            outline: none; transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
-        .admin-input:focus { border-color: var(--accent-main); box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        .admin-input:focus {
+            border-color: var(--accent-main, #38bdf8); background: rgba(0,0,0,0.6);
+            /* Efek cincin glow ala Tailwind */
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15), inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .admin-input:focus + i, .admin-input-group:focus-within i {
+            color: var(--accent-main, #38bdf8); /* Ikon ikut menyala */
+        }
+
+        /* Tombol Action */
         .admin-btn {
-            width: 100%; padding: 12px; background: var(--accent-main); color: #000;
-            border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            width: 100%; padding: 14px;
+            background: var(--accent-main, #38bdf8); color: #000;
+            border: none; border-radius: 14px; font-weight: 600; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
         }
-        .admin-btn:hover { background: #fff; transform: translateY(-2px); }
+        .admin-btn:hover {
+            transform: translateY(-2px); background: #fff;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -1850,7 +1904,7 @@
                 </div>
             </div>
 
-<!-- Copyright -->
+        <!-- Copyright -->
         <div class="footer-bottom">
             <p style="color: var(--text-muted); font-size: 14px; margin: 0;">&copy; <span id="dynamicYear"></span> DTSCRIPTID. Designed & Engineered with precision.</p>
             
@@ -1907,11 +1961,24 @@
     <!-- SECRET ADMIN MODAL -->
     <div class="admin-modal" id="adminModal">
         <div class="admin-card">
-            <button class="modal-close" id="closeAdminModal"><i class="fa-solid fa-xmark"></i></button>
-            <h3><i class="fa-solid fa-user-shield"></i> Admin Override</h3>
-            <p>Update status pengerjaan proyek Anda saat ini.</p>
-            <input type="text" id="adminStatusInput" class="admin-input" placeholder="Cth: Sedang mengerjakan Web E-Commerce..." autocomplete="off">
-            <button class="admin-btn" id="saveAdminStatus">Update Status</button>
+            <button class="modal-close" id="closeAdminModal" title="Tutup Modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div>
+                <span class="admin-badge">Secured Access</span>
+                <h3>Admin Override</h3>
+                <p>Perbarui status pengerjaan proyek Anda secara real-time.</p>
+            </div>
+
+            <div class="admin-input-group">
+                <input type="text" id="adminStatusInput" class="admin-input" placeholder="Cth: Sedang Mengerjakan UI Dashboard..." autocomplete="off">
+                <i class="fa-solid fa-terminal"></i>
+            </div>
+
+            <button class="admin-btn" id="saveAdminStatus">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Update Status
+            </button>
         </div>
     </div>
 
@@ -2608,54 +2675,72 @@
         }
     });
 
-    // --- SECRET ADMIN SYSTEM ---
-    let clickCount = 0;
-    let clickTimer;
-    // Pastikan status pill bisa diklik dengan menambahkan style cursor
-    const statusPill = document.querySelector('.status-pill');
-    statusPill.style.cursor = 'pointer'; 
-    statusPill.title = 'Klik 3x untuk akses admin';
+        // --- SECRET ADMIN SYSTEM ---
+        let clickCount = 0;
+        let clickTimer;
+        const statusPill = document.querySelector('.status-pill');
+        statusPill.style.cursor = 'pointer'; 
+        statusPill.title = 'Klik 3x untuk akses admin';
 
-    const adminModal = document.getElementById('adminModal');
-    const closeAdminModal = document.getElementById('closeAdminModal');
-    const saveAdminStatus = document.getElementById('saveAdminStatus');
-    const adminStatusInput = document.getElementById('adminStatusInput');
-    const toastNotification = document.getElementById('toastNotification'); // Menggunakan toast yang sudah ada
+        const adminModal = document.getElementById('adminModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        const saveAdminStatus = document.getElementById('saveAdminStatus');
+        const adminStatusInput = document.getElementById('adminStatusInput');
+        const toastNotification = document.getElementById('toastNotification');
 
-    statusPill.addEventListener('click', () => {
-        clickCount++;
-        clearTimeout(clickTimer);
-        
-        if (clickCount === 3) {
-            adminModal.classList.add('active');
-            adminStatusInput.focus();
-            clickCount = 0; // Reset
-        } else {
-            // Jika jeda antar klik lebih dari 1 detik, reset ke 0
-            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
-        }
-    });
-
-    closeAdminModal.addEventListener('click', () => {
-        adminModal.classList.remove('active');
-    });
-
-    saveAdminStatus.addEventListener('click', () => {
-        const newStatus = adminStatusInput.value.trim();
-        if(newStatus !== "") {
-            // Ganti teks di status pill dengan mempertahankan dot hijau
-            statusPill.innerHTML = `<div class="status-dot"></div> ${newStatus}`;
+        statusPill.addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
             
-            // Panggil Toast Notification untuk memberi tahu update berhasil
-            toastNotification.querySelector('h5').innerText = "Status Updated!";
-            toastNotification.querySelector('p').innerText = "Status pengerjaan berhasil diubah.";
-            toastNotification.classList.add('show');
-            
-            // Bersihkan dan tutup modal
-            adminInput.value = "";
+            if (clickCount === 3) {
+                adminModal.classList.add('active');
+                // Memberi sedikit jeda agar animasi modal selesai sebelum input difokuskan
+                setTimeout(() => adminStatusInput.focus(), 300);
+                clickCount = 0; 
+            } else {
+                clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+            }
+        });
+
+        // Tutup modal jika tombol X diklik
+        closeAdminModal.addEventListener('click', () => {
             adminModal.classList.remove('active');
+        });
+
+        // Tutup modal jika area luar (backdrop) diklik
+        adminModal.addEventListener('click', (e) => {
+            if(e.target === adminModal) {
+                adminModal.classList.remove('active');
+            }
+        });
+
+        // Fungsi untuk menyimpan status
+        function updateStatus() {
+            const newStatus = adminStatusInput.value.trim();
+            if(newStatus !== "") {
+                statusPill.innerHTML = `<div class="status-dot"></div> ${newStatus}`;
+                
+                if(toastNotification) {
+                    toastNotification.querySelector('h5').innerText = "Status Updated!";
+                    toastNotification.querySelector('p').innerText = "Status pengerjaan berhasil diubah.";
+                    toastNotification.classList.add('show');
+                    // Pastikan kamu punya logika untuk menghilangkan toast setelah beberapa detik di kodemu
+                }
+                
+                adminStatusInput.value = ""; // Typo fixed di sini
+                adminModal.classList.remove('active');
+            }
         }
-    });
+
+        // Simpan jika tombol diklik
+        saveAdminStatus.addEventListener('click', updateStatus);
+
+        // Simpan jika tekan tombol Enter di dalam input
+        adminStatusInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                updateStatus();
+            }
+        });
 
     </script>
 </body>
