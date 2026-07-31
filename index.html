@@ -1982,9 +1982,8 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
-    <script>
-        // Import Firebase SDK (Versi Modular v10)
+    <script type="module">
+// Import Firebase SDK (Versi Modular v10)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
@@ -2005,791 +2004,681 @@ const db = getFirestore(app);
 // Menentukan lokasi data (Collection: 'portfolio', Document: 'status')
 const statusDocRef = doc(db, 'portfolio', 'status');
 
-// --- VARIABEL DOM ---
+// --- VARIABEL DOM FIREBASE ---
 let clickCount = 0;
 let clickTimer;
 const statusPill = document.querySelector('.status-pill');
-statusPill.style.cursor = 'pointer'; 
-statusPill.title = 'Klik 3x untuk akses admin';
 
-const adminModal = document.getElementById('adminModal');
-const closeAdminModal = document.getElementById('closeAdminModal');
-const saveAdminStatus = document.getElementById('saveAdminStatus');
-const adminStatusInput = document.getElementById('adminStatusInput');
-const toastNotification = document.getElementById('toastNotification');
+// Cek apakah statusPill ada sebelum dimanipulasi
+if (statusPill) {
+    statusPill.style.cursor = 'pointer'; 
+    statusPill.title = 'Klik 3x untuk akses admin';
 
-// --- 2. FITUR REAL-TIME LISTENER (TERIMA DATA) ---
-// Fungsi ini akan otomatis berjalan setiap kali data di Firebase berubah
-onSnapshot(statusDocRef, (docSnap) => {
-    if (docSnap.exists()) {
-        const data = docSnap.data();
-        // Ubah UI seketika di semua device yang sedang membuka web
-        statusPill.innerHTML = `<div class="status-dot"></div> ${data.currentStatus}`;
-    }
-});
-
-// --- LOGIKA KLIK 3X UNTUK MODAL ---
-statusPill.addEventListener('click', () => {
-    clickCount++;
-    clearTimeout(clickTimer);
-    
-    if (clickCount === 3) {
-        adminModal.classList.add('active');
-        setTimeout(() => adminStatusInput.focus(), 300);
-        clickCount = 0; 
-    } else {
-        clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
-    }
-});
-
-closeAdminModal.addEventListener('click', () => {
-    adminModal.classList.remove('active');
-});
-
-adminModal.addEventListener('click', (e) => {
-    if(e.target === adminModal) {
-        adminModal.classList.remove('active');
-    }
-});
-
-// --- 3. FUNGSI KIRIM DATA KE FIREBASE ---
-async function updateStatus() {
-    const newStatus = adminStatusInput.value.trim();
-    if(newStatus !== "") {
-        try {
-            // Ubah teks tombol jadi loading sementara
-            const originalBtnText = saveAdminStatus.innerHTML;
-            saveAdminStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Updating...`;
-            saveAdminStatus.disabled = true;
-
-            // Simpan ke Firebase Firestore
-            await setDoc(statusDocRef, { currentStatus: newStatus });
-            
-            // Tampilkan Toast
-            if(toastNotification) {
-                toastNotification.querySelector('h5').innerText = "Status Updated!";
-                toastNotification.querySelector('p').innerText = "Status berhasil di-sync ke semua device.";
-                toastNotification.classList.add('show');
-                // Hapus toast setelah 3 detik
-                setTimeout(() => toastNotification.classList.remove('show'), 3000);
-            }
-            
-            // Reset modal
-            adminStatusInput.value = "";
-            adminModal.classList.remove('active');
-            
-            // Kembalikan tombol
-            saveAdminStatus.innerHTML = originalBtnText;
-            saveAdminStatus.disabled = false;
-
-        } catch (error) {
-            console.error("Error updating status: ", error);
-            alert("Gagal mengupdate status. Cek koneksi atau rules Firebase.");
-            saveAdminStatus.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Update Status`;
-            saveAdminStatus.disabled = false;
+    // --- 2. FITUR REAL-TIME LISTENER (TERIMA DATA) ---
+    onSnapshot(statusDocRef, (docSnap) => {
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            statusPill.innerHTML = `<div class="status-dot"></div> ${data.currentStatus}`;
         }
-    }
+    });
+
+    // --- LOGIKA KLIK 3X UNTUK MODAL ---
+    statusPill.addEventListener('click', () => {
+        clickCount++;
+        clearTimeout(clickTimer);
+        
+        const adminModal = document.getElementById('adminModal');
+        const adminStatusInput = document.getElementById('adminStatusInput');
+
+        if (clickCount === 3 && adminModal) {
+            adminModal.classList.add('active');
+            if(adminStatusInput) setTimeout(() => adminStatusInput.focus(), 300);
+            clickCount = 0; 
+        } else {
+            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+        }
+    });
 }
 
-saveAdminStatus.addEventListener('click', updateStatus);
+// ==========================================
+// SEMUA LOGIKA DOM HARUS DI DALAM SINI
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- PRELOADER 2.0 LOGIC (DIPERBAIKI DENGAN PROTEKSI) ---
+    const preloader = document.getElementById('preloader');
+    const loaderText = document.getElementById('loader-text');
+    const loadingProgress = document.getElementById('loading-progress');
+    const loadingPercentage = document.getElementById('loading-percentage');
+    
+    if (preloader) { // Hanya jalankan jika preloader ada di HTML
+        const loaderMessages = [
+            "Initializing core systems...",
+            "Resolving dependencies...",
+            "Compiling UI components...",
+            "Establishing secure connection...",
+            "System ready."
+        ];
+        
+        let msgIndex = 0;
+        let loadAmount = 0;
 
-adminStatusInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        updateStatus();
-    }
-});
+        const textInterval = setInterval(() => {
+            if (msgIndex < loaderMessages.length && loaderText) {
+                loaderText.textContent = loaderMessages[msgIndex];
+                msgIndex++;
+            }
+        }, 350);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('dynamicYear').textContent = new Date().getFullYear();
-            // --- 1. SCROLL REVEAL ANIMATION ---
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                const windowHeight = window.innerHeight;
-                const elementVisible = 50; 
-                reveals.forEach((reveal) => {
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - elementVisible) {
-                        reveal.classList.add('active');
-                    }
-                });
-            };
-            window.addEventListener('scroll', revealOnScroll);
-            setTimeout(revealOnScroll, 100); 
-
-            // --- 2. MOBILE HAMBURGER MENU ---
-            const menuToggle = document.getElementById('menuToggle');
-            const navLinks = document.getElementById('navLinks');
+        const progressInterval = setInterval(() => {
+            loadAmount += Math.floor(Math.random() * 4) + 1; 
             
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = menuToggle.querySelector('i');
+            if (loadAmount >= 100) {
+                loadAmount = 100;
+                clearInterval(progressInterval);
+                clearInterval(textInterval);
+                if(loaderText) loaderText.textContent = "Boot sequence complete.";
+                
+                setTimeout(() => {
+                    preloader.classList.add('hidden');
+                    
+                    // Optional: Hapus dari DOM setelah animasi opacity selesai
+                    setTimeout(() => { preloader.style.display = 'none'; }, 500); 
+
+                    if(typeof revealOnScroll === 'function') setTimeout(revealOnScroll, 100);
+                    
+                    setTimeout(() => {
+                        const toast = document.getElementById('toastNotification');
+                        if(toast) toast.classList.add('show');
+                    }, 2000);
+                }, 600);
+            }
+            
+            if(loadingProgress) loadingProgress.style.width = `${loadAmount}%`;
+            if(loadingPercentage) loadingPercentage.textContent = `${loadAmount}%`;
+            
+        }, 45); 
+    }
+
+    // --- LOGIKA MODAL ADMIN FIREBASE ---
+    const adminModal = document.getElementById('adminModal');
+    const closeAdminModal = document.getElementById('closeAdminModal');
+    const saveAdminStatus = document.getElementById('saveAdminStatus');
+    const adminStatusInput = document.getElementById('adminStatusInput');
+    const toastNotification = document.getElementById('toastNotification');
+
+    if(closeAdminModal && adminModal) {
+        closeAdminModal.addEventListener('click', () => adminModal.classList.remove('active'));
+        adminModal.addEventListener('click', (e) => {
+            if(e.target === adminModal) adminModal.classList.remove('active');
+        });
+    }
+
+    async function updateStatus() {
+        if(!adminStatusInput || !saveAdminStatus) return;
+        const newStatus = adminStatusInput.value.trim();
+        if(newStatus !== "") {
+            try {
+                const originalBtnText = saveAdminStatus.innerHTML;
+                saveAdminStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Updating...`;
+                saveAdminStatus.disabled = true;
+
+                await setDoc(statusDocRef, { currentStatus: newStatus });
+                
+                showToast("Status Updated!", "Status berhasil di-sync ke semua device.", "success");
+                
+                adminStatusInput.value = "";
+                adminModal.classList.remove('active');
+                
+                saveAdminStatus.innerHTML = originalBtnText;
+                saveAdminStatus.disabled = false;
+
+            } catch (error) {
+                console.error("Error updating status: ", error);
+                alert("Gagal mengupdate status. Cek koneksi atau rules Firebase.");
+                saveAdminStatus.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Update Status`;
+                saveAdminStatus.disabled = false;
+            }
+        }
+    }
+
+    if(saveAdminStatus) saveAdminStatus.addEventListener('click', updateStatus);
+    if(adminStatusInput) {
+        adminStatusInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') updateStatus();
+        });
+    }
+
+    // --- TAHUN DINAMIS ---
+    const dynamicYearEl = document.getElementById('dynamicYear');
+    if(dynamicYearEl) dynamicYearEl.textContent = new Date().getFullYear();
+
+    // --- 1. SCROLL REVEAL ANIMATION ---
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+        const windowHeight = window.innerHeight;
+        const elementVisible = 50; 
+        reveals.forEach((reveal) => {
+            const elementTop = reveal.getBoundingClientRect().top;
+            if (elementTop < windowHeight - elementVisible) {
+                reveal.classList.add('active');
+            }
+        });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+
+    // --- 2. MOBILE HAMBURGER MENU ---
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navbar = document.querySelector('nav');
+    
+    if(menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if(icon) {
                 icon.classList.toggle('fa-bars');
                 icon.classList.toggle('fa-xmark');
-            });
-            
-            const navbar = document.querySelector('nav');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    const icon = menuToggle.querySelector('i');
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-xmark');
-                });
-            });
-
-            // --- 3. PORTFOLIO FILTER SYSTEM ---
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const portfolioCards = document.querySelectorAll('.portfolio-card');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const filterValue = btn.getAttribute('data-filter');
-
-                    portfolioCards.forEach(card => {
-                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                            card.style.display = 'flex';
-                            setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
-                        } else {
-                            card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
-                            setTimeout(() => { card.style.display = 'none'; }, 300);
-                        }
-                    });
-                });
-            });
-
-            // --- BACK TO TOP & BACK TO BOTTOM LOGIC ---
-            const backToTopBtn = document.getElementById('backToTop');
-            const backToBottomBtn = document.getElementById('backToBottom');
-
-            window.addEventListener('scroll', () => {
-                const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const currentScroll = window.scrollY;
-
-                // Munculkan Back to Top jika scroll lebih dari 400px ke bawah
-                if (currentScroll > 400) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-
-                // Sembunyikan Back to Bottom jika sudah hampir mentok di bawah halaman
-                if (currentScroll < scrollTotal - 400) {
-                    backToBottomBtn.classList.add('show');
-                } else {
-                    backToBottomBtn.classList.remove('show');
-                }
-            });
-            
-            // --- KLIK EVENT UNTUK BACK TO BOTTOM ---
-            document.getElementById('backToBottom').addEventListener('click', (e) => {
-                e.preventDefault(); // Mencegah loncatan instan bawaan browser
-                window.scrollTo({
-                    top: document.documentElement.scrollHeight,
-                    behavior: 'smooth'
-                });
-            });
-
-            // --- 5. TYPING EFFECT HERO ---
-            const typedTextSpan = document.getElementById("typed-text");
-            const words = ["Profesional.", "Modern.", "Fungsional.", "Interaktif."];
-            const typingDelay = 100;
-            const erasingDelay = 70;
-            const newTextDelay = 2000;
-            let wordIndex = 0;
-            let charIndex = 0;
-
-            function type() {
-                if (charIndex < words[wordIndex].length) {
-                    typedTextSpan.textContent += words[wordIndex].charAt(charIndex);
-                    charIndex++;
-                    setTimeout(type, typingDelay);
-                } else {
-                    setTimeout(erase, newTextDelay);
-                }
             }
-
-            function erase() {
-                if (charIndex > 0) {
-                    typedTextSpan.textContent = words[wordIndex].substring(0, charIndex - 1);
-                    charIndex--;
-                    setTimeout(erase, erasingDelay);
-                } else {
-                    wordIndex++;
-                    if (wordIndex >= words.length) wordIndex = 0;
-                    setTimeout(type, typingDelay + 500);
-                }
-            }
-            if(words.length) setTimeout(type, newTextDelay);
-            
-            // --- SCROLL PROGRESS BAR ---
-            window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('scrollProgress').style.width = scrolled + "%";
-            });
-
-            // --- 3D TILT & SPOTLIGHT ---
-            document.querySelectorAll('.portfolio-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    card.style.setProperty('--mouse-x', `${x}px`);
-                    card.style.setProperty('--mouse-y', `${y}px`);
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -6; 
-                    const rotateY = ((x - centerX) / centerX) * 6;
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
-                });
-                card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-            });
-
-            // --- MAGNETIC BUTTONS ---
-            const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .social-icons a, .external-link, .toast-close');
-            magneticElements.forEach(elem => {
-                elem.addEventListener('mousemove', (e) => {
-                    const rect = elem.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const moveX = (x - centerX) * 0.3; 
-                    const moveY = (y - centerY) * 0.3;
-                    elem.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                });
-                elem.addEventListener('mouseleave', () => { elem.style.transform = 'translate(0, 0)'; });
-            });
-            
-// --- PRELOADER 2.0 LOGIC ---
-            const preloader = document.getElementById('preloader');
-            const loaderText = document.getElementById('loader-text');
-            const loadingProgress = document.getElementById('loading-progress');
-            const loadingPercentage = document.getElementById('loading-percentage');
-            
-            const loaderMessages = [
-                "Initializing core systems...",
-                "Resolving dependencies...",
-                "Compiling UI components...",
-                "Establishing secure connection...",
-                "System ready."
-            ];
-            
-            let msgIndex = 0;
-            let loadAmount = 0;
-
-            // Ganti teks terminal setiap 350ms
-            const textInterval = setInterval(() => {
-                if (msgIndex < loaderMessages.length) {
-                    loaderText.textContent = loaderMessages[msgIndex];
-                    msgIndex++;
-                }
-            }, 350);
-
-            // Simulasi persentase loading dan lebar progress bar
-            const progressInterval = setInterval(() => {
-                // Angka persentase naik secara acak agar terlihat natural (antara 1 - 4%)
-                loadAmount += Math.floor(Math.random() * 4) + 1; 
-                
-                if (loadAmount >= 100) {
-                    loadAmount = 100;
-                    clearInterval(progressInterval);
-                    clearInterval(textInterval);
-                    loaderText.textContent = "Boot sequence complete.";
-                    
-                    // Beri jeda 0.6 detik di 100% sebelum preloader dihilangkan
-                    setTimeout(() => {
-                        preloader.classList.add('hidden');
-                        setTimeout(revealOnScroll, 100);
-                        
-                        // Memanggil Toast Notification setelah preloader hilang
-                        setTimeout(() => {
-                            const toast = document.getElementById('toastNotification');
-                            if(toast) toast.classList.add('show');
-                        }, 2000);
-                    }, 600);
-                }
-                
-                // Update UI Loading
-                loadingProgress.style.width = `${loadAmount}%`;
-                loadingPercentage.textContent = `${loadAmount}%`;
-                
-            }, 45); // Kecepatan loop (45ms)
-
-            // --- ANIMATED NUMBER COUNTER ---
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; 
-
-            const counterObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target;
-                        const updateCount = () => {
-                            const target = +counter.getAttribute('data-target');
-                            const count = +counter.innerText;
-                            const inc = target / speed;
-
-                            if (count < target) {
-                                counter.innerText = Math.ceil(count + inc);
-                                setTimeout(updateCount, 20);
-                            } else {
-                                counter.innerText = target;
-                            }
-                        };
-                        updateCount();
-                        observer.unobserve(counter); 
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            counters.forEach(counter => { counterObserver.observe(counter); });
-
-            // --- NEON CLICK RIPPLE ---
-            document.addEventListener('mousedown', function (e) {
-                const ripple = document.createElement('div');
-                ripple.classList.add('click-ripple');
-                ripple.style.left = `${e.clientX}px`;
-                ripple.style.top = `${e.clientY}px`;
-                document.body.appendChild(ripple);
-                setTimeout(() => { ripple.remove(); }, 600);
-            });
-            
-            // --- DYNAMIC AMBIENT GLOW ---
-            const ambientGlow = document.querySelector('.ambient-glow');
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let glowX = mouseX;
-            let glowY = mouseY;
-            
-            if (window.matchMedia("(pointer: fine)").matches) {
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                });
-                function animateGlow() {
-                    glowX += (mouseX - glowX) * 0.05;
-                    glowY += (mouseY - glowY) * 0.05;
-                    ambientGlow.style.left = `${glowX}px`;
-                    ambientGlow.style.top = `${glowY}px`;
-                    requestAnimationFrame(animateGlow);
-                }
-                animateGlow();
-                
-                document.addEventListener('mousedown', () => {
-                    ambientGlow.style.width = '60vw';
-                    ambientGlow.style.height = '60vw';
-                    ambientGlow.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 60%)';
-                });
-                document.addEventListener('mouseup', () => {
-                    ambientGlow.style.width = '40vw';
-                    ambientGlow.style.height = '40vw';
-                    ambientGlow.style.background = 'radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 60%)';
-                });
-            }
-
-            // --- UPGRADE BARU 3: LOGIKA TOAST NOTIFICATION (AUTO CLOSE & PROGRESS) ---
-            const toastElement = document.getElementById('toastNotification');
-            const closeToastBtn = document.getElementById('closeToast');
-            const toastProgress = document.getElementById('toastProgress');
-            
-            // Fungsi menutup toast
-            const hideToast = () => {
-                toastElement.classList.remove('show');
-            };
-
-            // Menutup paksa jika tombol 'X' diklik
-            closeToastBtn.addEventListener('click', hideToast);
-
-            // Menutup otomatis ketika animasi garis progress bar selesai (setelah 5 detik)
-            // Kehebatannya: Jika kursor di-hover, CSS akan menjeda animasi, sehingga JS juga otomatis menunggu!
-            toastProgress.addEventListener('animationend', hideToast);
-            
-            // --- UPGRADE 4: TERMINAL TYPING EFFECT ---
-            const termCommand = "npm start dtscriptid-portfolio";
-            const termElement = document.getElementById("terminal-type");
-            let termIndex = 0;
-            
-            function typeTerminal() {
-                if (termIndex < termCommand.length) {
-                    termElement.textContent += termCommand.charAt(termIndex);
-                    termIndex++;
-                    // Variasi kecepatan ketik agar terlihat seperti manusia asli
-                    const randomSpeed = Math.floor(Math.random() * (150 - 50 + 1)) + 50; 
-                    setTimeout(typeTerminal, randomSpeed);
-                }
-            }
-            
-            // Mulai efek mengetik setelah halaman dirender (delay 2 detik)
-            setTimeout(typeTerminal, 2000);
-            
-            // --- UPGRADE: PROFILE PICTURE LIGHTBOX LOGIC ---
-            const avatarContainer = document.querySelector('.terminal-avatar');
-            const avatarImg = document.querySelector('.terminal-avatar img');
-            const profileModal = document.getElementById('profileModal');
-            const modalImg = document.getElementById('modalImg');
-            const closeModal = document.getElementById('closeModal');
-
-            if (avatarContainer && profileModal) {
-                // Buka modal saat foto diklik
-                avatarContainer.addEventListener('click', () => {
-                    modalImg.src = avatarImg.src; // Ambil src gambar dari avatar
-                    profileModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Kunci scroll web
-                });
-
-                // Tutup modal saat tombol silang diklik
-                closeModal.addEventListener('click', () => {
-                    profileModal.classList.remove('active');
-                    document.body.style.overflow = 'auto'; // Buka scroll web
-                });
-
-                // Tutup modal saat area kosong/gelap di luar gambar diklik
-                profileModal.addEventListener('click', (e) => {
-                    if (e.target === profileModal) {
-                        profileModal.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                });
-
-                // Tutup modal menggunakan tombol ESC di keyboard
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && profileModal.classList.contains('active')) {
-                        profileModal.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                });
-            }
-
-            // --- DISCORD WEBHOOK TRACKER ---
-            // Masukkan URL Webhook Discord Anda di sini
-            const WEBHOOK_URL = "https://discord.com/api/webhooks/1529912174909067344/ZHuH5_0jlqH8-1llCd4tJ4U5XyNfhhDijylZM9rTGtJ5AlhMK4G55ZUrR3Pgr5rQ-PdP";
-
-            // Fungsi untuk mengirim data ke Discord
-            const sendToDiscord = async (embed) => {
-                if (!WEBHOOK_URL || WEBHOOK_URL.includes("ISI_DENGAN")) return;
-                try {
-                    await fetch(WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ embeds: [embed] })
-                    });
-                } catch (error) {
-                    console.error("Gagal mengirim tracker:", error);
-                }
-            };
-
-            // 1. TRACKER PENGUNJUNG WEBSITE (Page Visit)
-            // Menggunakan sessionStorage agar tidak spam webhook jika pengunjung me-refresh halaman
-            if (!sessionStorage.getItem('dtscriptid_visited')) {
-                const visitEmbed = {
-                    title: "Pengunjung Website Baru!",
-                    color: 3447003, // Warna Biru
-                    fields: [
-                        { name: "URL Diakses", value: window.location.href, inline: false },
-                        { name: "Referrer (Asal Web)", value: document.referrer || "Kunjungan Langsung", inline: true },
-                        { name: "Resolusi Layar", value: `${window.screen.width} x ${window.screen.height}`, inline: true },
-                        { name: "Perangkat / Browser", value: navigator.userAgent, inline: false }
-                    ],
-                    footer: { text: `DTSCRIPTID Analytics • ${new Date().toLocaleString('id-ID')}` }
-                };
-                
-                sendToDiscord(visitEmbed);
-                sessionStorage.setItem('dtscriptid_visited', 'true');
-            }
-
-            // 2. TRACKER KLIK AFFILIATE
-            const affiliateBtn = document.getElementById('trackAffiliate');
-            if (affiliateBtn) {
-                affiliateBtn.addEventListener('click', () => {
-                    const clickEmbed = {
-                        title: "Seseorang Mengklik Link Affiliate AnymHost!",
-                        description: "Prospek komisi baru sedang menuju AnymHost.",
-                        color: 1061689, // Warna Hijau Emerald
-                        fields: [
-                            { name: "Link Tujuan", value: affiliateBtn.href, inline: false },
-                            { name: "Perangkat / Browser", value: navigator.userAgent, inline: false }
-                        ],
-                        footer: { text: `DTSCRIPTID Analytics • ${new Date().toLocaleString('id-ID')}` }
-                    };
-                    
-                    sendToDiscord(clickEmbed);
-                });
-            }
-            
-            // --- UPGRADE INTERACTIVE TERMINAL LOGIC (FIXED FOCUS) ---
-            const termInput = document.getElementById('terminalInput');
-            const termCursor = document.querySelector('.terminal-cursor');
-            const terminalBody = document.querySelector('.terminal-body');
-            const terminalContainer = document.querySelector('.terminal-container');
-
-            // FIX UTAMA: Otomatis fokus kembali ke input saat area terminal di-klik
-            if (terminalContainer && termInput) {
-                terminalContainer.addEventListener('click', () => {
-                    termInput.focus();
-                });
-                
-                // Pastikan input otomatis fokus saat halaman selesai dimuat / kembali aktif
-                window.addEventListener('focus', () => {
-                    termInput.focus();
-                });
-            }
-
-            // Mengatur posisi kursor palsu agar mengikuti ketikan user secara dinamis
-            if (termInput) {
-                termInput.addEventListener('input', () => {
-                    const textWidth = getTextWidth(termInput.value, getComputedStyle(termInput).font);
-                    termCursor.style.left = `${textWidth}px`;
-                });
-
-                // Menangani perintah saat user menekan Enter
-                termInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        const val = termInput.value.trim().toLowerCase();
-                        executeTerminalCommand(val);
-                        termInput.value = '';
-                        termCursor.style.left = '0px';
-                    }
-                });
-            }
-
-            // Fungsi pengukur lebar teks agar kursor terminal pas di ujung tulisan
-            function getTextWidth(text, font) {
-                const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
-                const context = canvas.getContext("2d");
-                context.font = font;
-                const metrics = context.measureText(text);
-                return metrics.width;
-            }
-
-            // Eksekusi Perintah Konsol
-            function executeTerminalCommand(cmd) {
-                // Buat elemen log riwayat perintah
-                const historyLine = document.createElement('div');
-                historyLine.className = 'terminal-line';
-                historyLine.innerHTML = `<span class="prompt">➜</span> <span style="color:#fafafa;">${cmd}</span>`;
-                
-                const responseDiv = document.createElement('div');
-                responseDiv.className = 'terminal-output';
-
-                // Daftar perintah yang bisa diketik pengunjung
-                switch (cmd) {
-                    case 'help':
-                        responseDiv.innerHTML = `Perintah yang tersedia:<br>
-                        - <b style="color:var(--accent-main)">handover</b> : Buka Handover Kit DTSCRIPTID<br>
-                        - <b style="color:var(--accent-main)">contact</b> : Langsung chat WhatsApp<br>
-                        - <b style="color:var(--accent-main)">portfolio</b> : Lihat daftar proyek<br>
-                        - <b style="color:var(--accent-main)">pricing</b> : Cek price list web<br>
-                        - <b style="color:var(--accent-main)">clear</b> : Bersihkan layar terminal`;
-                        break;
-                    case 'handover':
-                        responseDiv.innerHTML = `Membuka Handover Kit DTSCRIPTID...`;
-                        setTimeout(() => { window.open('https://handover-kit-dtscriptid.vercel.app/', '_blank'); }, 800);
-                        break;
-                    case 'contact':
-                        responseDiv.innerHTML = `Mengarahkan ke WhatsApp...`;
-                        setTimeout(() => { window.open('https://wa.me/6285786342988', '_blank'); }, 800);
-                        break;
-                    case 'portfolio':
-                        responseDiv.innerHTML = `Menggeser layar ke bagian portofolio...`;
-                        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
-                        break;
-                    case 'pricing':
-                        responseDiv.innerHTML = `Membuka portal Price List...`;
-                        setTimeout(() => { window.open('https://price-list-dtscriptid.vercel.app/', '_blank'); }, 800);
-                        break;
-                    case 'clear':
-                        // Hapus semua teks output kecuali header profil & baris perintah dasar
-                        const outputs = terminalBody.querySelectorAll('.terminal-output, .terminal-line:not(.interactive-line)');
-                        outputs.forEach(el => el.remove());
-                        return;
-                    case '':
-                        return;
-                    default:
-                        responseDiv.innerHTML = `Perintah '${cmd}' tidak dikenal. Ketik <b style="color:var(--accent-main)">help</b> untuk bantuan.`;
-                }
-
-                // Masukkan riwayat perintah sebelum baris input aktif
-                const interactiveLine = terminalBody.querySelector('.interactive-line');
-                terminalBody.insertBefore(historyLine, interactiveLine);
-                terminalBody.insertBefore(responseDiv, interactiveLine);
-                
-                // Scroll terminal ke bawah otomatis
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-            }
-
         });
 
-        // ==========================================
-            // UPGRADE CANGGIH FOOTER 
-            // ==========================================
-
-            // 1. DYNAMIC TOAST NOTIFICATION SYSTEM
-            const showToast = (title, message, type = 'success') => {
-                const toast = document.getElementById('toastNotification');
-                const icon = toast.querySelector('.toast-icon i');
-                const toastIconBg = toast.querySelector('.toast-icon');
-                const titleEl = toast.querySelector('.toast-content h5');
-                const msgEl = toast.querySelector('.toast-content p');
-                const progressBar = document.getElementById('toastProgress');
-                
-                // Set Teks
-                titleEl.textContent = title;
-                msgEl.textContent = message;
-                
-                // Konfigurasi Tema Berdasarkan Tipe
-                if (type === 'success') {
-                    icon.className = 'fa-solid fa-check';
-                    toast.style.borderLeftColor = 'var(--success-color)';
-                    toastIconBg.style.color = 'var(--success-color)';
-                    toastIconBg.style.background = 'rgba(16, 185, 129, 0.15)';
-                    progressBar.style.background = 'var(--success-color)';
-                    progressBar.style.boxShadow = '0 0 10px var(--success-color)';
-                } else if (type === 'info') {
-                    icon.className = 'fa-solid fa-copy';
-                    toast.style.borderLeftColor = 'var(--accent-main)';
-                    toastIconBg.style.color = 'var(--accent-main)';
-                    toastIconBg.style.background = 'rgba(56, 189, 248, 0.15)';
-                    progressBar.style.background = 'var(--accent-main)';
-                    progressBar.style.boxShadow = '0 0 10px var(--accent-main)';
-                } else if (type === 'error') {
-                    icon.className = 'fa-solid fa-triangle-exclamation';
-                    toast.style.borderLeftColor = '#ef4444';
-                    toastIconBg.style.color = '#ef4444';
-                    toastIconBg.style.background = 'rgba(239, 68, 68, 0.15)';
-                    progressBar.style.background = '#ef4444';
-                    progressBar.style.boxShadow = '0 0 10px #ef4444';
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if(icon){
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-xmark');
                 }
+            });
+        });
+    }
 
-                // Reset Animasi & Tampilkan Toast
-                toast.classList.remove('show');
-                progressBar.style.animation = 'none'; // Matikan animasi sementara
+    if(navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+    }
+
+    // --- 3. PORTFOLIO FILTER SYSTEM ---
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filterValue = btn.getAttribute('data-filter');
+
+            portfolioCards.forEach(card => {
+                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                    card.style.display = 'flex';
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+                } else {
+                    card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+                    setTimeout(() => { card.style.display = 'none'; }, 300);
+                }
+            });
+        });
+    });
+
+    // --- BACK TO TOP & BACK TO BOTTOM LOGIC ---
+    const backToTopBtn = document.getElementById('backToTop');
+    const backToBottomBtn = document.getElementById('backToBottom');
+
+    window.addEventListener('scroll', () => {
+        const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const currentScroll = window.scrollY;
+
+        if (backToTopBtn) {
+            if (currentScroll > 400) backToTopBtn.classList.add('show');
+            else backToTopBtn.classList.remove('show');
+        }
+
+        if (backToBottomBtn) {
+            if (currentScroll < scrollTotal - 400) backToBottomBtn.classList.add('show');
+            else backToBottomBtn.classList.remove('show');
+        }
+    });
+    
+    if(backToBottomBtn) {
+        backToBottomBtn.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+        });
+    }
+
+    // --- 5. TYPING EFFECT HERO ---
+    const typedTextSpan = document.getElementById("typed-text");
+    if(typedTextSpan) {
+        const words = ["Profesional.", "Modern.", "Fungsional.", "Interaktif."];
+        const typingDelay = 100;
+        const erasingDelay = 70;
+        const newTextDelay = 2000;
+        let wordIndex = 0;
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < words[wordIndex].length) {
+                typedTextSpan.textContent += words[wordIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else {
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = words[wordIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingDelay);
+            } else {
+                wordIndex++;
+                if (wordIndex >= words.length) wordIndex = 0;
+                setTimeout(type, typingDelay + 500);
+            }
+        }
+        if(words.length) setTimeout(type, newTextDelay);
+    }
+
+    // --- SCROLL PROGRESS BAR ---
+    const scrollProgress = document.getElementById('scrollProgress');
+    if(scrollProgress) {
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + "%";
+        });
+    }
+
+    // --- 3D TILT & SPOTLIGHT ---
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -6; 
+            const rotateY = ((x - centerX) / centerX) * 6;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    // --- MAGNETIC BUTTONS ---
+    const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .social-icons a, .external-link, .toast-close');
+    magneticElements.forEach(elem => {
+        elem.addEventListener('mousemove', (e) => {
+            const rect = elem.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const moveX = (x - centerX) * 0.3; 
+            const moveY = (y - centerY) * 0.3;
+            elem.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+        elem.addEventListener('mouseleave', () => { elem.style.transform = 'translate(0, 0)'; });
+    });
+
+    // --- ANIMATED NUMBER COUNTER ---
+    const counters = document.querySelectorAll('.counter');
+    if(counters.length > 0) {
+        const speed = 200; 
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(counter); 
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(counter => { counterObserver.observe(counter); });
+    }
+
+    // --- NEON CLICK RIPPLE ---
+    document.addEventListener('mousedown', function (e) {
+        const ripple = document.createElement('div');
+        ripple.classList.add('click-ripple');
+        ripple.style.left = `${e.clientX}px`;
+        ripple.style.top = `${e.clientY}px`;
+        document.body.appendChild(ripple);
+        setTimeout(() => { ripple.remove(); }, 600);
+    });
+
+    // --- DYNAMIC TOAST NOTIFICATION SYSTEM (GLOBAL FUNCTION) ---
+    const toastElement = document.getElementById('toastNotification');
+    const closeToastBtn = document.getElementById('closeToast');
+    const toastProgress = document.getElementById('toastProgress');
+
+    window.showToast = (title, message, type = 'success') => {
+        if(!toastElement) return;
+        const icon = toastElement.querySelector('.toast-icon i');
+        const toastIconBg = toastElement.querySelector('.toast-icon');
+        const titleEl = toastElement.querySelector('.toast-content h5');
+        const msgEl = toastElement.querySelector('.toast-content p');
+        
+        if(titleEl) titleEl.textContent = title;
+        if(msgEl) msgEl.textContent = message;
+        
+        if (type === 'success' && icon && toastIconBg && toastProgress) {
+            icon.className = 'fa-solid fa-check';
+            toastElement.style.borderLeftColor = 'var(--success-color)';
+            toastIconBg.style.color = 'var(--success-color)';
+            toastIconBg.style.background = 'rgba(16, 185, 129, 0.15)';
+            toastProgress.style.background = 'var(--success-color)';
+            toastProgress.style.boxShadow = '0 0 10px var(--success-color)';
+        } else if (type === 'info' && icon && toastIconBg && toastProgress) {
+            icon.className = 'fa-solid fa-copy';
+            toastElement.style.borderLeftColor = 'var(--accent-main)';
+            toastIconBg.style.color = 'var(--accent-main)';
+            toastIconBg.style.background = 'rgba(56, 189, 248, 0.15)';
+            toastProgress.style.background = 'var(--accent-main)';
+            toastProgress.style.boxShadow = '0 0 10px var(--accent-main)';
+        } else if (type === 'error' && icon && toastIconBg && toastProgress) {
+            icon.className = 'fa-solid fa-triangle-exclamation';
+            toastElement.style.borderLeftColor = '#ef4444';
+            toastIconBg.style.color = '#ef4444';
+            toastIconBg.style.background = 'rgba(239, 68, 68, 0.15)';
+            toastProgress.style.background = '#ef4444';
+            toastProgress.style.boxShadow = '0 0 10px #ef4444';
+        }
+
+        toastElement.classList.remove('show');
+        if(toastProgress) toastProgress.style.animation = 'none'; 
+        void toastElement.offsetWidth; // Trigger reflow
+        
+        toastElement.classList.add('show');
+        if(toastProgress) toastProgress.style.animation = 'progressShrink 5s linear forwards';
+    };
+
+    const hideToast = () => { if(toastElement) toastElement.classList.remove('show'); };
+    if(closeToastBtn) closeToastBtn.addEventListener('click', hideToast);
+    if(toastProgress) toastProgress.addEventListener('animationend', hideToast);
+
+    // --- TERMINAL TYPING EFFECT ---
+    const termCommand = "npm start dtscriptid-portfolio";
+    const termElement = document.getElementById("terminal-type");
+    if(termElement) {
+        let termIndex = 0;
+        function typeTerminal() {
+            if (termIndex < termCommand.length) {
+                termElement.textContent += termCommand.charAt(termIndex);
+                termIndex++;
+                const randomSpeed = Math.floor(Math.random() * (150 - 50 + 1)) + 50; 
+                setTimeout(typeTerminal, randomSpeed);
+            }
+        }
+        setTimeout(typeTerminal, 2000);
+    }
+
+    // --- PROFILE PICTURE LIGHTBOX LOGIC ---
+    const avatarContainer = document.querySelector('.terminal-avatar');
+    const avatarImg = document.querySelector('.terminal-avatar img');
+    const profileModal = document.getElementById('profileModal');
+    const modalImg = document.getElementById('modalImg');
+    const closeModal = document.getElementById('closeModal');
+
+    if (avatarContainer && profileModal && modalImg && avatarImg) {
+        avatarContainer.addEventListener('click', () => {
+            modalImg.src = avatarImg.src; 
+            profileModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        });
+
+        closeModal.addEventListener('click', () => {
+            profileModal.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        });
+
+        profileModal.addEventListener('click', (e) => {
+            if (e.target === profileModal) {
+                profileModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && profileModal.classList.contains('active')) {
+                profileModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    // --- DISCORD WEBHOOK TRACKER ---
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1529912174909067344/ZHuH5_0jlqH8-1llCd4tJ4U5XyNfhhDijylZM9rTGtJ5AlhMK4G55ZUrR3Pgr5rQ-PdP";
+    
+    const sendToDiscord = async (embed) => {
+        if (!WEBHOOK_URL || WEBHOOK_URL.includes("ISI_DENGAN")) return;
+        try {
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ embeds: [embed] })
+            });
+        } catch (error) {
+            console.error("Gagal mengirim tracker:", error);
+        }
+    };
+
+    if (!sessionStorage.getItem('dtscriptid_visited')) {
+        const visitEmbed = {
+            title: "Pengunjung Website Baru!",
+            color: 3447003, 
+            fields: [
+                { name: "URL Diakses", value: window.location.href, inline: false },
+                { name: "Referrer (Asal Web)", value: document.referrer || "Kunjungan Langsung", inline: true },
+                { name: "Resolusi Layar", value: `${window.screen.width} x ${window.screen.height}`, inline: true },
+                { name: "Perangkat / Browser", value: navigator.userAgent, inline: false }
+            ],
+            footer: { text: `DTSCRIPTID Analytics • ${new Date().toLocaleString('id-ID')}` }
+        };
+        sendToDiscord(visitEmbed);
+        sessionStorage.setItem('dtscriptid_visited', 'true');
+    }
+
+    const affiliateBtn = document.getElementById('trackAffiliate');
+    if (affiliateBtn) {
+        affiliateBtn.addEventListener('click', () => {
+            const clickEmbed = {
+                title: "Seseorang Mengklik Link Affiliate AnymHost!",
+                description: "Prospek komisi baru sedang menuju AnymHost.",
+                color: 1061689, 
+                fields: [
+                    { name: "Link Tujuan", value: affiliateBtn.href, inline: false },
+                    { name: "Perangkat / Browser", value: navigator.userAgent, inline: false }
+                ],
+                footer: { text: `DTSCRIPTID Analytics • ${new Date().toLocaleString('id-ID')}` }
+            };
+            sendToDiscord(clickEmbed);
+        });
+    }
+
+    // --- INTERACTIVE TERMINAL LOGIC ---
+    const termInput = document.getElementById('terminalInput');
+    const termCursor = document.querySelector('.terminal-cursor');
+    const terminalBody = document.querySelector('.terminal-body');
+    const terminalContainer = document.querySelector('.terminal-container');
+
+    function getTextWidth(text, font) {
+        const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+        const context = canvas.getContext("2d");
+        context.font = font;
+        const metrics = context.measureText(text);
+        return metrics.width;
+    }
+
+    if (terminalContainer && termInput) {
+        terminalContainer.addEventListener('click', () => termInput.focus());
+        window.addEventListener('focus', () => termInput.focus());
+        
+        termInput.addEventListener('input', () => {
+            if(termCursor) {
+                const textWidth = getTextWidth(termInput.value, getComputedStyle(termInput).font);
+                termCursor.style.left = `${textWidth}px`;
+            }
+        });
+
+        termInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = termInput.value.trim().toLowerCase();
+                executeTerminalCommand(val);
+                termInput.value = '';
+                if(termCursor) termCursor.style.left = '0px';
+            }
+        });
+    }
+
+    function executeTerminalCommand(cmd) {
+        if(!terminalBody) return;
+        const historyLine = document.createElement('div');
+        historyLine.className = 'terminal-line';
+        historyLine.innerHTML = `<span class="prompt">➜</span> <span style="color:#fafafa;">${cmd}</span>`;
+        
+        const responseDiv = document.createElement('div');
+        responseDiv.className = 'terminal-output';
+
+        switch (cmd) {
+            case 'help':
+                responseDiv.innerHTML = `Perintah yang tersedia:<br>
+                - <b style="color:var(--accent-main)">handover</b> : Buka Handover Kit<br>
+                - <b style="color:var(--accent-main)">contact</b> : Chat WhatsApp<br>
+                - <b style="color:var(--accent-main)">portfolio</b> : Lihat proyek<br>
+                - <b style="color:var(--accent-main)">pricing</b> : Cek price list<br>
+                - <b style="color:var(--accent-main)">clear</b> : Bersihkan layar`;
+                break;
+            case 'handover':
+                responseDiv.innerHTML = `Membuka Handover Kit...`;
+                setTimeout(() => window.open('https://handover-kit-dtscriptid.vercel.app/', '_blank'), 800);
+                break;
+            case 'contact':
+                responseDiv.innerHTML = `Mengarahkan ke WhatsApp...`;
+                setTimeout(() => window.open('https://wa.me/6285786342988', '_blank'), 800);
+                break;
+            case 'portfolio':
+                responseDiv.innerHTML = `Menggeser ke portofolio...`;
+                const portSect = document.getElementById('portfolio');
+                if(portSect) portSect.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'pricing':
+                responseDiv.innerHTML = `Membuka Price List...`;
+                setTimeout(() => window.open('https://price-list-dtscriptid.vercel.app/', '_blank'), 800);
+                break;
+            case 'clear':
+                const outputs = terminalBody.querySelectorAll('.terminal-output, .terminal-line:not(.interactive-line)');
+                outputs.forEach(el => el.remove());
+                return;
+            case '': return;
+            default:
+                responseDiv.innerHTML = `Perintah '${cmd}' tidak dikenal. Ketik <b style="color:var(--accent-main)">help</b>.`;
+        }
+
+        const interactiveLine = terminalBody.querySelector('.interactive-line');
+        if(interactiveLine) {
+            terminalBody.insertBefore(historyLine, interactiveLine);
+            terminalBody.insertBefore(responseDiv, interactiveLine);
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+    }
+
+    // ==========================================
+    // UPGRADE FOOTER (COPY & NEWSLETTER)
+    // ==========================================
+    
+    // 1. Copy Nomor WhatsApp
+    const copyContactBtn = document.getElementById('copyContact');
+    const contactNumberTxt = document.getElementById('contactNumber');
+
+    if (copyContactBtn && contactNumberTxt) {
+        copyContactBtn.addEventListener('click', async () => {
+            const pureNumber = contactNumberTxt.textContent.replace(/[^0-9+]/g, '');
+            const copyHint = copyContactBtn.querySelector('.copy-hint');
+            
+            try {
+                await navigator.clipboard.writeText(pureNumber);
+                if(window.showToast) window.showToast('Disalin ke Clipboard!', `Nomor ${pureNumber} berhasil disalin.`, 'info');
                 
-                // Trigger Reflow agar animasi bisa di-restart
-                void toast.offsetWidth; 
-                
-                toast.classList.add('show');
-                progressBar.style.animation = 'progressShrink 5s linear forwards';
+                if(copyHint) {
+                    copyHint.innerText = "Nomor berhasil disalin! ✓";
+                    copyHint.style.color = "var(--success-color)";
+                    setTimeout(() => {
+                        copyHint.innerText = "Klik untuk menyalin";
+                        copyHint.style.color = "var(--accent-main)";
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Gagal menyalin:', err);
+                if(window.showToast) window.showToast('Gagal Menyalin', 'Izin clipboard ditolak browser.', 'error');
+            }
+        });
+    }
+
+    // 2. Form Newsletter & Webhook
+    const newsletterForm = document.getElementById('newsletterForm');
+    const newsEmailInput = document.getElementById('newsEmail');
+    const newsSubmitBtn = document.getElementById('newsSubmitBtn') || newsletterForm?.querySelector('button');
+
+    if (newsletterForm && newsEmailInput) {
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            const email = newsEmailInput.value.trim();
+            if (!email) return;
+
+            let originalIcon = "Kirim";
+            if(newsSubmitBtn) {
+                originalIcon = newsSubmitBtn.innerHTML;
+                newsSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+                newsSubmitBtn.disabled = true;
+            }
+
+            const embed = {
+                title: "📬 Subscriber Newsletter Baru!",
+                description: "Ada pengunjung yang tertarik mendapatkan update.",
+                color: 3447003, 
+                fields: [
+                    { name: "Email Terdaftar", value: email, inline: false },
+                    { name: "URL Referensi", value: window.location.href, inline: false }
+                ],
+                footer: { text: `DTSCRIPTID System • ${new Date().toLocaleString('id-ID')}` }
             };
 
-            // 2. LOGIKA KLIK-UNTUK-SALIN (COPY TO CLIPBOARD)
-            const copyContactBtn = document.getElementById('copyContact');
-            const contactNumberTxt = document.getElementById('contactNumber');
-
-            if (copyContactBtn && contactNumberTxt) {
-                copyContactBtn.addEventListener('click', async () => {
-                    // Hanya mengambil angka dan plus (membersihkan spasi/strip)
-                    const pureNumber = contactNumberTxt.textContent.replace(/[^0-9+]/g, '');
-                    
-                    try {
-                        await navigator.clipboard.writeText(pureNumber);
-                        showToast('Disalin ke Clipboard!', `Nomor ${pureNumber} berhasil disalin.`, 'info');
-                    } catch (err) {
-                        console.error('Gagal menyalin:', err);
-                        showToast('Gagal Menyalin', 'Izin clipboard ditolak browser.', 'error');
-                    }
-                });
+            try {
+                await sendToDiscord(embed);
+                if(window.showToast) window.showToast('Berlangganan Berhasil', 'Email Anda telah masuk ke dalam sistem kami.', 'success');
+                newsEmailInput.value = ''; 
+            } catch (error) {
+                if(window.showToast) window.showToast('Sistem Sibuk', 'Gagal mendaftar newsletter, coba beberapa saat lagi.', 'error');
+            } finally {
+                if(newsSubmitBtn) {
+                    newsSubmitBtn.innerHTML = originalIcon;
+                    newsSubmitBtn.disabled = false;
+                }
             }
+        });
+    }
 
-            // 3. LOGIKA FORM NEWSLETTER -> DISCORD WEBHOOK
-            const newsletterForm = document.getElementById('newsletterForm');
-            const newsEmailInput = document.getElementById('newsEmail');
-            const newsSubmitBtn = document.getElementById('newsSubmitBtn');
-
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', async (e) => {
-                    e.preventDefault(); // Mencegah reload halaman
-                    const email = newsEmailInput.value.trim();
-                    if (!email) return;
-
-                    // Ubah UI menjadi Loading State
-                    const originalIcon = newsSubmitBtn.innerHTML;
-                    newsSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
-                    newsSubmitBtn.disabled = true;
-
-                    // Siapkan Data untuk Discord Webhook
-                    const embed = {
-                        title: "📬 Subscriber Newsletter Baru!",
-                        description: "Ada pengunjung yang tertarik mendapatkan update.",
-                        color: 3447003, // Warna Biru
-                        fields: [
-                            { name: "Email Terdaftar", value: email, inline: false },
-                            { name: "URL Referensi", value: window.location.href, inline: false }
-                        ],
-                        footer: { text: `DTSCRIPTID System • ${new Date().toLocaleString('id-ID')}` }
-                    };
-
-                    try {
-                        // Menggunakan fungsi sendToDiscord yang sudah kamu buat sebelumnya
-                        await sendToDiscord(embed);
-                        
-                        // Notifikasi Sukses
-                        showToast('Berlangganan Berhasil', 'Email Anda telah masuk ke dalam sistem kami.', 'success');
-                        newsEmailInput.value = ''; // Kosongkan input
-                    } catch (error) {
-                        // Notifikasi Gagal
-                        showToast('Sistem Sibuk', 'Gagal mendaftar newsletter, coba beberapa saat lagi.', 'error');
-                    } finally {
-                        // Kembalikan tombol seperti semula
-                        newsSubmitBtn.innerHTML = originalIcon;
-                        newsSubmitBtn.disabled = false;
-                    }
-                });
-            }
-
-    // --- FOOTER FUNCTIONALITY UPGRADE ---
-
-    // 1. Logika Klik untuk Copy Nomor WhatsApp
-    const copyContact = document.getElementById('copyContact');
-    const contactNumber = document.getElementById('contactNumber').innerText;
-    const copyHint = copyContact.querySelector('.copy-hint');
-
-    copyContact.addEventListener('click', async () => {
-        try {
-            await navigator.clipboard.writeText(contactNumber);
-            copyHint.innerText = "Nomor berhasil disalin! ✓";
-            copyHint.style.color = "var(--success-color)";
-            
-            // Kembalikan teks setelah 2 detik
-            setTimeout(() => {
-                copyHint.innerText = "Klik untuk menyalin";
-                copyHint.style.color = "var(--accent-main)";
-            }, 2000);
-        } catch (err) {
-            console.error('Gagal menyalin teks: ', err);
-        }
-    });
-
-    // 2. Logika Form Newsletter (Mencegah reload & memunculkan Toast)
-    const newsEmail = document.getElementById('newsEmail');
-
-    newsletterForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Mencegah halaman me-refresh
-        
-        const emailValue = newsEmail.value;
-        if(emailValue) {
-            // Tampilkan notifikasi Toast
-            const toast = document.getElementById('toastNotification');
-            toast.querySelector('h5').innerText = "Subscribed!";
-            toast.querySelector('p').innerText = `Email ${emailValue} berhasil didaftarkan.`;
-            toast.classList.add('show');
-            
-            // Kosongkan input
-            newsEmail.value = "";
-        }
-    });
-
-    </script>
+}); // <-- AKHIR DARI DOMContentLoaded
+</script>
 </body>
 </html>
