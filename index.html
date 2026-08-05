@@ -973,57 +973,6 @@
             background: var(--gradient-text); transition: width 0.3s ease; border-radius: 2px;
         }
         .nav-links a:not(.btn-nav):hover::after { width: 100%; }
-        
-                /* === HOSTING PARTNER BANNER === */
-        .hosting-banner {
-            background: linear-gradient(135deg, rgba(9,9,11,0.8) 0%, rgba(24,24,27,0.6) 100%);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 48px 56px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            margin-bottom: 50px;
-        }
-        .hosting-banner:hover {
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(16, 185, 129, 0.05);
-        }
-        .hosting-badge {
-            display: inline-block;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        .hosting-content h3 { font-size: 1.8rem; margin-bottom: 12px; font-weight: 800; letter-spacing: -0.5px; }
-        .hosting-content p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6; max-width: 600px;}
-        .hosting-features { list-style: none; display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 0; }
-        .hosting-features li { display: flex; align-items: center; gap: 8px; color: #e4e4e7; font-size: 0.95rem; font-weight: 600; }
-        .hosting-features i { color: var(--success-color); }
-        
-        .hosting-btn { 
-            background: var(--success-color); 
-            color: #ffffff; 
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); 
-            animation: none;
-        }
-        .hosting-btn::before { background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent); }
-        .hosting-btn:hover { 
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); 
-            background: #059669; 
-            color: #ffffff;
-            transform: translateY(-4px);
-        }
 
         @media (max-width: 992px) {
             .hosting-banner { flex-direction: column; text-align: left; padding: 36px 24px; }
@@ -1486,33 +1435,92 @@
             box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
         }
         
-                /* === HOSTING MULTI-CARD GRID UPGRADE === */
+/* === HOSTING MULTI-CARD GRID UPGRADE (FIXED FOR PC) === */
         .hosting-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 28px;
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .hosting-banner.domainesia-card:hover {
+        .hosting-card {
+            background: linear-gradient(135deg, rgba(9,9,11,0.8) 0%, rgba(24,24,27,0.6) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            height: 100%;
+        }
+
+        .hosting-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(16, 185, 129, 0.05);
+            transform: translateY(-8px);
+        }
+
+        /* Domainesia Card Hover */
+        .hosting-card.domainesia-card:hover {
             border-color: rgba(56, 189, 248, 0.4);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(56, 189, 248, 0.05);
         }
+        /* Vercel Card Hover */
+        .hosting-card.vercel-card:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
 
-        .hosting-badge.domainesia-badge {
+        .hosting-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            width: fit-content;
+        }
+
+        .domainesia-badge {
             background: rgba(56, 189, 248, 0.1);
             color: var(--accent-main);
             border-color: rgba(56, 189, 248, 0.2);
         }
+        .vercel-badge {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+        }
 
-        .btn-domainesia {
-            background: var(--accent-main);
-            color: #000000;
+        .hosting-content h3 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.5px; }
+        .hosting-content h4 { font-size: 1.8rem; margin-bottom: 20px; color: #fff; }
+        .hosting-content h4 span { font-size: 0.9rem; font-weight: normal; color: var(--text-muted); }
+        .hosting-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+        .hosting-features li { display: flex; align-items: flex-start; gap: 10px; color: #e4e4e7; font-size: 0.95rem; font-weight: 500; line-height: 1.4; }
+        
+        .hosting-btn { 
+            width: 100%; 
+            justify-content: center; 
+            background: var(--success-color); 
+            color: #ffffff; 
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); 
+            animation: none;
+            margin-top: auto;
         }
-        .btn-domainesia:hover {
-            background: #ffffff;
-            color: #000000;
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
-        }
+        .hosting-btn:hover { background: #059669; transform: translateY(-4px); }
+        .btn-domainesia { background: var(--accent-main); color: #000000; box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+        .btn-domainesia:hover { background: #ffffff; color: #000000; box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4); }
+        .btn-vercel { background: #ffffff !important; color: #000000 !important; }
+        .btn-vercel:hover { background: #e4e4e7 !important; color: #000000 !important; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2); }
     </style>
 </head>
 <body>
@@ -1698,89 +1706,85 @@
     </section>
     
 <!-- HOSTING & CLOUD SECTION UPGRADED -->
-<section id="hosting" style="padding-top: 0;">
-    <div class="section-header reveal">
-        <h2>Rekomendasi Hosting, Domain & Cloud</h2>
-        <p>Performa website maksimal dimulai dari server yang andal. Saya merekomendasikan penyedia layanan terbaik untuk menunjang berbagai jenis proyek Anda, dari server konvensional hingga modern frontend cloud.</p>
-    </div>
-
-    <div class="hosting-grid">
-        
-        <!-- PARTNER 1: VERCEL (NEW - THE MODERN CLOUD) -->
-        <div class="hosting-banner vercel-card reveal" style="border: 1px solid #eaeaea; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-            <div class="hosting-content">
-                <div class="hosting-badge vercel-badge" style="background-color: #000; color: #fff;">
-                    <i class="fa-solid fa-bolt"></i> Developer Choice
-                </div>
-                <h3>Vercel - Frontend Cloud</h3>
-                <h4 style="font-size: 1.5rem; margin: 15px 0;">Mulai Rp 0 <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.8;">/ HOBBY PLAN</span></h4>
-                <p style="font-weight: 600; margin-bottom: 10px; font-size: 0.95rem;">Fitur Unggulan:</p>
-                <ul class="hosting-features">
-                    <li><i class="fa-solid fa-check-circle" style="color: #000;"></i> CI/CD Otomatis via GitHub/GitLab</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: #000;"></i> Global Edge Network (CDN)</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: #000;"></i> Serverless & Edge Functions</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: #000;"></i> Optimasi Next.js & React App</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: #000;"></i> Gratis SSL & Custom Domain</li>
-                </ul>
-            </div>
-            <div class="hosting-cta" style="margin-top: 20px;">
-                <!-- Hapus/ganti link href di bawah jika Anda punya link affiliate Vercel -->
-                <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer" class="btn-primary hosting-btn btn-vercel" style="background-color: #000; color: #fff; border: 1px solid #000; width: 100%; display: inline-block; text-align: center;">
-                    Deploy di Vercel <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-            </div>
+    <section id="hosting">
+        <div class="section-header reveal">
+            <h2>Rekomendasi Hosting, Domain & Cloud</h2>
+            <p>Performa website maksimal dimulai dari server yang andal. Saya merekomendasikan penyedia layanan terbaik untuk menunjang berbagai jenis proyek Anda.</p>
         </div>
 
-        <!-- PARTNER 2: DOMAINESIA -->
-        <div class="hosting-banner domainesia-card reveal">
-            <div class="hosting-content">
-                <div class="hosting-badge domainesia-badge">
-                    <i class="fa-solid fa-cloud"></i> Partner Resmi
+        <div class="hosting-grid">
+            
+            <!-- PARTNER 1: VERCEL -->
+            <div class="hosting-card vercel-card reveal">
+                <div class="hosting-content">
+                    <div class="hosting-badge vercel-badge">
+                        <i class="fa-solid fa-bolt"></i> Developer Choice
+                    </div>
+                    <h3>Vercel - Frontend</h3>
+                    <h4>Mulai Rp 0 <span>/ HOBBY PLAN</span></h4>
+                    <ul class="hosting-features">
+                        <li><i class="fa-solid fa-check-circle" style="color: #fff;"></i> CI/CD Otomatis via GitHub</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: #fff;"></i> Global Edge Network (CDN)</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: #fff;"></i> Serverless & Edge Functions</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: #fff;"></i> Optimasi Next.js & React App</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: #fff;"></i> Gratis SSL & Custom Domain</li>
+                    </ul>
                 </div>
-                <h3>DomaiNesia - Web Hosting</h3>
-                <h4 style="font-size: 1.5rem; margin: 15px 0;">Rp 18.000 <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.8;">/ BULAN</span></h4>
-                <p style="font-weight: 600; margin-bottom: 10px; font-size: 0.95rem;">Fitur Unggulan:</p>
-                <ul class="hosting-features">
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Bebas Pilih Lokasi Server</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Akses SSH</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Support IPv4 & IPv6</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> cPanel Control Panel</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Unlimited Bandwidth & Inodes</li>
-                </ul>
-            </div>
-            <div class="hosting-cta" style="margin-top: 20px;">
-                <a href="https://my.domainesia.com/ref.php?u=27283" target="_blank" rel="noopener noreferrer" class="btn-primary hosting-btn btn-domainesia">
-                    Pesan di DomaiNesia <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- PARTNER 3: ANYMHOST -->
-        <div class="hosting-banner reveal">
-            <div class="hosting-content">
-                <div class="hosting-badge">
-                    <i class="fa-solid fa-handshake"></i> Partner Resmi
+                <div class="hosting-cta">
+                    <a href="https://vercel.com/" target="_blank" class="btn-primary hosting-btn btn-vercel">
+                        Deploy di Vercel <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
                 </div>
-                <h3>AnymHost - Web Hosting</h3>
-                <h4 style="font-size: 1.5rem; margin: 15px 0;">Rp 5.000 <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.8;">/ BULAN</span></h4>
-                <p style="font-weight: 600; margin-bottom: 10px; font-size: 0.95rem;">Fitur Unggulan:</p>
-                <ul class="hosting-features">
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Aktivasi Instan</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Easy Control Panel</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> No Inode Limit</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Unlimited Bandwidth</li>
-                    <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main, #3b82f6);"></i> Gratis Domain & SSL</li>
-                </ul>
             </div>
-            <div class="hosting-cta" style="margin-top: 20px;">
-                <a href="https://clients.anymhost.id/aff.php?aff=987" id="trackAffiliate" target="_blank" rel="noopener noreferrer" class="btn-primary hosting-btn">
-                    Pesan di AnymHost <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-            </div>
-        </div>
 
-    </div>
-</section>
+            <!-- PARTNER 2: DOMAINESIA -->
+            <div class="hosting-card domainesia-card reveal" style="transition-delay: 0.1s;">
+                <div class="hosting-content">
+                    <div class="hosting-badge domainesia-badge">
+                        <i class="fa-solid fa-cloud"></i> Partner Resmi
+                    </div>
+                    <h3>DomaiNesia - Hosting</h3>
+                    <h4>Rp 18.000 <span>/ BULAN</span></h4>
+                    <ul class="hosting-features">
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main);"></i> Bebas Pilih Lokasi Server</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main);"></i> Akses SSH</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main);"></i> Support IPv4 & IPv6</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main);"></i> cPanel Control Panel</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--accent-main);"></i> Unlimited Bandwidth</li>
+                    </ul>
+                </div>
+                <div class="hosting-cta">
+                    <a href="https://my.domainesia.com/ref.php?u=27283" target="_blank" class="btn-primary hosting-btn btn-domainesia">
+                        Pesan di DomaiNesia <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- PARTNER 3: ANYMHOST -->
+            <div class="hosting-card reveal" style="transition-delay: 0.2s;">
+                <div class="hosting-content">
+                    <div class="hosting-badge">
+                        <i class="fa-solid fa-handshake"></i> Partner Resmi
+                    </div>
+                    <h3>AnymHost - Hosting</h3>
+                    <h4>Rp 5.000 <span>/ BULAN</span></h4>
+                    <ul class="hosting-features">
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--success-color);"></i> Aktivasi Instan</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--success-color);"></i> Easy Control Panel</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--success-color);"></i> No Inode Limit</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--success-color);"></i> Unlimited Bandwidth</li>
+                        <li><i class="fa-solid fa-check-circle" style="color: var(--success-color);"></i> Gratis Domain & SSL</li>
+                    </ul>
+                </div>
+                <div class="hosting-cta">
+                    <a href="https://clients.anymhost.id/aff.php?aff=987" target="_blank" class="btn-primary hosting-btn">
+                        Pesan di AnymHost <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <!-- PORTFOLIO SECTION -->
     <section id="portfolio">
